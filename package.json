@@ -1,0 +1,28 @@
+{
+  "name": "qvc-performance-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.3",
+    "express-mysql-session": "^2.1.4",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.4.0",
+    "hbs": "^4.1.1",
+    "mysql": "^2.18.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0"
+  }
+}

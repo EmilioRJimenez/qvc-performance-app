@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QvC Performance</title>
+
+    {{!-- CSS Bootstrap --}}
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    {{!-- CSS Local --}}
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {{!-- JS Bootstrap --}}
+    <script src="/assets/js/bootstrap.min.js"></script>
+    {{!-- CSS Icons--}}
+    <link rel="stylesheet" href="/assets/icomoon/style.css">
+     {{!-- Google fonts --}}
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="principal">
+        <header>
+            <h1>
+                <a href="">Q<span class="v"> V </span>C <span class="performance">Performance</span></a>
+            </h1>
+
+            <a type="submit" class="btnsalir"><span class="icon-exit"></span>Salir</a>
+        </header>
+        <div class="contenedor-de-columnas">
+            <div class="left">
+
+                <nav>
+                    <ul>
+                        <li><a href=""><span class="icon-home"> </span> <span class="menu-option">Inicio</span></a></li>
+                        <li><a href=""><span class="icon-drawer"> </span> <span class="menu-option">Producción</span></a></li>
+                        <li><a href=""><span class="icon-stats-dots"> </span> <span class="menu-option">Tablero</span></a></li>
+                        <li><a href=""><span class="icon-omega"> </span> <span class="menu-option">Equipos</span></a></li>
+                        <li><a href=""><span class="icon-users"> </span> <span class="menu-option">Usuarios</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="right">
+                <div class="dinamico">
+                    {{{body}}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
