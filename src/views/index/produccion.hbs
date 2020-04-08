@@ -1,0 +1,61 @@
+{{#if messageError}}
+ <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
+    {{messageError}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+{{/if}}
+
+<div class="container-fluid">
+   <form action="/produccion/save" method="POST">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Datos diarios de producción {{#each locacion}} <span> [ {{nombre}} ]</span> {{/each}}</h3>
+                
+                <select name="turno" id="">
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                </select>
+                <select name="equipo" id="">
+                    {{#each tipoequipo}}
+                    <option value="{{id_tipo}}">{{tipo}}</option>
+                    {{/each}}
+                </select>
+                <select name="numeroequipo" id="limite">
+                   {{#each limite}}
+                        <option value="{{numero}}">{{numero}}</option>
+                   {{/each}}
+                </select>
+
+                <input type="text" name="piezas" id="" placeholder="Piezas">
+                <input type="text" name="cct" id="" placeholder="CCT">
+                <input type="text" name="cst" id="" placeholder="CST">
+                <input type="text" name="terminal" id="" placeholder="Terminal">
+                <input type="text" name="errores" id="" placeholder="Errores">
+                <input type="text" name="defectos" id="" placeholder="Defectos">
+
+                <input type="text" name="calidad" id="" placeholder="Calidad">
+                <input type="text" name="mantenimiento" id="" placeholder="Mantenimiento">
+                <input type="text" name="materiales" id="" placeholder="Materiales">
+                <input type="text" name="cdd" id="" placeholder="CDD">
+                <input type="text" name="procesos" id="" placeholder="Procesos">
+                <input type="text" name="enrredos" id="" placeholder="Enrredos">
+                <input type="text" name="atorones" id="" placeholder="Atorones de terminal">
+                <input type="text" name="sello" id="" placeholder="Sello">
+                <input type="text" name="setupa" id="" placeholder="A">
+                <input type="text" name="setupb" id="" placeholder="B">
+                <input type="text" name="setupc" id="" placeholder="C">
+                <input type="text" name="setupd" id="" placeholder="D">
+                <input type="text" name="ajuste" id="" placeholder="Ajuste">
+
+                <br>
+                <input type="submit" value="Guardar datos">
+            </div>
+            <div class="col-md-4">
+                <h3>Comentarios</h3>
+                <input type="text" name="comentarios" id="" placeholder="Comentario">
+            </div>
+        </div>
+    </form> 
+</div>

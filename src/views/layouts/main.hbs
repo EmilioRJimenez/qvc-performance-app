@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     {{!-- CSS Local --}}
     <link rel="stylesheet" href="/assets/css/style.css">
-    {{!-- JS Bootstrap --}}
-    <script src="/assets/js/bootstrap.min.js"></script>
+    
     {{!-- CSS Icons--}}
     <link rel="stylesheet" href="/assets/icomoon/style.css">
      {{!-- Google fonts --}}
@@ -28,22 +27,24 @@
             <a type="submit" class="btnsalir"><span class="icon-exit"></span>Salir</a>
         </header>
         <div class="contenedor-de-columnas">
-            <div class="left">
-
-                <nav>
+            <div class="left">   
+                <div class="navegacion">
+                    <nav>
                     <ul>
-                        <li><a href=""><span class="icon-home"> </span> <span class="menu-option"> Inicio</span></a></li>
-                        <li><a href=""><span class="icon-drawer"> </span> <span class="menu-option"> Producción</span></a></li>
-                        <li><a href=""><span class="icon-stats-dots"> </span> <span class="menu-option"> Tablero</span></a></li>
-                        <li><a href=""><span class="icon-omega"> </span> <span class="menu-option"> Equipos</span></a></li>
-                        <li><a href=""><span class="icon-users"> </span> <span class="menu-option"> Usuarios</span></a></li>
+                        <li><a href="/inicio"><span class="icon-home"> </span> <span class="menu-option"> Inicio</span></a></li>
+                        <li><a href="/produccion"><span class="icon-drawer"> </span> <span class="menu-option"> Producción</span></a></li>
+                        <li><a href="/tablero"><span class="icon-stats-dots"> </span> <span class="menu-option"> Tablero</span></a></li>
+                        <li><a href="/equipos"><span class="icon-omega"> </span> <span class="menu-option"> Equipos</span></a></li>
+                        <li><a href="/usuarios"><span class="icon-users"> </span> <span class="menu-option"> Usuarios</span></a></li>
+                        <li><a href="/ajustes"><span class="icon-cogs"></span><span class="menu-option">Ajustes</span></a></li>
                     </ul>
                 </nav>
+                </div>
             </div>
             <div class="right">
                 <div class="cabeceratitulo mt-0">    
                     <nav class="navbar mt-0">
-                        <h1 class="navbar-brand titulopagina">Usuarios</h1>
+                        <h1 class="navbar-brand titulopagina">{{title}}</h1>
                     </nav>
                 </div>
                 <div class="dinamico">
@@ -52,5 +53,10 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    {{!-- JS Bootstrap --}}
+    <script src="/assets/js/bootstrap.min.js"></script>
 </body>
 </html>

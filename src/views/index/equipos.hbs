@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo</th>
+                        <th>Número</th>
+                        <th>Localización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each equipo}}
+                        <tr>
+                            <td>{{id}}</td>
+                            <td>{{nombre}}</td>
+                            <td>{{numero}}</td>
+                            <td>{{locacion}}</td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
