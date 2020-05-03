@@ -7,19 +7,23 @@
     </div>
 {{/if}}
 
+{{#if success}}
+ <div class="alert alert-success alert-dismissible fade show mx-3" role="alert">
+    {{success}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+{{/if}}
+
 <div class="container-fluid">
    <form action="/produccion/save" method="POST">
         <div class="row">
             <div class="col-md-8">
-                <h3>Datos diarios de producción {{#each locacion}} <span> [ {{nombre}} ]</span> {{/each}}</h3>
-                
-                <select name="turno" id="">
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                </select>
+                <h3>Datos diarios de producción {{#each area}} <span> [ {{nombre}} ]</span> {{/each}}</h3>
                 <select name="equipo" id="">
                     {{#each tipoequipo}}
-                    <option value="{{id_tipo}}">{{tipo}}</option>
+                    <option value="{{id_tipoequipo}}">{{tipo}}</option>
                     {{/each}}
                 </select>
                 <select name="numeroequipo" id="limite">
@@ -28,26 +32,28 @@
                    {{/each}}
                 </select>
 
-                <input type="text" name="piezas" id="" placeholder="Piezas">
-                <input type="text" name="cct" id="" placeholder="CCT">
-                <input type="text" name="cst" id="" placeholder="CST">
-                <input type="text" name="terminal" id="" placeholder="Terminal">
-                <input type="text" name="errores" id="" placeholder="Errores">
-                <input type="text" name="defectos" id="" placeholder="Defectos">
+                <input type="text" name="piezas" id="" placeholder="Piezas" required>
+                <input type="text" name="cct" id="" placeholder="CCT" required>
+                <input type="text" name="cst" id="" placeholder="CST" required>
+                <input type="text" name="terminal" id="" placeholder="Terminal" required>
+                <input type="text" name="errores" id="" placeholder="Errores" required>
+                <input type="text" name="defectos" id="" placeholder="Defectos" required>
+                <input type="text" name="otroscalidad" id="" placeholder="Otros" required>
 
-                <input type="text" name="calidad" id="" placeholder="Calidad">
-                <input type="text" name="mantenimiento" id="" placeholder="Mantenimiento">
-                <input type="text" name="materiales" id="" placeholder="Materiales">
-                <input type="text" name="cdd" id="" placeholder="CDD">
-                <input type="text" name="procesos" id="" placeholder="Procesos">
-                <input type="text" name="enrredos" id="" placeholder="Enrredos">
-                <input type="text" name="atorones" id="" placeholder="Atorones de terminal">
-                <input type="text" name="sello" id="" placeholder="Sello">
-                <input type="text" name="setupa" id="" placeholder="A">
-                <input type="text" name="setupb" id="" placeholder="B">
-                <input type="text" name="setupc" id="" placeholder="C">
-                <input type="text" name="setupd" id="" placeholder="D">
-                <input type="text" name="ajuste" id="" placeholder="Ajuste">
+                <input type="text" name="calidad" id="" placeholder="Calidad" required>
+                <input type="text" name="mantenimiento" id="" placeholder="Mantenimiento" required>
+                <input type="text" name="materiales" id="" placeholder="Materiales" required>
+                <input type="text" name="cdd" id="" placeholder="CDD" required>
+                <input type="text" name="procesos" id="" placeholder="Procesos" required>
+                <input type="text" name="enrredos" id="" placeholder="Enrredos" required>
+                <input type="text" name="atorones" id="" placeholder="Atorones de terminal" required>
+                <input type="text" name="sello" id="" placeholder="Sello" required>
+                <input type="text" name="setupa" id="" placeholder="A" required>
+                <input type="text" name="setupb" id="" placeholder="B" required>
+                <input type="text" name="setupc" id="" placeholder="C" required>
+                <input type="text" name="setupd" id="" placeholder="D" required>
+                <input type="text" name="ajuste" id="" placeholder="Ajuste" required>
+                <input type="text" name="otrostiempos" id="" placeholder="Otros" required>
 
                 <br>
                 <input type="submit" value="Guardar datos">

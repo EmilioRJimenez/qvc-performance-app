@@ -9,6 +9,8 @@ const mySQLStore = require('express-mysql-session');
 
 const { database } = require('./keys');
 
+const pool = require('./database');
+
 //Inicializaciones
 const app = express();
 require('./lib/passport');
@@ -46,8 +48,13 @@ app.use((req, res, next) => {
     app.locals.success = req.flash('success');
     app.locals.messageError = req.flash('messageError');
     app.locals.user = req.user;
+    app.locals.rol = req.rol;
+    app.locals.infoUsuario;
     next();
 });
+
+
+
 
 //Rutas
 
@@ -55,6 +62,9 @@ app.use('/', require('./routes/index'));
 app.use('/', require('./routes/auth'));
 app.use('/produccion', require('./routes/produccion'));
 app.use('/equipos', require('./routes/equipo'));
+app.use('/usuarios', require('./routes/usuarios'));
+
+
 
 //Archivos publicos
 app.use(express.static(path.join(__dirname, 'public')));

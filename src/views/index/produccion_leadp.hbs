@@ -1,0 +1,62 @@
+<h1>Produccion lead</h1>
+{{#if messageError}}
+ <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
+    {{messageError}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+{{/if}}
+
+{{#if success}}
+ <div class="alert alert-success alert-dismissible fade show mx-3" role="alert">
+    {{success}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+{{/if}}
+
+<div class="container-fluid">
+   <form action="/produccion/save" method="POST">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Datos diarios de producción {{#each area}} <span> [ {{nombre}} ]</span> {{/each}}</h3>
+                <select name="equipo" id="">
+                    {{#each tipoequipo}}
+                    <option value="{{id_tipoequipo}}">{{tipo}}</option>
+                    {{/each}}
+                </select>
+                <select name="numeroequipo" id="limite">
+                   {{#each limite}}
+                        <option value="{{numero}}">{{numero}}</option>
+                   {{/each}}
+                </select>
+
+                <input type="text" name="piezas" id="" placeholder="Piezas" required>
+
+                <input type="text" name="cct" id="" placeholder="CCT" required>
+                <input type="text" name="cst" id="" placeholder="CST" required>
+                <input type="text" name="terminal" id="" placeholder="Terminal" required>
+                <input type="text" name="manga" id="" placeholder="Manga" required>
+                <input type="text" name="empalme" id="" placeholder="Empalme" required>
+                <input type="text" name="errores" id="" placeholder="Errores" required>
+                <input type="text" name="defectos" id="" placeholder="Defectos" required>
+                <input type="text" name="otroscalidad" id="" placeholder="Otros" required>
+
+                <input type="text" name="calidad" id="" placeholder="Calidad" required>
+                <input type="text" name="mantenimiento" id="" placeholder="Mantenimiento" required>
+                <input type="text" name="materiales" id="" placeholder="Materiales" required>
+                <input type="text" name="procesos" id="" placeholder="Procesos" required>
+                <input type="text" name="otrostiempos" id="" placeholder="Otros" required>
+
+                <br>
+                <input type="submit" value="Guardar datos">
+            </div>
+            <div class="col-md-4">
+                <h3>Comentarios</h3>
+                <input type="text" name="comentarios" id="" placeholder="Comentario">
+            </div>
+        </div>
+    </form> 
+</div>

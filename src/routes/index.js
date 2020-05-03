@@ -3,51 +3,117 @@ const router = express.Router();
 
 const pool = require('../database');
 
-router.get('/inicio', (req, res) => {
+
+let getUser = (async (req, res, next) => {
+    if(req.user){
+        //console.log(req.user);
+        let infoUsuario = await pool.query('SELECT * FROM vistausuarios WHERE id = ?', [req.user.id]);
+        req.infoUsuario = infoUsuario;
+    }
+    next();
+});
+
+router.get('/inicio', getUser, (req, res) => {
+    const infoUsuario = req.infoUsuario;
+    
     res.render('index/inicio', {
-        title: 'Inicio'
+        title: 'Inicio',
+        infoUsuario
     });
 });
 
-router.get('/produccion', async (req, res) => {
+router.get('/produccion', (req, res) => {
 
-    const locacion = await pool.query('SELECT * FROM locaciones WHERE id = ?', [req.user.id_locacion]);
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ?', [req.user.id_locacion]);
+    if(req.user.id_locacion === 2){
+        res.redirect('/produccioncorte');
+    }else if(req.user.id_locacion === 3){
+        res.redirect('./produccionleadp');
+    }else{
+        res.redirect('/produccionlinea');
+    }  
+       
+});
+
+router.get('/produccionleadp', getUser, async (req, res) => {
+    const infoUsuario = req.infoUsuario;
+    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? GROUP BY id_tipoequipo', [req.user.id_locacion]);
     const limite = await pool.query('SELECT numero FROM equipo WHERE id_locacion =  ? AND estado = true', [req.user.id_locacion]);
+
+    res.render('./index/produccion_leadp', {
+        title: 'Producción',
+        tipoequipo,
+        limite,
+        infoUsuario
+    });
+});
+
+
+router.get('/produccioncorte', getUser, async (req, res) => {
+    const infoUsuario = req.infoUsuario;
+    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? GROUP BY id_tipoequipo', [req.user.id_locacion]);
+    const limite = await pool.query('SELECT numero FROM equipo WHERE id_locacion =  ? AND estado = true', [req.user.id_locacion]);
+
     res.render('./index/produccion', {
         title: 'Producción',
         tipoequipo,
         limite,
-        locacion
+        infoUsuario
     });
 });
 
-router.get('/tablero', (req, res) => {
+router.get('/produccionlinea', getUser, async (req, res) => {
+    const infoUsuario = req.infoUsuario;
+    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? GROUP BY id_tipoequipo', [req.user.id_locacion]);
+    const limite = await pool.query('SELECT numero FROM equipo WHERE id_locacion =  ? AND estado = true', [req.user.id_locacion]);
+
+    res.render('./index/produccion_linea', {
+        title: 'Producción',
+        tipoequipo,
+        limite,
+        infoUsuario
+    });
+});
+
+router.get('/tablero', getUser, async (req, res) => {
+    const infoUsuario = req.infoUsuario;
+
     res.render('index/tablero', {
-        title: 'Tablero'
+        title: 'Tablero',
+        infoUsuario
     });
 });
 
-router.get('/equipos', async (req, res) => {
-
+router.get('/equipos', getUser, async (req, res) => {
+    const infoUsuario = req.infoUsuario;
     const equipo = await pool.query('SELECT * FROM vistaequipos');
 
     res.render('index/equipos', {
         title: 'Equipos',
-        equipo
+        equipo,
+        infoUsuario
     });
 });
 
-router.get('/usuarios', (req, res) => {
+router.get('/usuarios', getUser, async (req, res) => {
+    const infoUsuario = req.infoUsuario;
+    const usuarios = await pool.query('SELECT * FROM vistausuarios');
+    const rol = await pool.query('SELECT * FROM roles ORDER BY id DESC'); 
+    const locacion = await pool.query('SELECT * FROM locaciones ORDER BY nombre ASC');
+
     res.render('index/usuarios', {
-        title: 'Usuarios'
+        title: 'Usuarios',
+        infoUsuario, usuarios, rol, locacion
     });
 });
 
-router.get('/ajustes', (req, res) => {
+router.get('/ajustes', getUser, async (req, res) => {
+
+    const infoUsuario = req.infoUsuario;
+
     res.render('index/ajustes', {
-        title: 'Ajustes'
-    });
+        title: 'Otros',
+        infoUsuario
+    })
 });
 
 module.exports = router;

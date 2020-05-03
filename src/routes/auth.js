@@ -30,15 +30,18 @@ router.post('/signin', (req, res, next) => {
 
 router.get('/inicio', (req, res) => {
     res.render('index/inicio');
-})
+});
 
 router.post('/save', passport.authenticate('local.signup', {
-    successRedirect: '/inicio',
-    failureRedirect: '/registro'
+    successRedirect: '/usuarios',
+    failureRedirect: '/usuarios'
 }));
 
 
-
+router.get('/logout', (req, res) => {
+    req.logOut();
+    res.redirect('/');
+});
 
 
 

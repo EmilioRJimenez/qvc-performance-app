@@ -15,7 +15,14 @@ passport.use('local.signin', new localStrategy({
             const user = rows[0];
             const validaPassword = await mylib.matchPassword(password, user.password);
             if(validaPassword){
-                done(null, user);
+                const estado = await pool.query('SELECT * FROM usuarios WHERE email = ? AND estado = true', [[usuario]]);
+                if(estado.length > 0){
+                    done(null, user);
+                }else{
+                    req.flash('messageError', 'Usuario deshabilitado');
+                    done(null, false);
+                }
+                
             }else{
                 req.flash('messageError', 'Usuario o contraseña incorrectos');
                 done(null, false);
@@ -31,10 +38,10 @@ passport.use('local.signup', new localStrategy({
     passwordField: 'password',
     passReqToCallback: true
 }, async (req, usuario, password, done) => {
-    const { email, telefono, rol, locacion } = req.body;
+    const { email, telefono, rol, locacion, turno } = req.body;
 
     const newUser = {
-        usuario, email, telefono, password, id_rol: rol, id_locacion: locacion
+        usuario, email, telefono, password, id_rol: rol, id_locacion: locacion, turno
     };
 
     newUser.password = await mylib.encryptPassword(password);
