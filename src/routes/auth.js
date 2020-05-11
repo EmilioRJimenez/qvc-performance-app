@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     res.render('index/auth/signin', {layout: false});
 });
 
-
+/*
 router.get('/registro', async (req, res) => {
     const rol = await pool.query('SELECT * FROM roles ORDER BY id DESC'); 
     const locacion = await pool.query('SELECT * FROM locaciones ORDER BY nombre ASC');
@@ -19,6 +19,7 @@ router.get('/registro', async (req, res) => {
         locacion
     });
 });
+*/
 
 
 router.post('/signin', (req, res, next) => {

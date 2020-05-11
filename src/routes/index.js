@@ -24,6 +24,7 @@ router.get('/inicio', getUser, (req, res) => {
 
 router.get('/produccion', (req, res) => {
 
+    console.log(req.user);
     if(req.user.id_locacion === 2){
         res.redirect('/produccioncorte');
     }else if(req.user.id_locacion === 3){
@@ -85,13 +86,30 @@ router.get('/tablero', getUser, async (req, res) => {
 
 router.get('/equipos', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
-    const equipo = await pool.query('SELECT * FROM vistaequipos');
+    const loc = infoUsuario[0].id_locacion;
+    const equipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ?', [loc]);
+    const tipoequipo = await pool.query('SELECT * FROM tipo_equipo');
+    if(infoUsuario[0].rol === 'Administrador'){
+        const locacion = await pool.query('SELECT * FROM locaciones');
+        res.render('index/equipos', {
+            title: 'Equipos',
+            equipo,
+            tipoequipo,
+            locacion,
+            infoUsuario
+        });
+    }
+    else{
+      
+        res.render('index/equipos', {
+            title: 'Equipos',
+            equipo,
+            tipoequipo,
+            infoUsuario
+        });
+    }
 
-    res.render('index/equipos', {
-        title: 'Equipos',
-        equipo,
-        infoUsuario
-    });
+    
 });
 
 router.get('/usuarios', getUser, async (req, res) => {

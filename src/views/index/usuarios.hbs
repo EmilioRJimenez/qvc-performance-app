@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div class="container-fluid tablas">
     {{#if success}}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
         {{success}}
@@ -23,7 +23,7 @@
                         <div class="col-lg-12">
                             <div>        
                                 <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
-                                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter"><span class="icon-user-plus"></span> Registrar nuevo usuario</a>
+                                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter">Registrar nuevo usuario</a>
                                 <thead>
                                     <tr>
                                         <th>Id</th>
@@ -50,13 +50,13 @@
                                         
                                         <td class="btnacciones">
                                             {{#if estado}}
-                                            <a href="/usuarios/disable/{{id}}" class="btn btn-success"><span class="icon-user-minus"></span></a>
+                                            <a href="/usuarios/disable/{{id}}" class="btn btn-success"><span class="icon-unlocked"></span></a>
                                             {{else}}
-                                            <a href="/usuarios/enable/{{id}}" class="btn btn-danger"><span class="icon-user-check"></span></a>
+                                            <a href="/usuarios/enable/{{id}}" class="btn btn-danger"><span class="icon-lock"></span></a>
                                             {{/if}}
                                             
                                         </td>
-                                        <td class="btnacciones btnedit"><span class="btn btn-warning editar" onclick="transformarEnEditable(this);"><i class="icon-pencil"></i></span></td>
+                                        <td class="btnacciones btnedit"><span class="btn btn-dark editar" onclick="transformarEnEditable(this);"><i class="icon-pencil"></i></span></td>
                                     </tr>  
                                     {{/each}}                  
                                 </tbody>        

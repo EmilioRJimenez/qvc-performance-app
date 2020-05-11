@@ -1,26 +1,209 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tipo</th>
-                        <th>Número</th>
-                        <th>Localización</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#each equipo}}
-                        <tr>
-                            <td>{{id}}</td>
-                            <td>{{nombre}}</td>
-                            <td>{{numero}}</td>
-                            <td>{{locacion}}</td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+<div class="container-fluid tablas">
+    {{#if success}}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{success}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+    {{#if messageError}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{messageError}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+    <div id="contenedorForm">
+
+    </div>
+    <div class="content-table">
+                        <div class="col-lg-12">
+                            <div>        
+                                <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter">Registrar nuevo equipo</a>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Equipo</th>
+                                        <th>Número</th>                               
+                                        <th>Estandar</th>
+                                        <th class="hacciones">Estatus</th>
+                                        <th class="hacciones">Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each equipo}}
+                                    <tr class="numero">
+                                        <td>{{id}}</td>
+                                        <td>{{tipo}}</td>
+                                        <td>{{numero}}</td>
+                                        <td>{{estandar}}</td>
+                                        
+                                        <td class="btnacciones">
+                                            {{#if estado}}
+                                            <a href="/equipos/disable/{{id}}" class="btn btn-success"><span class="icon-unlocked"></span></a>
+                                            {{else}}
+                                            <a href="/equipos/enable/{{id}}" class="btn btn-danger"><span class="icon-lock"></span></a>
+                                            {{/if}}
+                                        </td>
+
+                                        <td class="btnacciones btnedit"><span class="btn btn-dark editar" onclick="transformarEnEditable(this);"><i class="icon-pencil"></i></span></td>
+                                    </tr>  
+                                    {{/each}}                  
+                                </tbody>        
+                            </table>                  
+                            </div>
+                        </div>
+                </div>           
         </div>
     </div>
+
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de equípos</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       <form action="/equipos/save" method="post" class="">
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">Equipo:</label>
+                        <select name="tipoequipo" id="" class="form-control">
+                            {{#each tipoequipo}}
+                                <option value="{{id}}">{{nombre}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">Locación:</label>
+                        <select name="locacion" id="" class="form-control">
+                            {{#if locacion}}
+                                {{#each locacion}}
+                                    <option value="{{id}}">{{nombre}}</option>
+                                {{/each}}
+                                {{else}}
+                                     {{#each infoUsuario}}
+                                        <option value="{{id_locacion}}">{{locacion}}</option>
+                                     {{/each}}
+                            {{/if}}
+                           
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="">Número:</label>
+                        <input type="number" name="numero" id="" class="form-control" pattern="[0-9]">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="">Estandar:</label>
+                        <input type="number" name="estandar" id="" class="form-control" pattern="[0-9]">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <input type="submit" name="" value="Guardar" id="" class="btn btn-primary">
+        </div>
+      </form> 
+    </div>
+  </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+
+        var editando=false;
+
+ 
+
+function transformarEnEditable(nodo){
+
+//El nodo recibido es SPAN
+
+if (editando == false) {
+
+var nodoTd = nodo.parentNode; //Nodo TD
+
+var nodoTr = nodoTd.parentNode; //Nodo TR
+
+var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+
+var nodosEnTr = nodoTr.getElementsByTagName('td');
+
+var id = nodosEnTr[0].textContent; var tipoequipo = nodosEnTr[1].textContent;
+
+var numero = nodosEnTr[2].textContent; var estandar = nodosEnTr[3].textContent;
+
+var nuevoCodigoHtml = '<td><input type="text" name="id" id="id" value="'+id+'" size="3" disabled></td>'+
+'<td><select name="tipoequipo" id="tipoequipo"><option>'+tipoequipo+'</option>{{#each tipoequipo}}<option value="{{id}}">{{nombre}}</option>{{/each}}</select></td>'+
+                      '<td><input type="text" name="numero" id="numero" value="'+numero+'"></td>'+
+                      '<td><input type="text" name="estandar" id="estandar" value="'+estandar+'" size="8"> </td>';
+
+nodoTr.innerHTML = nuevoCodigoHtml;
+
+nodoContenedorForm.innerHTML =  '<div class="alert alert-info alert-dismissible fade show contentAlert"><p>Una vez modificada la información del usuario. Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>'+
+                                    '<form name = "formulario" action="" method="get" onsubmit="capturarEnvio()" onreset="anular()">'+
+                                    '<input class="boton" type="reset" value="Cancelar"><input class="boton" type = "submit" value="Aceptar"></div>';
+                                    editando = "true";}
+
+else {
+    alert ('Solo se puede editar una línea. Recargue la página para poder editar otra');
+}
+}
+
+function capturarEnvio(){
+
+var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+
+nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos'+
+
+'<form name = "formulario" action="/equipos/update/'+document.querySelector('#id').value+'" method="POST">'+
+
+
+'<input type="hidden" name="tipoequipo" value="'+document.querySelector('#tipoequipo').value+'">'+
+
+'<input type="hidden" name="numero" value="'+document.querySelector('#numero').value+'">'+
+
+'<input type="hidden" name="estandar" value="'+document.querySelector('#estandar').value+'">'+
+
+'<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
+
+
+document.formulario.submit();
+
+nodoContenedorForm.style.display = 'none';
+
+}
+
+function anular(){
+
+window.location.reload();
+
+}
+
+    
+</script>

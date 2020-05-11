@@ -1,5 +1,5 @@
 {{#if messageError}}
- <div class="alert alert-danger alert-dismissible fade show mx-3" role="alert">
+ <div class="alert alert-danger alert-dismissible fade show mx-3 custom-alert" role="alert">
     {{messageError}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -8,7 +8,7 @@
 {{/if}}
 
 {{#if success}}
- <div class="alert alert-success alert-dismissible fade show mx-3" role="alert">
+ <div class="alert alert-success alert-dismissible fade show mx-3 custom-alert" role="alert">
     {{success}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -16,45 +16,117 @@
     </div>
 {{/if}}
 
-<div class="container-fluid">
-   <form action="/produccion/save" method="POST">
-        <div class="row">
-            <div class="col-md-8">
-                <h3>Datos diarios de producción {{#each area}} <span> [ {{nombre}} ]</span> {{/each}}</h3>
-                <select name="equipo" id="">
-                    {{#each tipoequipo}}
-                    <option value="{{id_tipoequipo}}">{{tipo}}</option>
-                    {{/each}}
-                </select>
-                <select name="numeroequipo" id="limite">
-                   {{#each limite}}
-                        <option value="{{numero}}">{{numero}}</option>
-                   {{/each}}
-                </select>
+<div class="container-fluid" id="produccioncorte">
+   <form action="/produccion/save" method="POST" name="comments" id="form">
+        <div class="row" id="row">
+            <div class="col-md-9 left">
 
-                <input type="text" name="piezas" id="" placeholder="Piezas" required>
+                <div class="principal">
+                    <div class="box1 produccion">
+                        <div class="formproduccion">
+                            
+                            <select name="equipo" id="">
+                                {{#each tipoequipo}}
+                                <option value="{{id_tipoequipo}}">{{tipo}}</option>
+                                {{/each}}
+                            </select>
+                            <select name="numeroequipo" id="limite">
+                            {{#each limite}}
+                                    <option value="{{numero}}">{{numero}}</option>
+                            {{/each}}
+                            </select>
+                            <input type="text" name="piezas" id="" placeholder="Piezas" required>
+                        </div>
+                        <div class="resultproduccion">
+                            
+                        </div>
+                    </div>
+                    <div class="box2">
+                        <div class="columnaleft calidad">
+                            <div class="formcalidad formcalidadlinea">
+                                <h4>Calidad</h4>
+                                <div class="form-bodycalidad">
+                                    <ul>
+                                        <li>Cinta de vinil: <input type="text" name="cintavinil" id="" required></li>
+                                        <li>Cinta de garra: <input type="text" name="cintagarra" id="" required></li>
+                                        <li>Cable: <input type="text" name="cable" id="" required></li>
+                                        <li>Componentes: <input type="text" name="componentes" id="" required></li>
+                                        <li>Otros: <input type="text" name="otroscalidad" id="" required></li>
+                                    </ul>
+                                </div>
+                                <div class="formheadercalidad">
 
-                <input type="text" name="cintavinil" id="" placeholder="Cinta vinil" required>
-                <input type="text" name="cintagarra" id="" placeholder="Cinta garra" required>
-                <input type="text" name="cable" id="" placeholder="Cable" required>
-                <input type="text" name="componentes" id="" placeholder="componentes" required>
-                <input type="text" name="otros" id="" placeholder="Otros" required>
-                <input type="text" name="errores" id="" placeholder="Errores" required>
-                <input type="text" name="defectos" id="" placeholder="Defectos" required>
+                                </div>
+                            </div>
+                            <div class="formotros">
+                                <h4>Otros</h4>
+                                <div class="form-bodyotros">
+                                    <ul>
+                                        <li>Errores: <input type="text" name="errores" id="" required></li>
+                                        <li>Defectos: <input type="text" name="defectos" id="" required></li>
+                                    </ul>
+                                </div>
+                                <div class="formheaderotros">
 
-                <input type="text" name="calidad" id="" placeholder="Calidad" required>
-                <input type="text" name="mantenimiento" id="" placeholder="Mantenimiento" required>
-                <input type="text" name="materiales" id="" placeholder="Materiales" required>
-                <input type="text" name="procesos" id="" placeholder="Procesos" required>
-                <input type="text" name="otros" id="" placeholder="Otros" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columnaright tiempo">
+                            <div class="formtiempo formtiempolinea">
+                                <h4>Tiempo muerto</h4>
+                                <div class="form-bodytiempo">
+                                    <ul>
+                                        <li>Calidad: <input type="text" name="calidad" id="" required></li>
+                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="" required></li>
+                                        <li>Materiales: <input type="text" name="materiales" id="" required></li>
+                                        <li>Procesos: <input type="text" name="procesos" id="" required></li>
+                                        <li>Otros: <input type="text" name="otrostiempos" id="" required></li>
+                                    </ul>
+                                </div>
+                                <div class="formheadertiempo">
 
-                <br>
-                <input type="submit" value="Guardar datos">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-4">
-                <h3>Comentarios</h3>
-                <input type="text" name="comentarios" id="" placeholder="Comentario">
+            <div class="col-md-3 right">
+                <input type="text" id="mess" placeholder="Comentario">
+                <div id="boxmessages">
+                    
+                </div>
+                <input type="submit" value="Guardar" >
             </div>
         </div>
     </form> 
 </div>
+
+
+<script>
+
+        select("#mess").addEventListener("keypress", function(e){
+           
+            var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    var message = document.createElement("textarea");
+                    message.setAttribute("name", "comments");
+                    message.setAttribute("class", "comment");
+                    message.style.resize = "none";
+                    message.value = select("#mess").value;
+                    select("#boxmessages").appendChild(message);
+                    select("#mess").value = "";
+                    select("#mess").focus();
+
+                    e.preventDefault();
+                    return false;
+                }
+        });
+        
+
+
+        function select(selector){
+            return document.querySelector(selector);
+        }
+
+    </script>
