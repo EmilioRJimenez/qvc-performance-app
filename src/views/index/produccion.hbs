@@ -25,44 +25,51 @@
                     <div class="box1 produccion">
                         <div class="formproduccion">
                             
-                            <select name="equipo" id="">
+                            <select name="equipo" id="equipo">
                                 {{#each tipoequipo}}
-                                <option value="{{id_tipoequipo}}">{{tipo}}</option>
+                                <option value="{{id}}">{{nombre}}</option>
                                 {{/each}}
                             </select>
-                            <select name="numeroequipo" id="limite">
-                            {{#each limite}}
-                                    <option value="{{numero}}">{{numero}}</option>
-                            {{/each}}
-                            </select>
-                            <input type="text" name="piezas" id="" placeholder="Piezas" required>
+                            
+                            <input type="text" name="piezas" id="pzs" placeholder="Piezas" required>
                         </div>
                         <div class="resultproduccion">
-                            
+                           
+                            <div id="porcentaje" role="status">
+                                0%
+                            </div>                        
+
                         </div>
                     </div>
                     <div class="box2">
                         <div class="columnaleft calidad">
                             <div class="formcalidad">
-                                <h4>Calidad</h4>
+                                <h4 class="subtitulos">Calidad</h4>
                                 <div class="form-bodycalidad">
                                     <ul>
-                                        <li>CST: <input type="text" name="cct" id="" required></li>
-                                        <li>CCT: <input type="text" name="cst" id="" required></li>
-                                        <li>Terminal: <input type="text" name="terminal" id="" required></li>
-                                        <li>Otros: <input type="text" name="otroscalidad" id="" required></li>
+                                        <li>CST: <input type="text" name="cst" id="cst" required value="0"></li>
+                                        <li>CCT: <input type="text" name="cct" id="cct" required value="0"></li>
+                                        <li>Terminal: <input type="text" name="terminal" id="terminal" required value="0"></li>
+                                        <li>Otros: <input type="text" name="otroscalidad" id="otros" required value="0"></li>
                                     </ul>
                                 </div>
                                 <div class="formheadercalidad">
-
+                                    <hr>
+                                    <div class="box1Calidad">
+                                        <span class="icon-smile"></span>
+                                    </div>
+                                    <div class="box2Calidad">
+                                        <span>Efectividad</span>
+                                        <span id="porcentajecalidad">0%</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="formotros">
-                                <h4>Otros</h4>
+                                <h4 class="subtitulos">Otros</h4>
                                 <div class="form-bodyotros">
                                     <ul>
-                                        <li>Errores: <input type="text" name="errores" id="" required></li>
-                                        <li>Defectos: <input type="text" name="defectos" id="" required></li>
+                                        <li>Errores: <input type="text" name="errores" id="" required value="0"></li>
+                                        <li>Defectos: <input type="text" name="defectos" id="" required value="0"></li>
                                     </ul>
                                 </div>
                                 <div class="formheaderotros">
@@ -72,23 +79,23 @@
                         </div>
                         <div class="columnaright tiempo">
                             <div class="formtiempo">
-                                <h4>Tiempo muerto</h4>
+                                <h4 class="subtitulos">Tiempo muerto</h4>
                                 <div class="form-bodytiempo">
                                     <ul>
-                                        <li>Calidad: <input type="text" name="calidad" id="" required></li>
-                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="" required></li>
-                                        <li>Materiales: <input type="text" name="materiales" id="" required></li>
-                                        <li>CDD: <input type="text" name="cdd" id="" required></li>
-                                        <li>Procesos: <input type="text" name="procesos" id="" required></li>
-                                        <li>Enrredos: <input type="text" name="enrredos" id="" required></li>
-                                        <li>Atorones: <input type="text" name="atorones" id="" required></li>
-                                        <li>Sello: <input type="text" name="sello" id="" required></li>
-                                        <li>Setup A: <input type="text" name="setupa" id="" required></li>
-                                        <li>Setup B: <input type="text" name="setupb" id="" required></li>
-                                        <li>Setup C: <input type="text" name="setupc" id="" required></li>
-                                        <li>Setup D: <input type="text" name="setupd" id="" required></li>
-                                        <li>Ajuste: <input type="text" name="ajuste" id="" required></li>
-                                        <li>Otros: <input type="text" name="otrostiempos" id="" required></li>
+                                        <li>Calidad: <input type="text" name="calidad" id="" required value="0"></li>
+                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="" required value="0"></li>
+                                        <li>Materiales: <input type="text" name="materiales" id="" required value="0"></li>
+                                        <li>CDD: <input type="text" name="cdd" id="" required value="0"></li>
+                                        <li>Procesos: <input type="text" name="procesos" id="" required value="0"></li>
+                                        <li>Enrredos: <input type="text" name="enrredos" id="" required value="0"></li>
+                                        <li>Atorones: <input type="text" name="atorones" id="" required value="0"></li>
+                                        <li>Sello: <input type="text" name="sello" id="" required value="0"></li>
+                                        <li>Setup A: <input type="text" name="setupa" id="" required value="0"></li>
+                                        <li>Setup B: <input type="text" name="setupb" id="" required value="0"></li>
+                                        <li>Setup C: <input type="text" name="setupc" id="" required value="0"></li>
+                                        <li>Setup D: <input type="text" name="setupd" id="" required value="0"></li>
+                                        <li>Ajuste: <input type="text" name="ajuste" id="" required value="0"></li>
+                                        <li>Otros: <input type="text" name="otrostiempos" id="" required value="0"></li>
                                     </ul>
                                 </div>
                                 <div class="formheadertiempo">
@@ -104,7 +111,7 @@
                 <div id="boxmessages">
                     
                 </div>
-                <input type="submit" value="Guardar" >
+                <input type="submit" value="Guardar" id="btnGuardarProduccion">
             </div>
         </div>
     </form> 

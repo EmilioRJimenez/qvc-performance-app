@@ -14,10 +14,10 @@ let getUser = (async (req, res, next) => {
 
 
 router.post('/save', getUser, async (req, res) => {
-    const { tipoequipo, locacion, numero, estandar } = req.body;
+    const { tipoequipo, locacion, numero, estandar, nombre, estandar_scrap } = req.body;
 
     const data = {
-        numero, estandar, id_tipoequipo: tipoequipo, id_locacion: locacion
+        numero, nombre, estandar, estandar_scrap, id_tipoequipo: tipoequipo, id_locacion: locacion
     };
 
         await pool.query('INSERT INTO equipo SET ?', [data])
@@ -68,12 +68,12 @@ router.post('/update/:id', getUser, async (req, res) => {
     const locacion = infoUsuario[0].id_locacion;
 
     const { id } = req.params;
-    const { tipoequipo, numero, estandar } = req.body;
+    const { tipoequipo, numero, estandar, nombre, estandar_scrap } = req.body;
 
     const data = {
-        numero, estandar, id_tipoequipo: tipoequipo, id_locacion: locacion 
+        numero, nombre, estandar, estandar_scrap, id_tipoequipo: tipoequipo, id_locacion: locacion 
     };
-    console.log(data, id);
+
     try{
         const result = await pool.query('UPDATE equipo SET ? WHERE id = ?', [data, id]);
    
@@ -85,7 +85,7 @@ router.post('/update/:id', getUser, async (req, res) => {
     }catch(e){
         try{
             const secondata = {
-                numero, estandar
+                numero, nombre, estandar, estandar_scrap
             };
             const secondresult =  await pool.query('UPDATE equipo SET ? WHERE id = ?', [secondata, id]);
             if(secondresult.affectedRows > 0){
@@ -98,6 +98,18 @@ router.post('/update/:id', getUser, async (req, res) => {
             return res.redirect('/equipos', 500, req.flash('messageError', 'Error de servidor. Contacte al desarrollador.'));
         }
     }
+});
+
+
+
+router.get('/estandar', async (req, res) => {
+    const result = await pool.query('SELECT id, estandar FROM equipo')
+    res.json({equipos: result});
+});
+
+router.get('/scrap', async (req, res) => {
+    const result = await pool.query('SELECT id, estandar_scrap FROM equipo')
+    res.json({equipos: result});
 });
 
 module.exports = router;

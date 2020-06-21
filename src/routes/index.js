@@ -37,13 +37,10 @@ router.get('/produccion', (req, res) => {
 
 router.get('/produccionleadp', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? GROUP BY id_tipoequipo', [req.user.id_locacion]);
-    const limite = await pool.query('SELECT numero FROM equipo WHERE id_locacion =  ? AND estado = true', [req.user.id_locacion]);
-
+    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
     res.render('./index/produccion_leadp', {
         title: 'Producción',
         tipoequipo,
-        limite,
         infoUsuario
     });
 });
@@ -51,26 +48,21 @@ router.get('/produccionleadp', getUser, async (req, res) => {
 
 router.get('/produccioncorte', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? GROUP BY id_tipoequipo', [req.user.id_locacion]);
-    const limite = await pool.query('SELECT numero FROM equipo WHERE id_locacion =  ? AND estado = true', [req.user.id_locacion]);
-
+    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
     res.render('./index/produccion', {
         title: 'Producción',
         tipoequipo,
-        limite,
         infoUsuario
     });
 });
 
 router.get('/produccionlinea', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? GROUP BY id_tipoequipo', [req.user.id_locacion]);
-    const limite = await pool.query('SELECT numero FROM equipo WHERE id_locacion =  ? AND estado = true', [req.user.id_locacion]);
-
+    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
+    
     res.render('./index/produccion_linea', {
         title: 'Producción',
         tipoequipo,
-        limite,
         infoUsuario
     });
 });
@@ -127,11 +119,15 @@ router.get('/usuarios', getUser, async (req, res) => {
 router.get('/ajustes', getUser, async (req, res) => {
 
     const infoUsuario = req.infoUsuario;
+    const locaciones = await pool.query('SELECT * FROM locaciones');
+    const tipoequipo = await pool.query('SELECT * FROM tipo_equipo');
 
     res.render('index/ajustes', {
         title: 'Otros',
-        infoUsuario
-    })
+        infoUsuario,
+        locaciones,
+        tipoequipo
+    });
 });
 
 module.exports = router;

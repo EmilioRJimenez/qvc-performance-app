@@ -1,0 +1,328 @@
+<div class="container-fluid tablas">
+    {{#if success}}
+        <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+        {{success}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+    {{#if messageError}}
+    <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
+        {{messageError}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {{/if}}
+    <div class="otrosContent">
+
+    
+    <div id="contenedorForm">
+
+    </div>
+    <div class="content-table">
+        <h3 class="subtitulos">Registro de áreas de trabajo.</h3>
+                        <div class="col-lg-12">
+                            <div>        
+                                <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter">Registrar nueva área</a>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th>
+                                        <th>Nombre real</th>  
+    
+                                        <th class="hacciones">Estatus</th>
+                                        <th class="hacciones">Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each locaciones}}
+                                    <tr class="numero">
+                                        <td>{{id}}</td>
+                                        <td>{{nombre}}</td>
+                                        <td>{{nombre_real}}</td>
+                                        
+                                        <td class="btnacciones">
+                                            {{#if estado}}
+                                            <a href="/otros/disable/{{id}}" class="btn btn-success"><span class="icon-unlocked"></span></a>
+                                            {{else}}
+                                            <a href="/otros/enable/{{id}}" class="btn btn-danger"><span class="icon-lock"></span></a>
+                                            {{/if}}
+                                        </td>
+
+                                        <td class="btnacciones btnedit"><span class="btn btn-dark editar" onclick="transformarEnEditable(this);"><i class="icon-pencil"></i></span></td>
+                                    </tr>  
+                                    {{/each}}                  
+                                </tbody>        
+                            </table>                  
+                            </div>
+                        </div>
+                </div>           
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de áreas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       <form action="/otros/location" method="post" class="">
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Área:</label>
+                        <input type="text" name="nombre" id="" class="form-control"  required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label for="">Nombre real:</label>
+                        <input type="text" name="nombre_real" id="" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <input type="submit" name="" value="Guardar" id="" class="btn btn-primary">
+        </div>
+      </form> 
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+
+        var editando=false;
+
+ 
+
+function transformarEnEditable(nodo){
+
+//El nodo recibido es SPAN
+
+if (editando == false) {
+
+var nodoTd = nodo.parentNode; //Nodo TD
+
+var nodoTr = nodoTd.parentNode; //Nodo TR
+
+var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+
+var nodosEnTr = nodoTr.getElementsByTagName('td');
+
+var id = nodosEnTr[0].textContent; 
+var nombre = nodosEnTr[1].textContent;
+var nombre_real = nodosEnTr[2].textContent;
+
+
+var nuevoCodigoHtml = '<td><input type="text" name="id" id="id" value="'+id+'" size="3" disabled></td>'+
+                      '<td><input type="text" name="nombre" id="nombre" value="'+nombre+'"></td>'+
+                      '<td><input type="text" name="nombre_real" id="nombre_real" value="'+nombre_real+'" size="8"></td>';
+
+nodoTr.innerHTML = nuevoCodigoHtml;
+
+nodoContenedorForm.innerHTML =  '<div class="alert alert-info alert-dismissible fade show contentAlert custom-alert"><p>Una vez modificada la información del usuario. Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>'+
+                                    '<form name = "formulario" action="" method="get" onsubmit="capturarEnvio()" onreset="anular()">'+
+                                    '<input class="boton" type="reset" value="Cancelar"><input class="boton" type = "submit" value="Aceptar"></div>';
+                                    editando = "true";}
+
+else {
+    alert ('Solo se puede editar una línea. Recargue la página para poder editar otra');
+}
+}
+
+function capturarEnvio(){
+
+var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+
+nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos'+
+
+'<form name = "formulario" action="/equipos/update/'+document.querySelector('#id').value+'" method="POST">'+
+
+'<input type="hidden" name="nombre" value="'+document.querySelector('#nombre').value+'">'+
+
+'<input type="hidden" name="estandar" value="'+document.querySelector('#nombre_real').value+'">'+
+
+'<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
+
+
+document.formulario.submit();
+
+nodoContenedorForm.style.display = 'none';
+
+}
+
+function anular(){
+
+window.location.reload();
+
+}
+
+    
+</script>
+
+
+
+<div id="contenedorForm2">
+
+    </div>
+    <div class="content-table tablas">
+        <h3 class="subtitulos">Registro de modelos de équipo.</h3>
+                        <div class="col-lg-12">
+                            <div>        
+                                <table id="example2" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter2">Registrar nuevo modelo.</a>
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nombre</th> 
+    
+                                        <th class="hacciones">Estatus</th>
+                                        <th class="hacciones">Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each tipoequipo}}
+                                    <tr class="numero">
+                                        <td>{{id}}</td>
+                                        <td>{{nombre}}</td>
+                                        
+                                        <td class="btnacciones">
+                                            {{#if estado}}
+                                            <a href="/otros/disablemodel/{{id}}" class="btn btn-success"><span class="icon-unlocked"></span></a>
+                                            {{else}}
+                                            <a href="/otros/enablemodel/{{id}}" class="btn btn-danger"><span class="icon-lock"></span></a>
+                                            {{/if}}
+                                        </td>
+
+                                        <td class="btnacciones btnedit"><span class="btn btn-dark editar" onclick="transformarEnEditable2(this);"><i class="icon-pencil"></i></span></td>
+                                    </tr>  
+                                    {{/each}}                  
+                                </tbody>        
+                            </table>                  
+                            </div>
+                        </div>
+                </div>           
+        </div>
+    </div>
+
+
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Registro de áreas</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       <form action="/otros/model" method="post" class="">
+        <div class="modal-body">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="">Modelo:</label>
+                        <input type="text" name="nombre" id="" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <input type="submit" name="" value="Guardar" id="" class="btn btn-primary">
+        </div>
+      </form> 
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+
+        var editando2 =false;
+
+ 
+
+function transformarEnEditable2(nodo){
+
+//El nodo recibido es SPAN
+
+if (editando2 == false) {
+
+var nodoTd2 = nodo.parentNode; //Nodo TD
+
+var nodoTr2 = nodoTd2.parentNode; //Nodo TR
+
+var nodoContenedorForm2 = document.getElementById('contenedorForm2'); //Nodo DIV
+
+var nodosEnTr2 = nodoTr2.getElementsByTagName('td');
+
+var idmodelo = nodosEnTr2[0].textContent; 
+var nombremodelo = nodosEnTr2[1].textContent;
+
+
+
+var nuevoCodigoHtml2 = '<td><input type="text" name="id" id="idmodel" value="'+idmodelo+'" size="3" disabled></td>'+
+                      '<td><input type="text" name="nombre" id="nombremodel" value="'+nombremodelo+'"></td>';
+
+nodoTr2.innerHTML = nuevoCodigoHtml2;
+
+nodoContenedorForm2.innerHTML =  '<div class="alert alert-info alert-dismissible fade show contentAlert custom-alert"><p>Una vez modificada la información del usuario. Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>'+
+                                    '<form name = "formulario" action="" method="get" onsubmit="capturarEnvio2()" onreset="anular2()">'+
+                                    '<input class="boton" type="reset" value="Cancelar"><input class="boton" type = "submit" value="Aceptar"></div>';
+                                    editando = "true";}
+
+else {
+    alert ('Solo se puede editar una línea. Recargue la página para poder editar otra');
+}
+}
+
+function capturarEnvio2(){
+
+var nodoContenedorForm2 = document.getElementById('contenedorForm2'); //Nodo DIV
+
+nodoContenedorForm2.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos'+
+
+'<form name = "formulario" action="/otros/updatemodel/'+document.querySelector('#idmodel').value+'" method="POST">'+
+
+'<input type="hidden" name="nombre" value="'+document.querySelector('#nombremodel').value+'">'+
+
+'<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
+
+
+document.formulario.submit();
+
+nodoContenedorForm2.style.display = 'none';
+
+}
+
+function anular2(){
+
+window.location.reload();
+
+}
+
+    
+</script>
+</div>

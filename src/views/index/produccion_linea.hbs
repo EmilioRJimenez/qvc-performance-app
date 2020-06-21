@@ -27,14 +27,10 @@
                             
                             <select name="equipo" id="">
                                 {{#each tipoequipo}}
-                                <option value="{{id_tipoequipo}}">{{tipo}}</option>
+                                <option value="{{id}}">{{nombre}}</option>
                                 {{/each}}
                             </select>
-                            <select name="numeroequipo" id="limite">
-                            {{#each limite}}
-                                    <option value="{{numero}}">{{numero}}</option>
-                            {{/each}}
-                            </select>
+                            
                             <input type="text" name="piezas" id="" placeholder="Piezas" required>
                         </div>
                         <div class="resultproduccion">

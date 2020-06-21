@@ -63,6 +63,7 @@ app.use('/', require('./routes/auth'));
 app.use('/produccion', require('./routes/produccion'));
 app.use('/equipos', require('./routes/equipo'));
 app.use('/usuarios', require('./routes/usuarios'));
+app.use('/otros', require('./routes/otros'));
 
 
 

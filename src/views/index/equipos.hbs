@@ -1,6 +1,6 @@
 <div class="container-fluid tablas">
     {{#if success}}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
         {{success}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -8,7 +8,7 @@
         </div>
     {{/if}}
     {{#if messageError}}
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
         {{messageError}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -27,8 +27,10 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Equipo</th>
-                                        <th>Número</th>                               
-                                        <th>Estandar</th>
+                                        <th>Número</th>  
+                                        <th>Nombre</th>                             
+                                        <th>Estandar(Piezas)</th>
+                                        <th>Estandar(SCRAP)</th>
                                         <th class="hacciones">Estatus</th>
                                         <th class="hacciones">Editar</th>
                                     </tr>
@@ -39,7 +41,9 @@
                                         <td>{{id}}</td>
                                         <td>{{tipo}}</td>
                                         <td>{{numero}}</td>
+                                        <td>{{nombre}}</td>
                                         <td>{{estandar}}</td>
+                                        <td>{{estandar_scrap}}</td>
                                         
                                         <td class="btnacciones">
                                             {{#if estado}}
@@ -109,16 +113,31 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="">Nombre:</label>
+                        <input type="text" name="nombre" id="" class="form-control">
+                    </div>
+                </div>
+                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="">Número:</label>
                         <input type="number" name="numero" id="" class="form-control" pattern="[0-9]">
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="">Estandar:</label>
+                        <label for="">Estandar(Pzs):</label>
                         <input type="number" name="estandar" id="" class="form-control" pattern="[0-9]">
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="">Estandar(SCRAP):</label>
+                        <input type="text" name="estandar_scrap" id="" class="form-control">
                     </div>
                 </div>
             </div>
@@ -156,12 +175,17 @@ var nodosEnTr = nodoTr.getElementsByTagName('td');
 
 var id = nodosEnTr[0].textContent; var tipoequipo = nodosEnTr[1].textContent;
 
-var numero = nodosEnTr[2].textContent; var estandar = nodosEnTr[3].textContent;
+var numero = nodosEnTr[2].textContent;
+var nombre = nodosEnTr[3].textContent;
+var estandar = nodosEnTr[4].textContent;
+var estandar_scrap = nodosEnTr[5].textContent;
 
 var nuevoCodigoHtml = '<td><input type="text" name="id" id="id" value="'+id+'" size="3" disabled></td>'+
 '<td><select name="tipoequipo" id="tipoequipo"><option>'+tipoequipo+'</option>{{#each tipoequipo}}<option value="{{id}}">{{nombre}}</option>{{/each}}</select></td>'+
                       '<td><input type="text" name="numero" id="numero" value="'+numero+'"></td>'+
-                      '<td><input type="text" name="estandar" id="estandar" value="'+estandar+'" size="8"> </td>';
+                      '<td><input type="text" name="nombre" id="nombre" value="'+nombre+'"></td>'+
+                      '<td><input type="text" name="estandar" id="estandar" value="'+estandar+'" size="8"> </td>' +
+                      '<td><input type="text" name="estandar_scrap" id="estandar_scrap" value="'+estandar_scrap+'" size="8"> </td>';
 
 nodoTr.innerHTML = nuevoCodigoHtml;
 
@@ -188,7 +212,11 @@ nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancela
 
 '<input type="hidden" name="numero" value="'+document.querySelector('#numero').value+'">'+
 
+'<input type="hidden" name="nombre" value="'+document.querySelector('#nombre').value+'">'+
+
 '<input type="hidden" name="estandar" value="'+document.querySelector('#estandar').value+'">'+
+
+'<input type="hidden" name="estandar_scrap" value="'+document.querySelector('#estandar_scrap').value+'">' +
 
 '<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
 

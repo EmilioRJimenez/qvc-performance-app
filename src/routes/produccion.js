@@ -9,37 +9,45 @@ router.post('/save', async (req, res) => {
     const turno = req.user.turno;
 
     const {
-        equipo, numeroequipo
+        equipo
     } = req.body;
-    
-        const area = req.user.id_locacion;
-        if(area === 2) {
-    
-            const realequipo = await pool.query('SELECT id FROM equipo WHERE (numero = ?) AND (id_tipoequipo = ?)', [numeroequipo, equipo]);
-    
-        if(realequipo.length > 0){
 
-            const {
+        const resultado = await pool.query('SELECT estandar, estandar_scrap FROM equipo WHERE id = ?', [equipo]);
+        let estandar = resultado[0].estandar; estandar = Number(estandar);
+        let estandar_scrap = resultado[0].estandar_scrap; estandar_scrap = Number(estandar_scrap);
+                
+
+
+        const idLocation = req.user.id_locacion;
+        const stringLocation = await pool.query('SELECT nombre FROM locaciones WHERE id = ?', [idLocation]);
+        
+        if(stringLocation[0].nombre === 'Corte') {
+
+            let {
                 piezas, cct, cst, terminal,
                 errores, defectos, calidad, mantenimiento, materiales, cdd,
                 procesos, enrredos, atorones, sello, setupa, setupb, setupc,
                 setupd, ajuste, otroscalidad, otrostiempos, comments
             } = req.body;
-            
-            
 
-            const idEquipo = realequipo[0].id;
-    
+            cst = Number(cst); cct = Number(cct); terminal = Number(terminal); otroscalidad = Number(otroscalidad); piezas = Number(piezas);
+
+            let efectividad = (piezas * 100) / estandar;
+            efectividad = Math.round(efectividad);
+            let efectividad_scrap = ((cct + cst + terminal + otroscalidad) * 100 ) / estandar_scrap;
+            efectividad_scrap = Math.round(efectividad_scrap);
             const datosProduccion = {
-                 id_equipo: idEquipo, piezas, turno, id_usuario: user
+                 id_equipo: equipo, piezas, turno, efectividad, id_usuario: user
             };
             const resultProd = await pool.query('INSERT INTO produccion SET ?', [datosProduccion]);
             const idProduccion = resultProd.insertId;
 
-            const datosCalidad = {
-                cst, cct, terminal, otros: otroscalidad, errores, defectos, id_produccion: idProduccion
+            let datosCalidad = {
+                cst, cct, terminal, otros: otroscalidad, errores, defectos, efectividad: efectividad_scrap, id_produccion: idProduccion
            }
-   
+           
+           
+
            const datosTiempoMuerto = {
                  calidad, mantto: mantenimiento, materiales, cdd, procesos, enrredos, atorones, sello, setupa, setupb, setupc, setupd, ajuste, otros: otrostiempos, id_produccion: idProduccion
            }
@@ -77,15 +85,9 @@ router.post('/save', async (req, res) => {
             }else{
                 return res.redirect('/produccioncorte', 500, req.flash('messageError', 'Ha ocurrido un error al guardar los datos de producción. Vuelve a intentarlo.'));
             }
-        }else{
-            return res.redirect('/produccioncorte', 500, req.flash('messageError', 'El equipo que ingreso no existe. Vuelve a intentarlo.'));
-        }
     }
-        else if(area === 3) {
+        else if(stringLocation[0].nombre === 'L. Pred') {
 
-            const realequipo = await pool.query('SELECT id FROM equipo WHERE (numero = ?) AND (id_tipoequipo = ?)', [numeroequipo, equipo]);
-    
-            if(realequipo.length > 0){
 
             const {
                 piezas, cct, cst, terminal, manga, empalme,
@@ -93,10 +95,9 @@ router.post('/save', async (req, res) => {
                 procesos, otroscalidad, otrostiempos, comments
             } = req.body;
               
-            const idEquipo = realequipo[0].id;
     
             const datosProduccion = {
-                 id_equipo: idEquipo, piezas, turno, id_usuario: user
+                 id_equipo: equipo, piezas, turno, id_usuario: user
             };
 
             const resultProd = await pool.query('INSERT INTO produccion SET ?', [datosProduccion]);
@@ -143,25 +144,19 @@ router.post('/save', async (req, res) => {
             }else{
                 return res.redirect('/produccionleadp', 500, req.flash('messageError', 'Ha ocurrido un error al guardar los datos de producción. Vuelve a intentarlo.'));
             }
-        }else{
-            return res.redirect('/produccionleadp', 500, req.flash('messageError', 'El equipo que ingreso no existe. Vuelve a intentarlo.'));
-        }
 
         } else{
 
-            const realequipo = await pool.query('SELECT id FROM equipo WHERE (numero = ?) AND (id_tipoequipo = ?)', [numeroequipo, equipo]);
-    
-            if(realequipo.length > 0){
+        
             const {
                 piezas, cintavinil, cintagarra, cable, componentes,
                 errores, defectos, calidad, mantenimiento, materiales,
                 procesos, otroscalidad, otrostiempos, comments
             } = req.body;
-              
-            const idEquipo = realequipo[0].id;
+            
     
             const datosProduccion = {
-                 id_equipo: idEquipo, piezas, turno, id_usuario: user
+                 id_equipo: equipo, piezas, turno, id_usuario: user
             };
 
             const resultProd = await pool.query('INSERT INTO produccion SET ?', [datosProduccion]);
@@ -208,9 +203,6 @@ router.post('/save', async (req, res) => {
             }else{
                 return res.redirect('/produccionlinea', 500, req.flash('messageError', 'Ha ocurrido un error al guardar los datos de producción. Vuelve a intentarlo.'));
             }
-            }else{
-                return res.redirect('/produccionlinea', 500, req.flash('messageError', 'El equipo que ingreso no existe. Vuelve a intentarlo.'));
-        }
     }
 });
 
