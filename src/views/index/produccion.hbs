@@ -31,7 +31,7 @@
                                 {{/each}}
                             </select>
                             
-                            <input type="text" name="piezas" id="pzs" placeholder="Piezas" required>
+                            <input type="text" name="piezas" id="pzs" placeholder="Piezas" required autocomplete="off">
                         </div>
                         <div class="resultproduccion">
                            
@@ -47,33 +47,40 @@
                                 <h4 class="subtitulos">Calidad</h4>
                                 <div class="form-bodycalidad">
                                     <ul>
-                                        <li>CST: <input type="text" name="cst" id="cst" required value="0"></li>
-                                        <li>CCT: <input type="text" name="cct" id="cct" required value="0"></li>
-                                        <li>Terminal: <input type="text" name="terminal" id="terminal" required value="0"></li>
-                                        <li>Otros: <input type="text" name="otroscalidad" id="otros" required value="0"></li>
+                                        <li>CST: <input type="text" name="cst" id="cst" required value="0" autocomplete="off"></li>
+                                        <li>CCT: <input type="text" name="cct" id="cct" required value="0" autocomplete="off"></li>
+                                        <li>Terminal: <input type="text" name="terminal" id="terminal" required value="0" autocomplete="off"></li>
+                                        <li>Otros: <input type="text" name="otroscalidad" id="otros" required value="0" autocomplete="off"></li>
                                     </ul>
                                 </div>
                                 <div class="formheadercalidad">
                                     <hr>
                                     <div class="box1Calidad">
-                                        <span class="icon-smile"></span>
+                                        
                                     </div>
                                     <div class="box2Calidad">
-                                        <span>Efectividad</span>
+                                        <span>Generado</span>
                                         <span id="porcentajecalidad">0%</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="formotros">
-                                <h4 class="subtitulos">Otros</h4>
+                                <h4 class="subtitulos">FTQ</h4>
                                 <div class="form-bodyotros">
                                     <ul>
-                                        <li>Errores: <input type="text" name="errores" id="" required value="0"></li>
-                                        <li>Defectos: <input type="text" name="defectos" id="" required value="0"></li>
+                                        <li>Errores: <input type="text" name="errores" id="errores" required value="0" autocomplete="off"></li>
+                                        <li>Defectos: <input type="text" name="defectos" id="defectos" required value="0" autocomplete="off"></li>
                                     </ul>
                                 </div>
                                 <div class="formheaderotros">
-
+                                    <hr>
+                                    <div class="box1Otros">
+                                        
+                                    </div>
+                                    <div class="box2Otros">
+                                        <span>Generado</span>
+                                        <span id="porcentajeOtros">0%</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -82,24 +89,31 @@
                                 <h4 class="subtitulos">Tiempo muerto</h4>
                                 <div class="form-bodytiempo">
                                     <ul>
-                                        <li>Calidad: <input type="text" name="calidad" id="" required value="0"></li>
-                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="" required value="0"></li>
-                                        <li>Materiales: <input type="text" name="materiales" id="" required value="0"></li>
-                                        <li>CDD: <input type="text" name="cdd" id="" required value="0"></li>
-                                        <li>Procesos: <input type="text" name="procesos" id="" required value="0"></li>
-                                        <li>Enrredos: <input type="text" name="enrredos" id="" required value="0"></li>
-                                        <li>Atorones: <input type="text" name="atorones" id="" required value="0"></li>
-                                        <li>Sello: <input type="text" name="sello" id="" required value="0"></li>
-                                        <li>Setup A: <input type="text" name="setupa" id="" required value="0"></li>
-                                        <li>Setup B: <input type="text" name="setupb" id="" required value="0"></li>
-                                        <li>Setup C: <input type="text" name="setupc" id="" required value="0"></li>
-                                        <li>Setup D: <input type="text" name="setupd" id="" required value="0"></li>
-                                        <li>Ajuste: <input type="text" name="ajuste" id="" required value="0"></li>
-                                        <li>Otros: <input type="text" name="otrostiempos" id="" required value="0"></li>
+                                        <li>Calidad: <input type="text" name="calidad" id="calidad" required value="0" autocomplete="off"></li>
+                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="mantto" required value="0" autocomplete="off"></li>
+                                        <li>Materiales: <input type="text" name="materiales" id="materiales" required value="0" autocomplete="off"></li>
+                                        <li>CDD: <input type="text" name="cdd" id="cdd" required value="0" autocomplete="off"></li>
+                                        <li>Procesos: <input type="text" name="procesos" id="procesos" required value="0" autocomplete="off"></li>
+                                        <li>Enrredos: <input type="text" name="enrredos" id="enrredos" required value="0" autocomplete="off"></li>
+                                        <li>Atorones: <input type="text" name="atorones" id="atorones" required value="0" autocomplete="off"></li>
+                                        <li>Sello: <input type="text" name="sello" id="sello" required value="0" autocomplete="off"></li>
+                                        <li>Setup A: <input type="text" name="setupa" id="setupa" required value="0" autocomplete="off"></li>
+                                        <li>Setup B: <input type="text" name="setupb" id="setupb" required value="0" autocomplete="off"></li>
+                                        <li>Setup C: <input type="text" name="setupc" id="setupc" required value="0" autocomplete="off"></li>
+                                        <li>Setup D: <input type="text" name="setupd" id="setupd" required value="0" autocomplete="off"></li>
+                                        <li>Ajuste: <input type="text" name="ajuste" id="ajuste" required value="0" autocomplete="off"></li>
+                                        <li>Otros: <input type="text" name="otrostiempos" id="otrosTiempos" required value="0" autocomplete="off"></li>
                                     </ul>
                                 </div>
                                 <div class="formheadertiempo">
-
+                                        <div class="box1Tiempo">
+                                            <p>Tiempo disponible</p>
+                                            <input type="hidden" name="" id="tiemposDisponible" value="504"><h3 id="textTiempoDisponible">504</h3>
+                                        </div>
+                                        <div class="box2Tiempo">
+                                            <p>Total: <span id="totalTiempoMuerto">0</span></p>
+                                            <p>Resta: <span id="restaTiempoMuerto">504</span></p> 
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +121,7 @@
                 </div>
             </div>
             <div class="col-md-3 right">
-                <input type="text" id="mess" placeholder="Comentario">
+                <input type="text" id="mess" placeholder="Comentario" autocomplete="off">
                 <div id="boxmessages">
                     
                 </div>

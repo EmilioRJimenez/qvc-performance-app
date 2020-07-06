@@ -1,0 +1,74 @@
+<div class="container-board" id="container-board">
+  <div class="left-board">
+    <div class="left-board-top">
+      <form action="">
+        <select name="reporte" id="reporte" class="reporte">
+          <option value="produccion">Produccion</option>
+          <option value="tiempo">Tiempo muerto</option>
+          <option value="scrap">Srap</option>
+          <option value="oee">OEE</option>
+        </select>
+
+        <select name="turno" id="turno" class="turno">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="Ambos">Ambos</option>
+        </select>
+
+        <select name="tipo" id="tipo" class="tipo">
+          <option value="equipo">Equipo</option>
+          <option value="tipoequipo">Tipo de equipo</option>
+          <option value="tiposcrap">Tipo de scrap</option>
+        </select>
+
+        <select name="opcion" id="opcion">
+          <option value="Todo">Todo</option>
+        </select>
+
+        
+
+        <input type="date" name="fechaInicio" id="fechaInicio" class="fechaInicio">
+
+        <input type="date" name="fechaFin" id="fechaFin" class="fechaFin">
+
+        <button id="btnGenerarGrafica"><span class="icon-paint-format"></span></button>
+      </form>
+    </div>
+    <div class="left-board-bottom">
+        <div class="chart-container">
+           <canvas id="myChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="right-board">
+    <div class="right-board-content">
+      <div class="top">
+        <h5>Resumen general de operaciones</h5>
+      </div>
+
+      <div class="middle">
+        <p class="totalProduccion">Total:</p>
+        <h3 id="producciontotal">0.00</h3>
+        <p>Esperado: <span id="produccionesperada">0000.0</span></p>
+        <hr>
+        
+        <p class="producciondiferencia">Direrencia: <span id="producciondiferencia">0000.0</span></p>
+        
+      </div>
+
+      <div class="bottom">
+        <canvas id="chartResumen"></canvas>
+        <div class="efectividad">
+            <p>Efectividad:</p>
+            <h1 id="produccionEfectividad">0%</h1>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div> 
+ 
+ 
+
+ <!--
+    -->

@@ -17,7 +17,6 @@ router.get('/inicio', getUser, (req, res) => {
     const infoUsuario = req.infoUsuario;
     
     res.render('index/inicio', {
-        title: 'Inicio',
         infoUsuario
     });
 });
@@ -39,7 +38,6 @@ router.get('/produccionleadp', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
     const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
     res.render('./index/produccion_leadp', {
-        title: 'Producción',
         tipoequipo,
         infoUsuario
     });
@@ -50,7 +48,6 @@ router.get('/produccioncorte', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
     const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
     res.render('./index/produccion', {
-        title: 'Producción',
         tipoequipo,
         infoUsuario
     });
@@ -61,7 +58,6 @@ router.get('/produccionlinea', getUser, async (req, res) => {
     const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
     
     res.render('./index/produccion_linea', {
-        title: 'Producción',
         tipoequipo,
         infoUsuario
     });
@@ -71,7 +67,7 @@ router.get('/tablero', getUser, async (req, res) => {
     const infoUsuario = req.infoUsuario;
 
     res.render('index/tablero', {
-        title: 'Tablero',
+        title: 'Dashboard',
         infoUsuario
     });
 });
@@ -84,7 +80,6 @@ router.get('/equipos', getUser, async (req, res) => {
     if(infoUsuario[0].rol === 'Administrador'){
         const locacion = await pool.query('SELECT * FROM locaciones');
         res.render('index/equipos', {
-            title: 'Equipos',
             equipo,
             tipoequipo,
             locacion,
@@ -94,7 +89,6 @@ router.get('/equipos', getUser, async (req, res) => {
     else{
       
         res.render('index/equipos', {
-            title: 'Equipos',
             equipo,
             tipoequipo,
             infoUsuario
@@ -111,7 +105,6 @@ router.get('/usuarios', getUser, async (req, res) => {
     const locacion = await pool.query('SELECT * FROM locaciones ORDER BY nombre ASC');
 
     res.render('index/usuarios', {
-        title: 'Usuarios',
         infoUsuario, usuarios, rol, locacion
     });
 });
@@ -123,7 +116,6 @@ router.get('/ajustes', getUser, async (req, res) => {
     const tipoequipo = await pool.query('SELECT * FROM tipo_equipo');
 
     res.render('index/ajustes', {
-        title: 'Otros',
         infoUsuario,
         locaciones,
         tipoequipo

@@ -2,6 +2,7 @@
     margin: 0px;
     padding: 0px;
     font-size: 15px;
+    font-family: 'Arial' !important;
 }
 
 .principalBody{
@@ -15,7 +16,7 @@
     width: 15vw;
     height: 100vh;
     flex-direction: column;
-    background: #323e48;
+    background: #2a3f53;
 }
 .right {
     
@@ -23,7 +24,7 @@
     width: 85vw;
     height: 100vh;
     flex-direction: column;
-    background: #dfe5e9;
+    background: #f8f8f6;
 }
 
 .top {
@@ -33,7 +34,7 @@
     height: 7vh;
 }
 .left .top {
-    background: #f0f3f5;
+    background: #2a3f53;
 }
 
 .left .middle {
@@ -85,7 +86,7 @@
     align-items: center;
     text-decoration: none;
     font-size: 20px;
-    font-family: 'Agency Fb';
+    font-family: 'Agency Fb' !important;
     color: #dfe5e9;
 }
 .left .middle nav ul li a span {
@@ -117,7 +118,7 @@
     padding-top: 3px;
     text-decoration: none;
     font-weight: 600;
-    color: #000;
+    color: #fff;
 }
 .left .top h1 a span {
     font-size: 30px;
@@ -149,15 +150,16 @@
     justify-content: center;
 }
 .left .bottom .info .user p {
-    font-family: 'Agency Fb';
+    font-family: 'Agency Fb' !important;
     margin:0px;
     font-size: 17px;
     color: #fff;
+    font-weight: normal;
 }
 .left .bottom .info .user h4 {
     font-size: 20px;
-    font-family: 'Poiret One';
-    color: #007BFF;
+    font-family: 'Poiret One' !important;
+    color: #23b78d;
     font-weight: bold;
     font-size: 25px;
 }
@@ -170,13 +172,13 @@
     justify-content: flex-end;
 }
 .left .bottom .info .area p {
-    font-family: 'Agency Fb';
+    font-family: 'Agency Fb' !important;
     color: #fff;
     font-size: 17px;
 }
 .left .bottom .info .area h1 {
     font-weight: bold;
-    font-family: 'Poiret One';
+    font-family: 'Poiret One' !important;
     margin: 0px;
     color: #ccc;
 }
@@ -186,7 +188,7 @@
     justify-content: flex-end;
     align-items: center;
     /*background: #ff6938;*/
-    background: #f0f3f5;
+    background: #ebebeb;
 }
 .right .top a{  
     display: flex; 
@@ -214,7 +216,7 @@
     height: 95%;
     overflow: scroll;
     overflow-x: hidden;
-    background: #dfe5e9 !important;
+    background: #f8f8f6 !important;
     padding: 0px;
 }
 
@@ -229,7 +231,7 @@
     border-radius: 2px;
 }
 
-
+/***********************/
 .bodysignin {
     display: flex;
     width: 100%;
@@ -237,15 +239,17 @@
     justify-content: flex-end;
     padding: 15%;
     align-items: center;
+    background: linear-gradient(to bottom, #2a3f53, #fff);
 }
 .bodysignin .contentform {
+    background: #fff !important;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
     width: 350px;
     height: 500px;
-    box-shadow: 0 0 15px 2px #b4b4b4d3;
+    box-shadow: 0 0 15px 2px #6C757D;
     padding: 15px;
     position: relative;
 }
@@ -255,20 +259,21 @@
     justify-content: flex-end;
     width: 90%;
     height: 100%;
+    color: #444;
 }
 .contentform h1{
     font-size: 34px;
-    font-family: 'Agency Fb';
+    font-family: 'Arial';
     text-decoration: none;
-    color: #333;
+    color: #444;
     font-weight: bold;
     display: flex;
     justify-content: center;
     padding-top: 50px;
 }
 .contentform label {
-    font-family: 'Agency Fb';
-    font-size: 20px;
+    font-family: 'Arial';
+    font-size: 15px;
 }
 .contentform h1 .performance {
     font-size: 25px;
@@ -280,16 +285,14 @@
 }
 .bodysignin form input {
     border-radius: 1px;
-    font-family: 'Agency Fb';
-}
-.bodysignin {
-    /*background: rgba(250, 250, 250, 0.897);*/
+    font-family: 'Arial';
+    
 }
 .bodysignin .contentform {
-    background: #fff;
+    background: #fff8fc;
 }
 .bodysignin form input[type="submit"] {
-    background: #f74018;
+    background: #2a3f53;
 }
 
 .aptiv::before {
@@ -320,12 +323,12 @@
     box-shadow: none;
 }
 .bodysignin form input[type="email"]{
-    color: #f74018;
-    border-color: #f74018;
+    color: #2a3f53;
+    border-color: #2a3f53;
 }
 .bodysignin form input[type="password"]{
-    color: #f74018;
-    border-color: #f74018;
+    color: #2a3f53;
+    border-color: #2a3f53;
 }
 
 
@@ -424,17 +427,18 @@
 }
 #produccioncorte input {
     border: solid 1px #6C757D;
+    margin-right: 10px;
 }
 #produccioncorte input:focus {
-    border: solid 1px #f74018 !important;
+    border: solid 1px #23b78d !important;
     outline-style: none;
+    box-shadow: 0 0 1px 1px #23b78d;
 }
 #produccioncorte .left {
     height: 650px;
-    background: #dfe5e9;
+    background: #f8f8f6;
 }
 #produccioncorte .left .principal {
-    
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -460,7 +464,7 @@
     padding: 1%;
     align-items: center;
     border-radius: 5px;
-   
+   box-shadow: 0 0 3px 1px #ccc;
 }
 
 #produccioncorte .left .principal .box1 .formproduccion select {
@@ -485,7 +489,7 @@
     width: 19%;
     height: 100%;
     border-radius: 5px;
-
+    box-shadow: 0 0 3px 1px #ccc;
 }
 
 #produccioncorte .left .principal .box2 {
@@ -513,7 +517,7 @@
     height: 60%;
     flex-direction: column; 
     border-radius: 5px;
-
+    box-shadow: 0 0 3px 1px #ccc;
 }
 
 #produccioncorte .left .principal .box2 .columnaleft .formcalidad h4 {
@@ -579,7 +583,7 @@
     height: 38%;
     flex-direction: column;
     border-radius: 5px;
-    
+    box-shadow: 0 0 3px 1px #ccc;
 }
 
 #produccioncorte .left .principal .box2 .columnaleft .formotros h4 {
@@ -653,7 +657,7 @@
     height: 100%;
     flex-direction: column;
     border-radius: 5px;
-    
+    box-shadow: 0 0 3px 1px #ccc;
 }
 
 #produccioncorte .left .principal .box2 .columnaright .formtiempo h4 {
@@ -705,26 +709,27 @@
 }
 
 #produccioncorte .right {
-    background: #fff;
     display: flex;
-    height: 646px;
-    margin: 0px;
+    height: 650px;
+    margin: 0px !important;
     padding: 0px;
+    z-index: 100;
     align-items: center;
     margin-top: 2px;
     overflow: hidden;
-    
 }
 #produccioncorte .right #mess {
-    margin: 22px 10px;
+    margin: 5px 10px;
     margin-right: 25px;
     width: 90%;
+    height: 72px;
     padding: 5px;
-    border: solid 1px #000;
+    border: none;
+    box-shadow: 0 0 3px 1px #ccc;
 }
 .right #mess:focus {
-    outline-color: #134D76;
-    border: solid 1px #134D76 !important;
+    outline: none;
+    border: none !important;
     padding: 5px;
 }
 
@@ -735,18 +740,18 @@
     height: 515px;
     margin-right: 15px;
     flex-direction: column;
+    align-items: center;
     overflow: scroll;
     overflow-x: hidden;
 }
 
 #produccioncorte .right #boxmessages .comment {
-    width: 100%;
+    width: 98%;
     height: 70px;
     margin: 8px 0px;
     padding: 5px;
     resize: none;
-
-    border-style: none;
+    background: #fff;
     color: #6C757D;
     font-weight: 500;
     display: flex;
@@ -755,7 +760,10 @@
     overflow-x: hidden;
     font-size: 12px;
     text-align: right;
-    border-right: solid 2px #134D76;
+    border: solid 1px #23b78d;
+    border-right: solid 2px #23b78d;
+    box-shadow: 0 0 3px 1px #ccc;
+    border-radius: 3px;
 }
 #produccioncorte .right #boxmessages .comment:focus {
     outline: none !important;
@@ -784,10 +792,10 @@
 
 #produccioncorte .right input[type="submit"] {
     position: absolute;
-    bottom: 10px;
+    bottom: 2px;
     width: 90%;
     height: 50px;
-    right: 24px;
+    right: 13px;
     border-style: none;
     background: rgb(47, 144, 255);
     color: #fff;
@@ -853,7 +861,9 @@
 
 /********Estilo de tablas**********/
 .tablas {
-    background: #fff; 
+    width: 98%;
+    background: #fff;
+    box-shadow: 0 0 3px 1px #ccc; 
 }
 #example td{
     margin: 0px;
@@ -864,14 +874,13 @@
 }
 #example .btnacciones {
     margin: 0px;
-    padding: 5px 10px;
+    padding: 0px 10px;
     text-align: center;
 }
 #example .btnacciones button {
     width: 50px;
 }
 .dinamico .container-fluid {
-    
     padding: 25px 10px;
     /*border: solid 1px #f74018;*/
 }
@@ -919,7 +928,7 @@
     width: 250px;
     height: 30px;
     position: absolute;
-    left: 750px;
+    left: 700px !important;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -944,10 +953,15 @@ color: #fff !important;
 
 
 /********Estilo de tablas**********/
+
+
 .tablas {
+    margin: auto;
+    margin-bottom: 15px;
     background: #fff;
     padding: 10px; 
     margin-top: 15px;
+    
 }
 #example2 td{
     margin: 0px;
@@ -1090,6 +1104,8 @@ color: #fff !important;
     padding-left: 17px;
     color: red;
 }
+
+
 .formheadercalidad .box1Calidad .icon-neutral {
     font-size: 40px;
     padding-left: 17px;
@@ -1104,7 +1120,7 @@ color: #fff !important;
     margin: 0px;
     justify-content: center;
     align-items: flex-end;
-    padding-right: 17px;
+    padding-right: 25px;
 }
 .formheadercalidad .box2Calidad #porcentajecalidad {
     font-size: 32px;
@@ -1119,3 +1135,331 @@ color: #fff !important;
     font-weight: bold;
     letter-spacing: 1px;
 }
+
+
+
+.formheaderotros {
+    display: flex;
+    width: 100%;
+    height: 100%;
+
+    padding: 0px;
+    margin: 0px;
+    align-items: center;
+    border-top: solid 2px #efefef;
+}
+
+.formheaderotros .box1Otros {
+    display: flex;
+    width: 50%;
+    height: 100%;
+   
+    margin: 0px;
+    align-items: center;
+    
+}
+
+
+.formheaderotros .box1Otros .icon-smile2 {
+    font-size: 40px;
+    padding-left: 17px;
+    color: green;
+}
+.formheaderotros .box1Otros .icon-sad2 {
+    font-size: 40px;
+    padding-left: 17px;
+    color: red;
+}
+
+
+.formheaderotros .box1Otros .icon-neutral2 {
+    font-size: 40px;
+    padding-left: 17px;
+    color: #FBCD00;
+}
+.formheaderotros .box2Otros {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    
+    margin: 0px;
+    justify-content: center;
+    align-items: flex-end;
+    padding-right: 25px;
+}
+.formheaderotros .box2Otros #porcentajeOtros {
+    font-size: 32px;
+    font-weight: bold;
+    color: green;
+    text-shadow: 0px 0px 2px #ccc;
+    letter-spacing: 0px;
+}
+.formheaderotros .box2Otros span {
+    font-size: 12px;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+.formheadertiempo {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    padding: 0px;
+    margin: 0px;
+    padding-top: 10px;
+    align-items: center;
+    justify-content: center;
+    border-top: solid 2px #efefef;
+    
+}
+
+.formheadertiempo .box1Tiempo {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    margin: 0px;
+    align-items: flex-start;
+    justify-content: center;
+    
+    padding-left: 30px;
+}
+.formheadertiempo .box1Tiempo p {
+   
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.formheadertiempo .box1Tiempo h3 {
+  
+    margin: 0px;
+    padding: 0px;
+   
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+.formheadertiempo .box2Tiempo {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    
+    margin: 0px;
+    justify-content: center;
+    align-items: flex-end;
+    padding-right: 40px;
+    
+}
+
+.formheadertiempo .box2Tiempo p {
+    
+    padding: 0px;
+    margin: 0px;
+    font-size: 12px;
+    color: #134D76;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.formheadertiempo .box2Tiempo p span {
+    padding: 0px;
+    margin: 0px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+#totalTiempoMuerto {
+    color: green;
+}
+#restaTiempoMuerto {
+    color: green;
+}
+
+#textTiempoDisponible::after {
+    content: 'min';
+    font-size: 15px;
+    color: #323e48;
+    font-weight: bold;
+    letter-spacing: 0px;
+}
+
+
+
+.container-board {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.left-board {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: space-between;
+}
+
+.left-board-top{
+    display: fleX;
+    width: 99%;
+    height: 10%;
+    border-radius: 5px;
+    background: white;
+}
+.left-board-bottom {
+    display: flex;
+    width: 99%;
+    height: 89%;
+    border-radius: 5px;
+    background: white;
+}
+
+.left-board-top form {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.right-board {
+    display: flex;
+    width: 20%;
+    height: 100%;
+}
+.right-board-content {
+    background: white;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.chart-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin: 0px;
+    padding: 0px;
+}
+.chart-container #myChart {
+    display: flex !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+#btnGenerarGrafica {
+    border: solid 1px;
+    width: 28px;
+    height: 28px;
+}
+
+.right-board .right-board-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+}
+
+.right-board-content .top {
+    display: flex;
+    width: 100%;
+    height: 15%;
+
+}
+.right-board-content .top h5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px; 
+    background: #2a3f53;
+}
+.right-board-content .middle {
+
+    display: flex;
+    width: 100%;
+    height: 40%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    padding: 15px;
+}
+
+.right-board-content .middle h3 {
+
+    display: flex; 
+    width: 100%;
+    justify-content: flex-end;
+    margin: 0px;
+    padding: 0px;
+}
+.right-board-content .middle p {
+    display: fleX;
+    width: 100%;
+
+    justify-content: space-between;
+    margin: 0px;
+    padding: 0px;
+}
+.right-board-content .middle p span {
+    
+}
+.right-board-content .middle .totalProduccion {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 10px 0px;
+    padding: 0px;
+}
+.right-board-content .middle .producciondiferencia {
+    margin-top: 15px;
+    border-top: solid 1px #000;
+    margin-top: -20px;
+    padding: 10px 0px;
+}
+.right-board-content .bottom {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+}
+.right-board-content .bottom canvas {
+    display: flex;
+    width: 100%;
+    z-index: 100 !important;
+    justify-content: center;
+    align-items: center;
+
+}
+.right-board-content .bottom .efectividad {
+    display: flex;
+    width: 100%;
+    height: 55%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5px;
+}
+
