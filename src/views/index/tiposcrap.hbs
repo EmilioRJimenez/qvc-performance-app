@@ -25,12 +25,10 @@
 
         </div>
         <div class="content-table">
-            
             <div class="col-lg-12">
                 <div>
                     <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
-                        <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter2">Registrar nuevo
-                            modelo.</a>
+                        <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter2">Registrar tipo de scrap.</a>
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -41,17 +39,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each tipoequipo}}
+                            {{#each tiposcrap}}
                             <tr class="numero">
                                 <td>{{id}}</td>
                                 <td>{{nombre}}</td>
 
                                 <td class="btnacciones">
                                     {{#if estado}}
-                                    <a href="/otros/disablemodel/{{id}}" class="btn btn-success"><span
+                                    <a href="/tiposcrap/disable/{{id}}" class="btn btn-success"><span
                                             class="icon-unlocked"></span></a>
                                     {{else}}
-                                    <a href="/otros/enablemodel/{{id}}" class="btn btn-danger"><span
+                                    <a href="/tiposcrap/enable/{{id}}" class="btn btn-danger"><span
                                             class="icon-lock"></span></a>
                                     {{/if}}
                                 </td>
@@ -77,18 +75,18 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Registro de áreas</h5>
+                            <h5 class="modal-title" id="exampleModalLongTitle">Registro de tipos de scrap</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form action="/otros/model" method="post" class="">
+                        <form action="/tiposcrap/savetiposcrap" method="post" class="">
                             <div class="modal-body">
 
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="">Modelo:</label>
+                                            <label for="">Nombre:</label>
                                             <input type="text" name="nombre" class="form-control" required>
                                         </div>
                                     </div>
@@ -152,7 +150,7 @@
 
                     nodoContenedorForm2.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos' +
 
-                        '<form name = "formulario" action="/otros/updatemodel/' + document.querySelector('#idmodel').value + '" method="POST">' +
+                        '<form name = "formulario" action="/tiposcrap/updatetiposcrap/' + document.querySelector('#idmodel').value + '" method="POST">' +
 
                         '<input type="hidden" name="nombre" value="' + document.querySelector('#nombremodel').value + '">' +
 

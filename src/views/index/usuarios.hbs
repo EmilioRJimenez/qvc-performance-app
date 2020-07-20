@@ -1,12 +1,11 @@
-
 <div class="container-fluid tablas">
     {{#if success}}
-        <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
+    <div class="alert alert-success alert-dismissible fade show custom-alert" role="alert">
         {{success}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        </div>
+    </div>
     {{/if}}
     {{#if messageError}}
     <div class="alert alert-danger alert-dismissible fade show custom-alert" role="alert">
@@ -14,145 +13,138 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        </div>
+    </div>
     {{/if}}
     <div id="contenedorForm">
 
     </div>
     <div class="content-table">
-                        <div class="col-lg-12">
-                            <div>        
-                                <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
-                                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter">Registrar nuevo usuario</a>
-                                <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Usuario</th>
-                                        <th>Email</th>                               
-                                        <th>Teléfono</th>
-                                        <th>Rol</th>
-                                        <th>Locación</th>
-                                        <th>Turno</th>
-                                        <th class="hacciones">Estatus</th>
-                                        <th class="hacciones">Editar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{#each usuarios}}
-                                    <tr class="numero">
-                                        <td>{{id}}</td>
-                                        <td>{{usuario}}</td>
-                                        <td>{{email}}</td>
-                                        <td>{{telefono}}</td>
-                                        <td>{{rol}}</td>
-                                        <td>{{locacion}}</td>
-                                        <td>{{turno}}</td>
-                                        
-                                        <td class="btnacciones">
-                                            {{#if estado}}
-                                            <a href="/usuarios/disable/{{id}}" class="btn btn-success"><span class="icon-unlocked"></span></a>
-                                            {{else}}
-                                            <a href="/usuarios/enable/{{id}}" class="btn btn-danger"><span class="icon-lock"></span></a>
-                                            {{/if}}
-                                            
-                                        </td>
-                                        <td class="btnacciones btnedit"><span class="btn btn-dark editar" onclick="transformarEnEditable(this);"><i class="icon-pencil"></i></span></td>
-                                    </tr>  
-                                    {{/each}}                  
-                                </tbody>        
-                            </table>                  
+        <div class="col-lg-12">
+            <div>
+                <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                    <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter">Registrar nuevo
+                        usuario</a>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Usuario</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Rol</th>
+                            <th>Turno</th>
+                            <th class="hacciones">Estatus</th>
+                            <th class="hacciones">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each usuarios}}
+                        <tr class="numero">
+                            <td>{{id}}</td>
+                            <td>{{usuario}}</td>
+                            <td>{{email}}</td>
+                            <td>{{telefono}}</td>
+                            <td>{{rol}}</td>
+                            <td>{{turno}}</td>
+
+                            <td class="btnacciones">
+                                {{#if estado}}
+                                <a href="/usuarios/disable/{{id}}" class="btn btn-success"><span
+                                        class="icon-unlocked"></span></a>
+                                {{else}}
+                                <a href="/usuarios/enable/{{id}}" class="btn btn-danger"><span
+                                        class="icon-lock"></span></a>
+                                {{/if}}
+
+                            </td>
+                            <td class="btnacciones btnedit"><span class="btn btn-dark editar"
+                                    onclick="transformarEnEditable(this);"><i class="icon-pencil"></i></span></td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Registro de usuarios</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/save" method="post" class="">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="">
+                                <label for="">Nombre de usuario: </label>
+                                <input type="text" name="usuario" id="" class="form-control" required autofocus>
+                            </div>
+                            <div class="">
+                                <label for="">Email: </label>
+                                <input type="email" name="email" id="" class="form-control" required>
                             </div>
                         </div>
-                </div>           
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="">
+                                <label for="">Telefono: </label>
+                                <input type="phone" name="telefono" id="" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="">Turno:</label>
+                                <select name="turno" id="" class="form-control" required>
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <label for="">Rol:</label>
+                                <select name="rol" id="" class="form-control" required>
+                                    {{#each rol}}
+                                    <option value="{{id}}">{{nombre}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="">Contraseña: </label>
+                                <input type="password" name="password" id="" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Repita la contraseña: </label>
+                                <input type="password" name="password2" id="" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <input type="submit" name="" value="Guardar" id="" class="btn btn-primary">
+            </div>
+            </form>
         </div>
     </div>
-
-    <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Registro de usuarios</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-    <form action="/save" method="post" class="">
-    <div class="row">
-        <div class="col-sm-12">
-             <div class="">
-                <label for="" >Nombre de usuario: </label>
-                <input type="text" name="usuario" id="" class="form-control" required autofocus>
-            </div>
-            <div class="">
-                <label for="" >Email: </label>
-                <input type="email" name="email" id="" class="form-control" required>
-            </div>
-        </div>
-    </div>
-       <div class="row">
-           <div class="col-sm-8">
-               <div class="">
-                    <label for="">Telefono: </label>
-                    <input type="phone" name="telefono" id="" class="form-control" required>
-                </div>
-           </div>
-           <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="">Area:</label>
-                    <select name="locacion" id="" class="form-control" required>
-                        {{#each locacion}}
-                            <option value="{{id}}">{{nombre}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-           </div>
-       </div>
-
-        <div class="row">
-            <div class="col-sm-3">
-                <div class="form-group">
-                    <label for="">Turno:</label>
-                    <select name="turno" id="" class="form-control" required>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-9">
-                <div class="form-group">
-                    <label for="">Rol:</label>
-                    <select name="rol" id="" class="form-control" required>
-                        {{#each rol}}
-                            <option value="{{id}}">{{nombre}}</option>
-                        {{/each}}
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label for="">Contraseña: </label>
-                    <input type="password" name="password" id="" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="">Repita la contraseña: </label>
-                    <input type="password" name="password2" id="" class="form-control" required>
-                </div>
-            </div>
-        </div>
-    
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <input type="submit" name="" value="Guardar" id="" class="btn btn-primary">
-      </div>
-      </form> 
-    </div>
-  </div>
 </div>
 
 
@@ -160,94 +152,92 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
 
-        var editando=false;
+    var editando = false;
 
- 
 
-function transformarEnEditable(nodo){
 
-//El nodo recibido es SPAN
+    function transformarEnEditable(nodo) {
 
-if (editando == false) {
+        //El nodo recibido es SPAN
 
-var nodoTd = nodo.parentNode; //Nodo TD
+        if (editando == false) {
 
-var nodoTr = nodoTd.parentNode; //Nodo TR
+            var nodoTd = nodo.parentNode; //Nodo TD
 
-var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+            var nodoTr = nodoTd.parentNode; //Nodo TR
 
-var nodosEnTr = nodoTr.getElementsByTagName('td');
+            var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
 
-var id = nodosEnTr[0].textContent; var usuario = nodosEnTr[1].textContent;
+            var nodosEnTr = nodoTr.getElementsByTagName('td');
 
-var email = nodosEnTr[2].textContent; var telefono = nodosEnTr[3].textContent;
+            var id = nodosEnTr[0].textContent; var usuario = nodosEnTr[1].textContent;
 
-var rol = nodosEnTr[4].textContent; var locacion = nodosEnTr[5].textContent;
+            var email = nodosEnTr[2].textContent; var telefono = nodosEnTr[3].textContent;
 
-var turno = nodosEnTr[6].textContent;
+            var rol = nodosEnTr[4].textContent;
 
-var nuevoCodigoHtml = '<td><input type="text" name="id" id="id" value="'+id+'" size="3" disabled></td>'+
-                      '<td><input type="text" name="usuario" id="usuario" value="'+usuario+'"></td>'+
-                      '<td><input type="text" name="email" id="email" value="'+email+'"></td>'+
-                      '<td><input type="text" name="telefono" id="telefono" value="'+telefono+'" size="8"> </td>'+
-                      '<td><select name="rol" id="rol"><option>'+rol+'</option>{{#each rol}}<option value="{{id}}">{{nombre}}</option>{{/each}}</select></td>' + 
-                      '<td><select name="locacion" id="locacion"><option>'+locacion+'</option>{{#each locacion}}<option value="{{id}}">{{nombre}}</option>{{/each}}</select></td>'; 
+            var turno = nodosEnTr[5].textContent;
 
-                if(turno === 'A'){
+            var nuevoCodigoHtml = '<td><input type="text" name="id" id="id" value="' + id + '" size="3" disabled></td>' +
+                '<td><input type="text" name="usuario" id="usuario" value="' + usuario + '"></td>' +
+                '<td><input type="text" name="email" id="email" value="' + email + '"></td>' +
+                '<td><input type="text" name="telefono" id="telefono" value="' + telefono + '" size="8"> </td>' +
+                '<td><select name="rol" id="rol"><option>' + rol + '</option>{{#each rol}}<option value="{{id}}">{{nombre}}</option>{{/each}}</td>';
+
+            if (turno === 'A') {
                 nuevoCodigoHtml += '<td><select name="turno" id="turno"><option value="A">A</option><option value="B">B</option></select></td>';
-                }else{
+            } else {
                 nuevoCodigoHtml += '<td><select name="turno" id="turno"><option value="B">B</option><option value="A">A</option></select></td>';
-                }
+            }
 
 
             nodoTr.innerHTML = nuevoCodigoHtml;
 
-    nodoContenedorForm.innerHTML =  '<div class="alert alert-info alert-dismissible fade show contentAlert"><p>Una vez modificada la información del usuario. Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>'+
-                                    '<form name = "formulario" action=" method="get" onsubmit="capturarEnvio()" onreset="anular()">'+
-                                    '<input class="boton" type="reset" value="Cancelar"><input class="boton" type = "submit" value="Aceptar"></div>';
-                                    editando = "true";}
+            nodoContenedorForm.innerHTML = '<div class="alert alert-info alert-dismissible fade show contentAlert"><p>Una vez modificada la información del usuario. Pulse Aceptar para guardar los cambios o cancelar para anularlos</p>' +
+                '<form name = "formulario" action=" method="get" onsubmit="capturarEnvio()" onreset="anular()">' +
+                '<input class="boton" type="reset" value="Cancelar"><input class="boton" type = "submit" value="Aceptar"></div>';
+            editando = "true";
+        }
 
-else {
-    alert ('Solo se puede editar una línea. Recargue la página para poder editar otra');
-}
-}
+        else {
+            alert('Solo se puede editar una línea. Recargue la página para poder editar otra');
+        }
+    }
 
-function capturarEnvio(){
+    function capturarEnvio() {
 
-var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
+        var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
 
-nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos'+
+        nodoContenedorForm.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos' +
 
-'<form name = "formulario" action="/usuarios/update/'+document.querySelector('#id').value+'" method="POST">'+
+            '<form name = "formulario" action="/usuarios/update/' + document.querySelector('#id').value + '" method="POST">' +
 
 
-'<input type="hidden" name="usuario" value="'+document.querySelector('#usuario').value+'">'+
+            '<input type="hidden" name="usuario" value="' + document.querySelector('#usuario').value + '">' +
 
-'<input type="hidden" name="email" value="'+document.querySelector('#email').value+'">'+
+            '<input type="hidden" name="email" value="' + document.querySelector('#email').value + '">' +
 
-'<input type="hidden" name="telefono" value="'+document.querySelector('#telefono').value+'">'+
+            '<input type="hidden" name="telefono" value="' + document.querySelector('#telefono').value + '">' +
 
-'<input type="hidden" name="rol" value="'+document.querySelector('#rol').value+'">'+
+            '<input type="hidden" name="rol" value="' + document.querySelector('#rol').value + '">' +
 
-'<input type="hidden" name="locacion" value="'+document.querySelector('#locacion').value+'">'+
+            '<input type="hidden" name="turno" value="' + document.querySelector('#turno').value + '">' +
 
-'<input type="hidden" name="turno" value="'+document.querySelector('#turno').value+'">'+
+            '<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
 
-'<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
+        document.formulario.submit();
 
-document.formulario.submit();
+        nodoContenedorForm.style.display = 'none';
 
-nodoContenedorForm.style.display = 'none';
+    }
 
-}
 
- 
 
-function anular(){
+    function anular() {
 
-window.location.reload();
+        window.location.reload();
 
-}
+    }
 
-    
+
 </script>

@@ -1,26 +1,26 @@
 {{#if success}}
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
     {{success}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-    </div>
+</div>
 {{/if}}
 {{#if messageError}}
- <div class="alert alert-warning alert-dismissible fade show" role="alert">
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
     {{messageError}}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
-    </div>
+</div>
 {{/if}}
 <form action="/save" method="post" class="">
     <div class="">
-        <label for="" >Nombre de usuario: </label>
+        <label for="">Nombre de usuario: </label>
         <input type="text" name="usuario" id="" class="form-control">
     </div>
     <div class="">
-        <label for="" >Email: </label>
+        <label for="">Email: </label>
         <input type="email" name="email" id="" class="form-control">
     </div>
     <div class="">
@@ -35,19 +35,12 @@
         <label for="">Repita la contraseña: </label>
         <input type="password" name="password2" id="" class="form-control">
     </div>
-    <div class="">
-        <label for="">Area:</label>
-        <select name="locacion" id="">
-            {{#each locacion}}
-                <option value="{{id}}">{{nombre}}</option>
-            {{/each}}
-        </select>
-    </div>
+
     <div class="">
         <label for="">Rol:</label>
         <select name="rol" id="">
             {{#each rol}}
-                <option value="{{id}}">{{nombre}}</option>
+            <option value="{{id}}">{{nombre}}</option>
             {{/each}}
         </select>
     </div>
@@ -63,5 +56,4 @@
     <div class="">
         <input type="submit" name="" value="Guardar" id="" class="btn btn-primary btn-block">
     </div>
-</form> 
-
+</form>

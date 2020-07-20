@@ -1,125 +1,168 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const pool = require("../database");
+const { isLogged } = require("../lib/auth");
 
-const pool = require('../database');
+let getUser = async (req, res, next) => {
+  if (req.user) {
+    //console.log(req.user);
+    let infoUsuario = await pool.query(
+      "SELECT * FROM vistausuarios WHERE id = ?",
+      [req.user.id]
+    );
+    req.infoUsuario = infoUsuario;
+  }
+  next();
+};
 
 
-let getUser = (async (req, res, next) => {
-    if(req.user){
-        //console.log(req.user);
-        let infoUsuario = await pool.query('SELECT * FROM vistausuarios WHERE id = ?', [req.user.id]);
-        req.infoUsuario = infoUsuario;
-    }
-    next();
+router.get("/inicio", [isLogged, getUser], (req, res) => {
+  const infoUsuario = req.infoUsuario;
+
+  res.render("index/inicio", {
+    infoUsuario,
+    title: "Inicio",
+  });
 });
 
-router.get('/inicio', getUser, (req, res) => {
-    const infoUsuario = req.infoUsuario;
-    
-    res.render('index/inicio', {
-        infoUsuario
+router.get("/produccion", isLogged, (req, res) => {
+  res.redirect("/produccioncorte");
+});
+
+
+
+router.get("/produccioncorte", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  const tipoequipo = await pool.query(
+    `SELECT id, nombre FROM vistaequipos WHERE turno = '${infoUsuario[0].turno}' AND estado = 1 ORDER BY nombre`
+  ); 
+  res.render("./index/produccion", {
+    tipoequipo,
+    infoUsuario,
+    title: "Resumen de operaciones",
+  });
+});
+
+
+router.get("/tablero", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  if(infoUsuario[0].id_rol != 1){
+    res.redirect(
+      "/inicio", 
+      400, 
+      req.flash("messageError", "[Tablero]: Acceso denegado")
+      );
+  }else{
+    res.render("index/tablero", {
+      title: "Tablero",
+      infoUsuario
     });
+  }
+  
 });
 
-router.get('/produccion', (req, res) => {
+router.get("/equipos", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
 
-    console.log(req.user);
-    if(req.user.id_locacion === 2){
-        res.redirect('/produccioncorte');
-    }else if(req.user.id_locacion === 3){
-        res.redirect('./produccionleadp');
-    }else{
-        res.redirect('/produccionlinea');
-    }  
-       
-});
+  const equipo = await pool.query("SELECT * FROM vistaequipos");
+  const equipos = equipo.filter((item) => item.turno == infoUsuario[0].turno);
+  const tipoequipo = await pool.query("SELECT * FROM tipo_equipo");
 
-router.get('/produccionleadp', getUser, async (req, res) => {
-    const infoUsuario = req.infoUsuario;
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
-    res.render('./index/produccion_leadp', {
-        tipoequipo,
-        infoUsuario
+  if (infoUsuario[0].rol === "Administrador") {
+    res.render("index/equipos", {
+      equipos,
+      tipoequipo,
+      infoUsuario,
+      title: "Equipos",
     });
-});
-
-
-router.get('/produccioncorte', getUser, async (req, res) => {
-    const infoUsuario = req.infoUsuario;
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
-    res.render('./index/produccion', {
-        tipoequipo,
-        infoUsuario
+  } else {
+    res.render("index/equipos", {
+      equipos,
+      tipoequipo,
+      infoUsuario,
+      title: "Equipos",
     });
+  }
 });
 
-router.get('/produccionlinea', getUser, async (req, res) => {
-    const infoUsuario = req.infoUsuario;
-    const tipoequipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ? AND estado = 1 ORDER BY nombre', [req.user.id_locacion]);
-    
-    res.render('./index/produccion_linea', {
-        tipoequipo,
-        infoUsuario
+router.get("/usuarios", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  if(infoUsuario[0].id_rol != 1){
+    res.redirect(
+      "/inicio",
+      400, 
+      req.flash("messageError", "[Usuarios]: Acceso denegado")
+      );
+  }else{
+    const usuarios = await pool.query("SELECT * FROM vistausuarios");
+    const rol = await pool.query("SELECT * FROM roles ORDER BY id DESC");
+  
+    res.render("index/usuarios", {
+      infoUsuario,
+      usuarios,
+      rol,
+      title: "Usuarios",
     });
+  }
 });
 
-router.get('/tablero', getUser, async (req, res) => {
-    const infoUsuario = req.infoUsuario;
+router.get("/tipodeequipos", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  const tipoequipo = await pool.query("SELECT * FROM tipo_equipo");
+  const estandares = await pool.query("SELECT * FROM vistaestandares");
+  const equipos = await pool.query("SELECT nombre FROM vistaequipos");
 
-    res.render('index/tablero', {
-        title: 'Dashboard',
-        infoUsuario
+  res.render("index/ajustes", {
+    infoUsuario,
+    tipoequipo,
+    estandares,
+    equipos,
+    title: "Tipo de equipos",
+  });
+});
+
+router.get("/estandares", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  const estandares = await pool.query("SELECT * FROM vistaestandares");
+  const equipos = await pool.query("SELECT nombre FROM vistaequipos");
+  const estandaresdeTurno = estandares.filter(
+    (item) => item.turno == infoUsuario[0].turno
+  );
+  res.render("index/estandares", {
+    infoUsuario,
+    estandaresdeTurno,
+    equipos,
+    title: "Estandares",
+  });
+});
+
+router.get("/configuracion", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  const costoscrap = await pool.query("SELECT * FROM vistacostosscrap");
+  if(infoUsuario[0].id_rol != 1){
+    res.redirect(
+      "/inicio",
+      400,
+      req.flash("messageError", "[Costos]: Acceso denegado.")
+      );
+  }else{
+    res.render("index/configuraciones", {
+      title: "Costos",
+      infoUsuario,
+      costoscrap
     });
+  }
 });
 
-router.get('/equipos', getUser, async (req, res) => {
-    const infoUsuario = req.infoUsuario;
-    const loc = infoUsuario[0].id_locacion;
-    const equipo = await pool.query('SELECT * FROM vistaequipos WHERE id_locacion = ?', [loc]);
-    const tipoequipo = await pool.query('SELECT * FROM tipo_equipo');
-    if(infoUsuario[0].rol === 'Administrador'){
-        const locacion = await pool.query('SELECT * FROM locaciones');
-        res.render('index/equipos', {
-            equipo,
-            tipoequipo,
-            locacion,
-            infoUsuario
-        });
-    }
-    else{
-      
-        res.render('index/equipos', {
-            equipo,
-            tipoequipo,
-            infoUsuario
-        });
-    }
 
-    
-});
-
-router.get('/usuarios', getUser, async (req, res) => {
-    const infoUsuario = req.infoUsuario;
-    const usuarios = await pool.query('SELECT * FROM vistausuarios');
-    const rol = await pool.query('SELECT * FROM roles ORDER BY id DESC'); 
-    const locacion = await pool.query('SELECT * FROM locaciones ORDER BY nombre ASC');
-
-    res.render('index/usuarios', {
-        infoUsuario, usuarios, rol, locacion
-    });
-});
-
-router.get('/ajustes', getUser, async (req, res) => {
-
-    const infoUsuario = req.infoUsuario;
-    const locaciones = await pool.query('SELECT * FROM locaciones');
-    const tipoequipo = await pool.query('SELECT * FROM tipo_equipo');
-
-    res.render('index/ajustes', {
-        infoUsuario,
-        locaciones,
-        tipoequipo
-    });
+router.get("/tipodescrap", [isLogged, getUser], async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  const tiposcrap = await pool.query("SELECT * FROM tipo_scrap");
+  res.render("index/tiposcrap",{
+    title: "Tipo de scrap",
+    infoUsuario,
+    tiposcrap
+  });
 });
 
 module.exports = router;

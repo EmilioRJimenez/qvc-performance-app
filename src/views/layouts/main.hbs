@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,34 +10,38 @@
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
     {{!-- CSS Local --}}
     <link rel="stylesheet" href="/assets/css/style.css">
-    
+
     {{!-- CSS Icons--}}
     <link rel="stylesheet" href="/assets/icomoon/style.css">
     <!--datables CSS básico-->
-    <link rel="stylesheet" type="text/css" href="datatables/datatables.min.css"/>
-    <!--datables estilo bootstrap 4 CSS-->  
-    <link rel="stylesheet"  type="text/css" href="datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
-     {{!-- Google fonts --}}
+    <link rel="stylesheet" type="text/css" href="datatables/datatables.min.css" />
+    <!--datables estilo bootstrap 4 CSS-->
+    <link rel="stylesheet" type="text/css" href="datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css">
+    {{!-- Google fonts --}}
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
     {{!-- Chart.Js estilos --}}
-    <link rel="stylesheet" href="assets/js/Chart.js/Chart.min.css"> 
+    <link rel="stylesheet" href="assets/js/Chart.js/Chart.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>      <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-    
-    
-    
-    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
 </head>
+
 <body>
     <div class="principalBody">
         <div class="left">
             <div class="top">
                 <h1>
-                    <a href="/inicio"><span>QvC</span> Performance</a>
+                    <a href="/inicio" title="QvCPerformance/Inicio"><span>QvC</span> Performance</a>
                 </h1>
             </div>
             <div class="middle">
@@ -45,9 +50,12 @@
                         <li><a href="/inicio"><span class="icon-home"></span> Inicio</a></li>
                         <li><a href="/produccion"><span class="icon-barcode"></span> Producción</a></li>
                         <li><a href="/equipos"><span class="icon-omega"></span> Equipos</a></li>
-                        <li><a href="/tablero"><span class="icon-stats-dots"></span> Dashboard</a></li>
+                        <li><a href="/estandares"><span class="icon-compass"></span> Estandares</a></li>
+                        <li><a href="/tablero"><span class="icon-stats-dots"></span> Tablero</a></li>
                         <li><a href="/usuarios"><span class="icon-users"></span> Usuarios</a></li>
-                        <li><a href="/ajustes"><span class="icon-cog"></span> Otros</a></li>
+                        <li><a href="/tipodeequipos"><span class="icon-stack"></span> Tipos de equipo</a></li>
+                        <li><a href="/tipodescrap"><span class="icon-leaf"></span> Tipos de scrap</a></li>
+                        <li><a href="/configuracion"><span class="icon-coin-dollar"></span> Costos</a></li>
                     </ul>
                 </nav>
             </div>
@@ -56,12 +64,12 @@
                 <div class="info">
                     <div class="user">
                         <p>{{rol}}</p>
-                        <h4>{{usuario}}</h4>
+                        <h4 id="usuario">{{usuario}}</h4>
                     </div>
                     <div class="area">
                         <p>Area:</p>
                         <div class="salir">
-                            <h1>{{locacion}}</h1>
+                            <h1>Corte</h1>
                         </div>
                     </div>
                 </div>
@@ -70,8 +78,10 @@
         </div>
         <div class="right">
             <div class="top">
+                <h1>{{title}}</h1>
                 <form action="">
-                    <a href="/logout"><span class="icon-cross"></span></a>
+                    <a href="/logout" class="btnSalir" title="Cerrar sesión"><span class="icon-exit"></span></a>
+                    <a href="" class="btnProfile"><img src="/assets/img/user.png" alt="Peril" title="Información de usuario"></a>
                 </form>
             </div>
             <div class="middle">
@@ -82,36 +92,37 @@
         </div>
     </div>
 
-    
-    
-    
+
+
+
 
     {{!-- JS Bootstrap --}}
     <script src="/assets/js/bootstrap.min.js"></script>
 
-     <!-- jQuery, Popper.js, Bootstrap JS -->
+    <!-- jQuery, Popper.js, Bootstrap JS -->
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script src="popper/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
-      
+
     <!-- datatables JS -->
-    <script type="text/javascript" src="datatables/datatables.min.js"></script>    
-     
-    <!-- para usar botones en datatables JS -->  
-    <script src="datatables/Buttons-1.5.6/js/dataTables.buttons.min.js"></script>  
-    <script src="datatables/JSZip-2.5.0/jszip.min.js"></script>    
-    <script src="datatables/pdfmake-0.1.36/pdfmake.min.js"></script>    
+    <script type="text/javascript" src="datatables/datatables.min.js"></script>
+
+    <!-- para usar botones en datatables JS -->
+    <script src="datatables/Buttons-1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="datatables/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="datatables/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
     <script src="datatables/Buttons-1.5.6/js/buttons.html5.min.js"></script>
 
     <!-- Chart.Js -->
     <script src="assets/js/Chart.js/Chart.min.js"></script>
-     
-     
 
 
-    <!-- código JS propìo-->    
+
+
+    <!-- código JS propìo-->
     <script type="text/javascript" src="assets/js/main.js"></script>
 
 </body>
+
 </html>

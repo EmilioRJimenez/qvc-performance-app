@@ -25,36 +25,25 @@
 
         </div>
         <div class="content-table">
-            
             <div class="col-lg-12">
                 <div>
                     <table id="example" class="table table-bordered table-striped" cellspacing="0" width="100%">
-                        <a class="btnadduser" data-toggle="modal" data-target="#exampleModalCenter2">Registrar nuevo
-                            modelo.</a>
+                        
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Nombre</th>
+                                <th>Costo</th>
 
-                                <th class="hacciones">Estatus</th>
                                 <th class="hacciones">Editar</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each tipoequipo}}
+                            {{#each costoscrap}}
                             <tr class="numero">
                                 <td>{{id}}</td>
                                 <td>{{nombre}}</td>
-
-                                <td class="btnacciones">
-                                    {{#if estado}}
-                                    <a href="/otros/disablemodel/{{id}}" class="btn btn-success"><span
-                                            class="icon-unlocked"></span></a>
-                                    {{else}}
-                                    <a href="/otros/enablemodel/{{id}}" class="btn btn-danger"><span
-                                            class="icon-lock"></span></a>
-                                    {{/if}}
-                                </td>
+                                <td>{{costo}}</td>
 
                                 <td class="btnacciones btnedit"><span class="btn btn-dark editar"
                                         onclick="transformarEnEditable2(this);"><i class="icon-pencil"></i></span></td>
@@ -67,42 +56,6 @@
 
 
 
-
-
-
-
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Registro de áreas</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="/otros/model" method="post" class="">
-                            <div class="modal-body">
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="">Modelo:</label>
-                                            <input type="text" name="nombre" class="form-control" required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <input type="submit" name="" value="Guardar" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
 
 
             <script>
@@ -127,11 +80,11 @@
 
                         var idmodelo = nodosEnTr2[0].textContent;
                         var nombremodelo = nodosEnTr2[1].textContent;
-
+                        var costo = nodosEnTr2[2].textContent;
 
 
                         var nuevoCodigoHtml2 = '<td><input type="text" name="id" id="idmodel" value="' + idmodelo + '" size="3" disabled></td>' +
-                            '<td><input type="text" name="nombre" id="nombremodel" value="' + nombremodelo + '"></td>';
+                            '<td><input type="text" name="nombre" id="nombremodel" value="' + nombremodelo + '" disabled></td>'+ '<td><input type="text" name="costo" id="costo" value="' + costo + '" size="3"></td>';
 
                         nodoTr2.innerHTML = nuevoCodigoHtml2;
 
@@ -147,14 +100,16 @@
                 }
 
                 function capturarEnvio2() {
-
+                    console.log("CapturarEnvio");
                     var nodoContenedorForm2 = document.getElementById('contenedorForm2'); //Nodo DIV
 
                     nodoContenedorForm2.innerHTML = 'Pulse Aceptar para guardar los cambios o cancelar para anularlos' +
 
-                        '<form name = "formulario" action="/otros/updatemodel/' + document.querySelector('#idmodel').value + '" method="POST">' +
+                        '<form name = "formulario" action="/costoscrap/updatecosto/' + document.querySelector('#idmodel').value + '" method="POST">' +
 
                         '<input type="hidden" name="nombre" value="' + document.querySelector('#nombremodel').value + '">' +
+
+                         '<input type="hidden" name="costo" value="' + document.querySelector('#costo').value + '">' +
 
                         '<input class="boton" type = "submit" value="Aceptar"> <input class="boton" type="reset" value="Cancelar">';
 

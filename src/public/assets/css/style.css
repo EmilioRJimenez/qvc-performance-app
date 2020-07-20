@@ -185,29 +185,57 @@
 
 
 .right .top {
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
     /*background: #ff6938;*/
     background: #ebebeb;
 }
-.right .top a{  
-    display: flex; 
-    justify-content: center;
-    align-items: center;
+.right .top form {
+    display: flex;
+    width: 200px;
+    justify-content: flex-end;
+    align-items: flex-end;
+    height: 99%;
     margin-right: 15px;
+}
+.right .top a.btnSalir span{  
+    display: flex; 
+    color: red;
+    justify-content: center;
+    align-items: flex-end;
+    font-size: 20px;
+    margin-right: 5px;
+    margin-bottom: 5px;
     text-decoration: none;
 }
-.right .top a .icon-cross {
-    color: #134D76;
-    font-size: 15px;
-    border: none;
+.right .top a.btnSalir:hover {
+    text-decoration: none !important;
+    background: none;
+    border: none !important;
+    box-sizing: none !important;
 }
-.right .top a .icon-cross:hover{
-    text-decoration: none;
-    border: none;
+.right .top .btnProfile {
+    background: #23b78d;
+    width: 40px !important;
+    height: 40px;
+    margin-bottom: 5px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.right .top .btnProfile img{
+    width: 100%;
+    height: 100%;
+    
 }
 
 
+.right .top h1 {
+    font-family: 'Agency Fb' !important;
+    font-size: 25px;
+    padding-top: 10px;
+    padding-left: 15px;
+}
 
 .dinamico {
     display: flex;
@@ -218,6 +246,7 @@
     overflow-x: hidden;
     background: #f8f8f6 !important;
     padding: 0px;
+    margin-top: 25px;
 }
 
 
@@ -369,8 +398,8 @@
     height: 80px;
     position: absolute;
     top: -2px;
-    left: 25%;
-    width: 50%;
+    left: 24%;
+    width: 65%;
     z-index: 100;
     transition: 1s;
 }
@@ -546,7 +575,7 @@
     list-style: none;
     display: flex;
     flex-direction: column;
-    height: 70%;
+    height: 90%;
     width: 90%;
     margin: 0px;
     justify-content: space-between;
@@ -840,10 +869,11 @@
 .custom-alert {
     position: absolute;
     top: -2px;
-    left: 25%;
+    left: 31%;
     width: 50%;
     z-index: 100;
     transition: 1s;
+    font-weight: normal !important;
 }
 
 .subtitulos {
@@ -861,7 +891,8 @@
 
 /********Estilo de tablas**********/
 .tablas {
-    width: 98%;
+    width: 100%;
+    margin: 0px !important;
     background: #fff;
     box-shadow: 0 0 3px 1px #ccc; 
 }
@@ -975,9 +1006,8 @@ color: #fff !important;
     padding: 5px 10px;
     text-align: center;
 }
-#example2 .btnacciones button {
-    width: 50px;
-}
+
+
 .dinamico .container-fluid {
     
     padding: 25px 10px;
@@ -1419,9 +1449,7 @@ color: #fff !important;
     margin: 0px;
     padding: 0px;
 }
-.right-board-content .middle p span {
-    
-}
+
 .right-board-content .middle .totalProduccion {
     display: flex;
     width: 100%;
@@ -1463,3 +1491,25 @@ color: #fff !important;
     margin-top: 5px;
 }
 
+.group {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+}
+.group-print {
+    justify-content: baseline;
+    padding-top: 23px;
+}
+.left .box1 .formproduccion input[type="checkbox"] {
+    position: absolute;
+    padding: 0px;
+    width: 20px !important;
+    right: 340px;
+    
+}
+
+.left .box1 .formproduccion input[type="checkbox"]:focus {
+    border: none;
+    box-shadow: none !important;
+}
