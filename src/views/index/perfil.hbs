@@ -1,0 +1,115 @@
+{{#if messageError}}
+<div class="alert alert-danger alert-dismissible fade show mx-3 custom-alert" role="alert">
+    {{messageError}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+
+{{#if success}}
+<div class="alert alert-success alert-dismissible fade show mx-3 custom-alert" role="alert">
+    {{success}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+<div class="container-fluid profile">
+    <div class="left">
+        <div class="box">
+            <div class="top">
+                <img src="assets/img/user.png" alt="">
+            </div>
+            <div class="bottom">
+                {{#each infoUsuario}}
+                <p><span>Nombre:</span> <span>{{usuario}}</span></p>
+                <p><span> Correo electronico:</span> <span>{{email}}</span></p>
+                <p><span> Telefono:</span> <span>{{telefono}}</span></p>
+                <p><span> Turno:</span> <span>{{turno}}</span></p>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="container">
+            
+            <p class="nota">NOTA: Verificar turno antes de guardar los cambios.</p>
+            {{#each infoUsuario}}
+            <form action="/perfil/updateuser/{{id}}" method="POST">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Nombre: </label>
+                            <input type="text" name="usuario" id="usuario" class="form-control" value="{{usuario}}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Correo electronico:</label>
+                            <input type="email" name="email" id="email" class="form-control" value="{{email}}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Telefono:</label>
+                            <input type="text" name="telefono" id="telefono" class="form-control" value="{{telefono}}" required>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="">Turno:</label>
+                            <select name="turno" id="turno" class="form-control">
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-secondary btn-block" data-toggle="modal"
+                                data-target="#exampleModal">Cambiar contraseña</button>
+                        </div>
+                        <input type="submit" value="Guardar cambios" class="btn btn-primary btn-block">
+                    </div>
+                </div>
+            </form>
+            {{/each}}
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cambiar contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{#each infoUsuario}}
+                <form action="/perfil/updatepassword/{{id}}" method="POST">
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Contraseña nueva">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password2" id="password2" placeholder="Repita la contraseña"
+                            class="form-control">
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </div>
+            </form>
+            {{/each}}
+        </div>
+    </div>
+</div>

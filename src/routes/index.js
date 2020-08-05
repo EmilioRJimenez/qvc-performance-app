@@ -117,7 +117,7 @@ router.get("/tipodeequipos", [isLogged, getUser], async (req, res) => {
     tipoequipo,
     estandares,
     equipos,
-    title: "Tipo de equipos",
+    title: "Tipos de equipo",
   });
 });
 
@@ -163,6 +163,14 @@ router.get("/tipodescrap", [isLogged, getUser], async (req, res) => {
     infoUsuario,
     tiposcrap
   });
+});
+
+router.get('/perfil', [isLogged, getUser], (req, res) => {
+    const infoUsuario = req.infoUsuario;
+    res.render("index/perfil", {
+      title: "Mi información de usuario",
+      infoUsuario
+    });
 });
 
 module.exports = router;

@@ -1,4 +1,49 @@
 $(document).ready(function () {
+
+
+$("#password2").focusout(function(){
+  let pass1 = $("#password").val();
+  let pass2 = $("#password2").val();
+  if(pass1 === pass2){
+    $("#password").css("border", "solid lightgreen");
+    $("#password2").css("border", "solid lightgreen");
+  }else{
+    $("#password").css("border", "solid red");
+    $("#password2").css("border", "solid red");
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   $("#example").DataTable({
     language: {
       lengthMenu: "Mostrar _MENU_ registros",

@@ -71,6 +71,7 @@ app.use("/query", require("./routes/querys"));
 app.use("/estandares", require("./routes/estandares"));
 app.use("/tiposcrap", require("./routes/scrap"));
 app.use("/costoscrap", require("./routes/costoscrap"));
+app.use("/perfil", require("./routes/perfil"));
 
 //Archivos publicos
 app.use(express.static(path.join(__dirname, "public")));

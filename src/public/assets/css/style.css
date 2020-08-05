@@ -2,7 +2,7 @@
     margin: 0px;
     padding: 0px;
     font-size: 15px;
-    font-family: 'Arial' !important;
+    font-family: Verdana, Arial, sans-serif !important;
 }
 
 .principalBody{
@@ -13,15 +13,20 @@
 }
 .left{
     display: fleX;
-    width: 15vw;
+    width: 13vw;
     height: 100vh;
     flex-direction: column;
-    background: #2a3f53;
+    background: #e2e2e2;
+}
+.middlehr {
+    width: 100% !important;
+    height: 5px !important;
+    background: #818181;
 }
 .right {
     
     display: flex;
-    width: 85vw;
+    width: 87vw;
     height: 100vh;
     flex-direction: column;
     background: #f8f8f6;
@@ -34,7 +39,7 @@
     height: 7vh;
 }
 .left .top {
-    background: #2a3f53;
+    background: #ffffff;
 }
 
 .left .middle {
@@ -85,16 +90,17 @@
     height: 100%;
     align-items: center;
     text-decoration: none;
-    font-size: 20px;
-    font-family: 'Agency Fb' !important;
-    color: #dfe5e9;
+    font-size: 12px;
+    font-family: Verdana, Arial, sans-serif !important;
+    color: #233b58;
+    font-weight: bold !important;
 }
 .left .middle nav ul li a span {
     margin-right: 5px;
-    color: #fff;
+    color: #000;
 }
 .left .middle nav ul li a:hover {
-    color: #fff;
+    color: #000;
 }
 
 .left .top h1 {
@@ -113,15 +119,15 @@
     align-content: center;
     align-items: baseline;
     text-decoration: none;
-    font-size: 20px;
-    font-family: 'Agency Fb';
-    padding-top: 3px;
+    font-size: 13px;
+    font-family: Verdana, Arial, sans-serif;
+    padding-top: 5px;
     text-decoration: none;
-    font-weight: 600;
-    color: #fff;
+    font-weight: bold;
+    color: #444;
 }
 .left .top h1 a span {
-    font-size: 30px;
+    font-size: 25px;
     margin-right: 5px;
 }
 
@@ -137,7 +143,7 @@
     
     display: flex;
     width: 90%;
-    height: 85%;
+    height: 70%;
     flex-direction: column;
     align-items: center;
 }
@@ -153,15 +159,14 @@
     font-family: 'Agency Fb' !important;
     margin:0px;
     font-size: 17px;
-    color: #fff;
+    color: #000;
     font-weight: normal;
 }
 .left .bottom .info .user h4 {
     font-size: 20px;
-    font-family: 'Poiret One' !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
     color: #23b78d;
-    font-weight: bold;
-    font-size: 25px;
+    font-size: 20px;
 }
 .left .bottom .info .area {
     
@@ -173,14 +178,15 @@
 }
 .left .bottom .info .area p {
     font-family: 'Agency Fb' !important;
-    color: #fff;
+    color: #000;
     font-size: 17px;
 }
 .left .bottom .info .area h1 {
-    font-weight: bold;
-    font-family: 'Poiret One' !important;
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+    font-size: 30px;
     margin: 0px;
-    color: #ccc;
+    color: #23b78d;
 }
 
 
@@ -188,51 +194,62 @@
     justify-content: space-between;
     align-items: center;
     /*background: #ff6938;*/
-    background: #ebebeb;
+    background: #fff;
 }
 .right .top form {
     display: flex;
-    width: 200px;
+    width: 300px;
     justify-content: flex-end;
     align-items: flex-end;
-    height: 99%;
+    height: 100%;
     margin-right: 15px;
 }
-.right .top a.btnSalir span{  
-    display: flex; 
-    color: red;
-    justify-content: center;
-    align-items: flex-end;
-    font-size: 20px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+.right .top form a {
+    font-family: Verdana, Arial, sans-serif;
+    color: #6d6d6d;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 5px;
     text-decoration: none;
-}
-.right .top a.btnSalir:hover {
-    text-decoration: none !important;
-    background: none;
-    border: none !important;
-    box-sizing: none !important;
-}
-.right .top .btnProfile {
-    background: #23b78d;
-    width: 40px !important;
-    height: 40px;
-    margin-bottom: 5px;
-    border-radius: 100%;
-    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.right .top .btnProfile img{
-    width: 100%;
-    height: 100%;
-    
+.right .top form a span {
+    color: #000;
+    font-weight: bold;
+    font-size: 12px;
 }
 
+.btnSalir {
+    background: #6d6d6d;
+    padding: 0px 10px;
+    border:  solid 1px #000;
+    border-radius: 5px;
+    color: #fff !important;
+    display: fleX;
+    align-items: center;
+}
+.btnSalir:hover {
+    background: #000;
+}
+.icon-exit {
+    color: #fff !important;
+    margin: 5px;
+}
+.btnProfile:hover {
+    color: #000;
+    text-decoration: underline !important;
+}
+.icon-user {
+    margin: 3px;
+}
 
 .right .top h1 {
     font-family: 'Agency Fb' !important;
-    font-size: 25px;
+    font-size: 22px;
     padding-top: 10px;
     padding-left: 15px;
 }
@@ -268,16 +285,18 @@
     justify-content: flex-end;
     padding: 15%;
     align-items: center;
-    background: linear-gradient(to bottom, #2a3f53, #fff);
+    background: linear-gradient(to bottom, #b8babd, #fff);
 }
 .bodysignin .contentform {
     background: #fff !important;
     display: flex;
     flex-direction: column;
+    
+
     justify-content: flex-end;
     align-items: center;
-    width: 350px;
-    height: 500px;
+    width: 320px;
+    height: 480px;
     box-shadow: 0 0 15px 2px #6C757D;
     padding: 15px;
     position: relative;
@@ -289,9 +308,10 @@
     width: 90%;
     height: 100%;
     color: #444;
+    
 }
 .contentform h1{
-    font-size: 34px;
+    font-size: 28px;
     font-family: 'Arial';
     text-decoration: none;
     color: #444;
@@ -301,21 +321,21 @@
     padding-top: 50px;
 }
 .contentform label {
-    font-family: 'Arial';
-    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px !important;
 }
 .contentform h1 .performance {
-    font-size: 25px;
+    font-size: 18px;
     padding: 10px 5px;
 }
 .contentform h1 .v {
-    font-size: 20px;
+    font-size: 18px;
     padding: 12px 3px;
 }
 .bodysignin form input {
     border-radius: 1px;
-    font-family: 'Arial';
-    
+    font-family: Arial, Helvetica, sans-serif !important;
+    font-size: 14px !important;
 }
 .bodysignin .contentform {
     background: #fff8fc;
@@ -323,7 +343,9 @@
 .bodysignin form input[type="submit"] {
     background: #2a3f53;
 }
-
+.aptiv {
+    font-size: 13px;
+}
 .aptiv::before {
     content:""; 
     width: 7px;
@@ -333,7 +355,7 @@
     display:block; 
     position: relative;
     top: 16px;
-    left: 34%;
+    left: 32%;
 }
 
 .aptiv::after {
@@ -345,7 +367,7 @@
     display:block; 
     position: relative;
     top: -14px;
-    left: 64%;
+    left: 65%;
 }
 .bodysignin form input[type="email"],[type="password"]:focus {
     border-color: none;
@@ -868,8 +890,8 @@
 
 .custom-alert {
     position: absolute;
-    top: -2px;
-    left: 31%;
+    top: 4px;
+    left: 25%;
     width: 50%;
     z-index: 100;
     transition: 1s;
@@ -895,7 +917,34 @@
     margin: 0px !important;
     background: #fff;
     box-shadow: 0 0 3px 1px #ccc; 
+    
 }
+
+#example thead th{
+    height: 30px !important;
+    font-weight: bold;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px !important;
+    padding-left: 3px !important;
+}
+#example tbody td {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 13px !important;
+    padding-left: 3px !important;
+}
+#example th.sorting::before {
+    top: 2px;
+}
+#example th.sorting::after {
+    top: 2px;
+}
+#example th.sorting_asc::before {
+    top: 2px;
+}
+#example th.sorting_asc::after {
+    top: 2px;
+}
+
 #example td{
     margin: 0px;
     line-height: auto;
@@ -1512,4 +1561,98 @@ color: #fff !important;
 .left .box1 .formproduccion input[type="checkbox"]:focus {
     border: none;
     box-shadow: none !important;
+}
+
+
+/*Profile*/
+
+.profile {
+    display: flex;
+    width: 100%;
+    height: 650px;
+    flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+    background: #f8f9fa;
+}
+.profile .left {
+    display: flex;
+    background: #f8f9fa;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+    height: 100% !important;
+    margin: 0px;
+    padding: 0px;
+  
+}
+.profile .box {
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: 95%;
+    background: #fff;
+    box-shadow: 0 0 5px #444;
+}
+.profile .left .top {
+    display: flex;
+    width: 100%;
+    height: 60% !important;
+    background: #dfe5e9;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px #000;
+}
+.profile .left .top img {
+    width: 80%;
+    height: 90%;
+}
+
+.profile .left .bottom {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40% !important;
+    border: solid 1px #000;
+    border-top: none;
+}
+.profile .left .bottom p {
+    background: #fff;
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+.profile .right {
+    background: #f8f9fa;
+    width: 70%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+.profile .right form {
+    display: flex;
+    width: 100%;
+    height: 100%; 
+    justify-content: center; 
+    padding: 19px; 
+    margin: 15px 0px;
+    box-shadow: 0 0 5px #444;
+    
+}
+.profile .right form input {
+    width: 100%;
+}
+.profile .right form select {
+    width: 100%;
+}
+
+.nota {
+    background: rgb(247, 247, 48);
+    padding: 5px 19px;
+    margin-top: 14px;
+    box-shadow: 0 0 3px #000;
 }
