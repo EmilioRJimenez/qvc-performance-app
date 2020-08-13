@@ -46,15 +46,15 @@
 
                                 <td class="btnacciones">
                                     {{#if estado}}
-                                    <a href="/tiposcrap/disable/{{id}}" class="btn btn-success"><span
+                                    <a href="/tiposcrap/disable/{{id}}" class="btn"><span
                                             class="icon-unlocked"></span></a>
                                     {{else}}
-                                    <a href="/tiposcrap/enable/{{id}}" class="btn btn-danger"><span
+                                    <a href="/tiposcrap/enable/{{id}}" class="btn"><span
                                             class="icon-lock"></span></a>
                                     {{/if}}
                                 </td>
 
-                                <td class="btnacciones btnedit"><span class="btn btn-dark editar"
+                                <td class="btnacciones btnedit"><span class="btn editar"
                                         onclick="transformarEnEditable2(this);"><i class="icon-pencil"></i></span></td>
                             </tr>
                             {{/each}}

@@ -219,4 +219,13 @@ router.get("/scrap", getUser, async (req, res) => {
   res.json({ equipos: result });
 });
 
+router.get("/costo", getUser, async (req, res) => {
+  const infoUsuario = req.infoUsuario;
+  console.log(req.body.tipo);
+  const result = await pool.query("SELECT costo FROM costos_scrap where id_tipo = ?", [
+    req.body.tipo
+  ]);
+  res.json({ costos: result });
+});
+
 module.exports = router;

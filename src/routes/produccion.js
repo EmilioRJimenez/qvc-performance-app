@@ -57,7 +57,8 @@ router.post("/save", getUser, async (req, res) => {
     cobre,
     otrostiempos,
     comments,
-    tarjetas
+    tarjetas, 
+    fecha
   } = req.body;
 
   cst = Number(cst);
@@ -88,6 +89,7 @@ router.post("/save", getUser, async (req, res) => {
   const datosProduccion = {
     piezas,
     turno,
+    fecha,
     efectividad,
     id_equipo: equipo,
     id_usuario: user

@@ -912,6 +912,15 @@
 
 
 /********Estilo de tablas**********/
+
+
+.icon-lock {
+    color: red;
+}
+.icon-unlocked {
+    color: green;
+}
+
 .tablas {
     width: 100%;
     margin: 0px !important;
@@ -954,11 +963,15 @@
 }
 #example .btnacciones {
     margin: 0px;
-    padding: 0px 10px;
+    padding: 0px 5px;
     text-align: center;
 }
 #example .btnacciones button {
     width: 50px;
+    
+}
+#example .btnacciones .btn:focus {
+    box-shadow: none !important;
 }
 .dinamico .container-fluid {
     padding: 25px 10px;
@@ -1126,7 +1139,7 @@ color: #fff !important;
     transition: 0.5s;
 }
 .btnacciones .editar{
-color: #fff !important;
+color: #444 !important;
 }
 
 #porcentaje {
@@ -1562,7 +1575,11 @@ color: #fff !important;
     border: none;
     box-shadow: none !important;
 }
-
+.formproduccion input#fecha {
+    margin-left: 0px !important;
+    padding: 0px !important;
+    width: 250px !important;
+}
 
 /*Profile*/
 
@@ -1643,9 +1660,11 @@ color: #fff !important;
     box-shadow: 0 0 5px #444;
     
 }
+
 .profile .right form input {
     width: 100%;
 }
+
 .profile .right form select {
     width: 100%;
 }
@@ -1654,5 +1673,5 @@ color: #fff !important;
     background: rgb(247, 247, 48);
     padding: 5px 19px;
     margin-top: 14px;
-    box-shadow: 0 0 3px #000;
+    
 }

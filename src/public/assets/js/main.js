@@ -39,11 +39,6 @@ $("#password2").focusout(function(){
 
 
 
-
-
-
-
-
   $("#example").DataTable({
     language: {
       lengthMenu: "Mostrar _MENU_ registros",
@@ -119,25 +114,7 @@ $("#password2").focusout(function(){
     });
   });
 
-  $("#cst").focusout(function () {
-    calidadIntercation();
-  });
-  $("#cct").focusout(function () {
-    calidadIntercation();
-  });
-  $("#terminal").focusout(function () {
-    calidadIntercation();
-  });
-  $("#terminalanillo").focusout(function () {
-    calidadIntercation();
-  });
-  $("#sellocalidad").focusout(function () {
-    calidadIntercation();
-  });
-  $("#cobre").focusout(function () {
-    calidadIntercation();
-  });
-
+ 
   $("#errores").focusout(function () {
     otrosInteraction();
   });
@@ -318,48 +295,7 @@ $("#password2").focusout(function(){
     equipo = $("#equipo").val();
   });
 
-  function calidadIntercation() {
-    equipo = $("#equipo").val();
-    var cst = $("#cst").val();
-    cst = Number(cst);
-    var cct = $("#cct").val();
-    cct = Number(cct);
-    var terminal = $("#terminal").val();
-    terminal = Number(terminal);
-    var terminalanillo = $("#terminalanillo").val();
-    terminalanillo = Number(terminalanillo);
-    var sellocalidad = $("#sellocalidad").val();
-    sellocalidad = Number(sellocalidad);
-    var cobre = $("#cobre").val();
-    cobre = Number(cobre);
-    equipo = Number(equipo);
-
-    $.ajax({
-      method: "GET",
-      url: "/equipos/scrap",
-      dataType: "json",
-    }).done(function (data) {
-      var equipos = data.equipos;
-
-      var result = equipos.find(function (res) {
-        return res.id_equipo === equipo;
-      });
-
-      var scrap = result.estandar_scrap;
-      var total = cst + cct + terminal + cobre + terminalanillo + sellocalidad;
-      var porcentaje = (total * 100) / scrap;
-      $("#porcentajecalidad").text(Math.round(porcentaje) + "%");
-      if (porcentaje < 70) {
-        $("#porcentajecalidad").css("color", "green");
-      } else if (porcentaje >= 70 && porcentaje < 100) {
-        $("#porcentajecalidad").css("color", "#FBCD00");
-      } else if (porcentaje >= 100) {
-        $("#porcentajecalidad").text("100%");
-        $("#porcentajecalidad").css("color", "red");
-      }
-    });
-  }
-
+  
   var firstOption = $("#tipo").val();
 
   if (typeof firstOption !== "undefined") {
