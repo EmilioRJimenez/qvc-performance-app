@@ -34,7 +34,7 @@ router.get("/produccion", isLogged, (req, res) => {
 router.get("/produccioncorte", [isLogged, getUser], async (req, res) => {
   const infoUsuario = req.infoUsuario;
   const tipoequipo = await pool.query(
-    `SELECT id, nombre FROM vistaequipos WHERE turno = '${infoUsuario[0].turno}' AND estado = 1 ORDER BY nombre`
+    `SELECT id, nombre FROM vistaequipos WHERE turno = '${infoUsuario[0].turno}' AND estado = 1 ORDER BY id`
   ); 
   res.render("./index/produccion", {
     tipoequipo,
@@ -139,19 +139,11 @@ router.get("/estandares", [isLogged, getUser], async (req, res) => {
 router.get("/configuracion", [isLogged, getUser], async (req, res) => {
   const infoUsuario = req.infoUsuario;
   const costoscrap = await pool.query("SELECT * FROM vistacostosscrap");
-  if(infoUsuario[0].id_rol != 1){
-    res.redirect(
-      "/inicio",
-      400,
-      req.flash("messageError", "[Costos]: Acceso denegado.")
-      );
-  }else{
     res.render("index/configuraciones", {
       title: "Costos",
       infoUsuario,
       costoscrap
     });
-  }
 });
 
 

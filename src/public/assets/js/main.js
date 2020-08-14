@@ -13,22 +13,32 @@ $("#password2").focusout(function(){
   }
 })
 
+$("input").keypress(function(evt){
+  
+  var keycode = (evt.keyCode ? evt.keyCode : evt.which);
+  if(keycode == "13"){
+    evt.preventDefault();
+  }
+
+  
+})
+
+$("#fecha").datepicker({
+  constrainInput: false,
+  currentText: "Now",
+  dateFormat: "yy-mm-dd"  
+}).datepicker('setDate', '0');
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+$(".formProduccion").on('submit', function(evt){
+  if(total !== tiempoDisponible){
+    alert("El tiempo muerto no cuadra");
+    evt.preventDefault();
+  }  
+  // tu codigo aqui
+});
 
 
 
@@ -117,53 +127,111 @@ $("#password2").focusout(function(){
  
   $("#errores").focusout(function () {
     otrosInteraction();
+    let errores = $("#errores").val();
+    if(errores == ""){
+      $("#errores").val("0");
+    }
   });
 
   $("#defectos").focusout(function () {
     otrosInteraction();
+    let defectos = $("#defectos").val();
+    if(defectos == ""){
+      $("#defectos").val("0");
+    }
   });
 
   $("#calidad").focusout(function () {
     sacarTiempo();
+    let calidad = $("#calidad").val();
+    if(calidad == ""){
+      $("#calidad").val("0");
+    }
   });
   $("#mantto").focusout(function () {
     sacarTiempo();
+    let mantto = $("#mantto").val();
+    if(mantto == ""){
+      $("#mantto").val("0");
+    }
   });
   $("#materiales").focusout(function () {
     sacarTiempo();
+    let materiales = $("#materiales").val();
+    if(materiales == ""){
+      $("#materiales").val("0");
+    }
   });
   $("#cdd").focusout(function () {
     sacarTiempo();
+    let cdd = $("#cdd").val();
+    if(cdd == ""){
+      $("#cdd").val("0");
+    }
   });
   $("#procesos").focusout(function () {
     sacarTiempo();
+    let procesos = $("#procesos").val();
+    if(procesos == ""){
+      $("#procesos").val("0");
+    }
   });
   $("#enrredos").focusout(function () {
     sacarTiempo();
+    let enrredos = $("#enrredos").val();
+    if(enrredos == ""){
+      $("#enrredos").val("0");
+    }
   });
   $("#atorones").focusout(function () {
     sacarTiempo();
+    let atorones = $("#atorones").val();
+    if(atorones == ""){
+      $("#atorones").val("0");
+    }
   });
-  $("#sello").focusout(function () {
+
+  $("#setupa").focusout(function (e) {
     sacarTiempo();
-  });
-  $("#setupa").focusout(function () {
-    sacarTiempo();
+    let setupa = $("#setupa").val();
+    if(setupa == ""){
+      $("#setupa").val("0");
+    }
   });
   $("#setupb").focusout(function () {
     sacarTiempo();
+    let setupb = $("#setupb").val();
+    if(setupb == ""){
+      $("#setupb").val("0");
+    }
   });
   $("#setupc").focusout(function () {
     sacarTiempo();
+    let setupc = $("#setupc").val();
+    if(setupc == ""){
+      $("#setupc").val("0");
+    }
   });
   $("#setupd").focusout(function () {
     sacarTiempo();
+    let setupd = $("#setupd").val();
+    if(setupd == ""){
+      $("#setupd").val("0");
+    }
   });
   $("#ajuste").focusout(function () {
     sacarTiempo();
+    let ajuste = $("#ajuste").val();
+    if(ajuste == ""){
+      $("#ajuste").val("0");
+    }
   });
   $("#otrosTiempos").focusout(function () {
     sacarTiempo();
+    let otrostiempos = $("#otrostiempos").val();
+    if(otrostiempos == ""){
+      $("#otrostiempos").val("0");
+    }
   });
 
   var turno = "";
@@ -188,6 +256,7 @@ $("#password2").focusout(function(){
     }
   });
 
+  var total = 0;
   function sacarTiempo() {
     var calidad = $("#calidad").val();
     calidad = Number(calidad);
@@ -203,8 +272,7 @@ $("#password2").focusout(function(){
     enrredos = Number(enrredos);
     var atorones = $("#atorones").val();
     atorones = Number(atorones);
-    var sello = $("#sello").val();
-    sello = Number(sello);
+
     var setupa = $("#setupa").val();
     setupa = Number(setupa);
     var setupb = $("#setupb").val();
@@ -224,7 +292,7 @@ $("#password2").focusout(function(){
     var totalTiempo = $("#totalTiempoMuerto").val();
     totalTiempo = Number(totalTiempo);
 
-    totalTiempo =
+    total =
       calidad +
       mantto +
       materiales +
@@ -232,7 +300,6 @@ $("#password2").focusout(function(){
       procesos +
       enrredos +
       atorones +
-      sello +
       setupa +
       setupb +
       setupc +
@@ -240,20 +307,20 @@ $("#password2").focusout(function(){
       ajuste +
       otrostiempos;
 
-    var resta = tiempoDisponible - totalTiempo;
+    var resta = tiempoDisponible - total;
     resta = Number(resta);
 
-    if (totalTiempo > tiempoDisponible) {
+    if (total > tiempoDisponible) {
       $("#totalTiempoMuerto").css("color", "red");
       $(".tiempo").css("box-shadow", "0px 0px 5px 1px red");
-    } else if (totalTiempo === tiempoDisponible) {
+    } else if (total === tiempoDisponible) {
       $(".tiempo").css("box-shadow", "0px 0px 5px 1px green");
     } else {
       $("#totalTiempoMuerto").css("color", "green");
       $(".tiempo").css("box-shadow", "0px 0px 5px 1px rgb(2, 172, 252");
     }
 
-    $("#totalTiempoMuerto").text(totalTiempo);
+    $("#totalTiempoMuerto").text(total);
 
     if (resta > 0) {
       $("#restaTiempoMuerto").css("color", "green");

@@ -738,7 +738,7 @@
     display: flex;
     flex-direction: column;
     height: 95%;
-    width: 90%;
+    width: 91%;
     margin: 0px;
     justify-content: space-between;
 }
@@ -750,6 +750,9 @@
     align-items: baseline;
     color: #6C757D;
     font-weight: 500;
+    padding: 1px 5px;
+    background: #f8f8f69f;
+    
 }
 
 #produccioncorte .left .principal .box2 .columnaright .formtiempo .form-bodytiempo ul li input {
@@ -1495,6 +1498,12 @@ color: #444 !important;
     padding: 15px;
 }
 
+
+.icon-calendar {
+    position: absolute;
+    left: 40px;
+    top: 33px;
+}
 .right-board-content .middle h3 {
 
     display: flex; 

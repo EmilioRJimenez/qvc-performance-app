@@ -17,7 +17,7 @@
 {{/if}}
 
 <div class="container-fluid" id="produccioncorte">
-    <form action="/produccion/save" method="POST" name="comments" id="form">
+    <form action="/produccion/save" method="POST" name="comments" id="form" class="formProduccion">
         <div class="row" id="row">
             <div class="col-md-9 left">
 
@@ -25,7 +25,8 @@
                     <div class="box1 produccion">
                         <div class="formproduccion">
 
-                            <input type="date" name="fecha" id="fecha">
+                            <span class="icon-calendar"></span><input type="text" name="fecha" id="fecha" value="">
+
                             <select name="equipo" id="equipo">
                                 {{#each tipoequipo}}
                                 <option value="{{id}}">{{nombre}}</option>
@@ -68,7 +69,7 @@
 
                                     </div>
                                     <div class="box2Calidad">
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -99,30 +100,28 @@
                                 <h4 class="subtitulos">Tiempo muerto</h4>
                                 <div class="form-bodytiempo">
                                     <ul>
-                                        <li>Calidad: <input type="text" name="calidad" id="calidad" required value="0"
-                                                autocomplete="off"></li>
-                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="mantto" required
-                                                value="0" autocomplete="off"></li>
-                                        <li>Materiales: <input type="text" name="materiales" id="materiales" required
-                                                value="0" autocomplete="off"></li>
-                                        <li>CDD: <input type="text" name="cdd" id="cdd" required value="0"
-                                                autocomplete="off"></li>
-                                        <li>Procesos: <input type="text" name="procesos" id="procesos" required
-                                                value="0" autocomplete="off"></li>
-                                        <li>Enrredos: <input type="text" name="enrredos" id="enrredos" required
-                                                value="0" autocomplete="off"></li>
-                                        <li>Atorones: <input type="text" name="atorones" id="atorones" required
-                                                value="0" autocomplete="off"></li>
-                                        <li>Sello: <input type="text" name="sello" id="sello" required value="0"
-                                                autocomplete="off"></li>
                                         <li>Setup A: <input type="text" name="setupa" id="setupa" required value="0"
                                                 autocomplete="off"></li>
                                         <li>Setup B: <input type="text" name="setupb" id="setupb" required value="0"
                                                 autocomplete="off"></li>
                                         <li>Setup C: <input type="text" name="setupc" id="setupc" required value="0"
                                                 autocomplete="off"></li>
-                                        <li>Setup D: <input type="text" name="setupd" id="setupd" required value="0"
+                                        <li>Setup E: <input type="text" name="setupd" id="setupd" required value="0"
                                                 autocomplete="off"></li>
+                                                <li>CDD: <input type="text" name="cdd" id="cdd" required value="0"
+                                                autocomplete="off"></li>
+                                        <li>Mantenimiento: <input type="text" name="mantenimiento" id="mantto" required
+                                                value="0" autocomplete="off"></li>
+                                                <li>Calidad: <input type="text" name="calidad" id="calidad" required value="0"
+                                                autocomplete="off"></li>
+                                        <li>Materiales: <input type="text" name="materiales" id="materiales" required
+                                                value="0" autocomplete="off"></li>
+                                        <li>Procesos: <input type="text" name="procesos" id="procesos" required
+                                                value="0" autocomplete="off"></li>
+                                        <li>Enrredos: <input type="text" name="enrredos" id="enrredos" required
+                                                value="0" autocomplete="off"></li>
+                                        <li>Atorones: <input type="text" name="atorones" id="atorones" required
+                                                value="0" autocomplete="off"></li>
                                         <li>Ajuste: <input type="text" name="ajuste" id="ajuste" required value="0"
                                                 autocomplete="off"></li>
                                         <li>Otros: <input type="text" name="otrostiempos" id="otrosTiempos" required
@@ -161,24 +160,31 @@
 
     select("#mess").addEventListener("keypress", function (e) {
 
+        var mess = document.getElementById("mess").value;
+
         var keycode = (e.keyCode ? e.keyCode : e.which);
         if (keycode == '13') {
-            var message = document.createElement("textarea");
-            message.setAttribute("name", "comments");
-            message.setAttribute("class", "comment");
-            message.style.resize = "none";
-            message.value = select("#mess").value;
-            select("#boxmessages").appendChild(message);
-            select("#mess").value = "";
-            select("#mess").focus();
+            if (mess == "") {
+                alert("No se pueden agregar comentarios vacíos");
+            } else {
+                var message = document.createElement("textarea");
+                message.setAttribute("name", "comments");
+                message.setAttribute("class", "comment");
+                message.style.resize = "none";
+                message.value = select("#mess").value;
+                select("#boxmessages").appendChild(message);
+                select("#mess").value = "";
+                select("#mess").focus();
+            }
+
 
             e.preventDefault();
             return false;
         }
     });
 
-    select("#tarjetas").addEventListener("change", function(){
-        if(!this.checked){    
+    select("#tarjetas").addEventListener("change", function () {
+        if (!this.checked) {
             var message = document.createElement("textarea");
             message.setAttribute("name", "comments");
             message.setAttribute("class", "comment");
@@ -193,10 +199,13 @@
         }
     })
 
-  
+
 
     function select(selector) {
         return document.querySelector(selector);
     }
+
+
+
 
 </script>
