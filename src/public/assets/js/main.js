@@ -1,53 +1,38 @@
 $(document).ready(function () {
+  $("#password2").focusout(function () {
+    let pass1 = $("#password").val();
+    let pass2 = $("#password2").val();
+    if (pass1 === pass2) {
+      $("#password").css("border", "solid lightgreen");
+      $("#password2").css("border", "solid lightgreen");
+    } else {
+      $("#password").css("border", "solid red");
+      $("#password2").css("border", "solid red");
+    }
+  });
 
+  $("input").keypress(function (evt) {
+    var keycode = evt.keyCode ? evt.keyCode : evt.which;
+    if (keycode == "13") {
+      evt.preventDefault();
+    }
+  });
 
-$("#password2").focusout(function(){
-  let pass1 = $("#password").val();
-  let pass2 = $("#password2").val();
-  if(pass1 === pass2){
-    $("#password").css("border", "solid lightgreen");
-    $("#password2").css("border", "solid lightgreen");
-  }else{
-    $("#password").css("border", "solid red");
-    $("#password2").css("border", "solid red");
-  }
-})
+  $("#fecha")
+    .datepicker({
+      constrainInput: false,
+      currentText: "Now",
+      dateFormat: "yy-mm-dd",
+    })
+    .datepicker("setDate", "0");
 
-$("input").keypress(function(evt){
-  
-  var keycode = (evt.keyCode ? evt.keyCode : evt.which);
-  if(keycode == "13"){
-    evt.preventDefault();
-  }
-
-  
-})
-
-$("#fecha").datepicker({
-  constrainInput: false,
-  currentText: "Now",
-  dateFormat: "yy-mm-dd"  
-}).datepicker('setDate', '0');
-
-
-
-
-$(".formProduccion").on('submit', function(evt){
-  if(total !== tiempoDisponible){
-    alert("El tiempo muerto no cuadra");
-    evt.preventDefault();
-  }  
-  // tu codigo aqui
-});
-
-
-
-
-
-
-
-
-
+  $(".formProduccion").on("submit", function (evt) {
+    if (total !== tiempoDisponible) {
+      alert("El tiempo muerto no cuadra");
+      evt.preventDefault();
+    }
+    // tu codigo aqui
+  });
 
   $("#example").DataTable({
     language: {
@@ -91,8 +76,6 @@ $(".formProduccion").on('submit', function(evt){
 		]*/
   });
 
-  
-
   $("#pzs").focusout(function () {
     var pzs = $("#pzs").val();
     pzs = Number(pzs);
@@ -124,11 +107,10 @@ $(".formProduccion").on('submit', function(evt){
     });
   });
 
- 
   $("#errores").focusout(function () {
     otrosInteraction();
     let errores = $("#errores").val();
-    if(errores == ""){
+    if (errores == "") {
       $("#errores").val("0");
     }
   });
@@ -136,7 +118,7 @@ $(".formProduccion").on('submit', function(evt){
   $("#defectos").focusout(function () {
     otrosInteraction();
     let defectos = $("#defectos").val();
-    if(defectos == ""){
+    if (defectos == "") {
       $("#defectos").val("0");
     }
   });
@@ -144,49 +126,49 @@ $(".formProduccion").on('submit', function(evt){
   $("#calidad").focusout(function () {
     sacarTiempo();
     let calidad = $("#calidad").val();
-    if(calidad == ""){
+    if (calidad == "") {
       $("#calidad").val("0");
     }
   });
   $("#mantto").focusout(function () {
     sacarTiempo();
     let mantto = $("#mantto").val();
-    if(mantto == ""){
+    if (mantto == "") {
       $("#mantto").val("0");
     }
   });
   $("#materiales").focusout(function () {
     sacarTiempo();
     let materiales = $("#materiales").val();
-    if(materiales == ""){
+    if (materiales == "") {
       $("#materiales").val("0");
     }
   });
   $("#cdd").focusout(function () {
     sacarTiempo();
     let cdd = $("#cdd").val();
-    if(cdd == ""){
+    if (cdd == "") {
       $("#cdd").val("0");
     }
   });
   $("#procesos").focusout(function () {
     sacarTiempo();
     let procesos = $("#procesos").val();
-    if(procesos == ""){
+    if (procesos == "") {
       $("#procesos").val("0");
     }
   });
   $("#enrredos").focusout(function () {
     sacarTiempo();
     let enrredos = $("#enrredos").val();
-    if(enrredos == ""){
+    if (enrredos == "") {
       $("#enrredos").val("0");
     }
   });
   $("#atorones").focusout(function () {
     sacarTiempo();
     let atorones = $("#atorones").val();
-    if(atorones == ""){
+    if (atorones == "") {
       $("#atorones").val("0");
     }
   });
@@ -194,42 +176,42 @@ $(".formProduccion").on('submit', function(evt){
   $("#setupa").focusout(function (e) {
     sacarTiempo();
     let setupa = $("#setupa").val();
-    if(setupa == ""){
+    if (setupa == "") {
       $("#setupa").val("0");
     }
   });
   $("#setupb").focusout(function () {
     sacarTiempo();
     let setupb = $("#setupb").val();
-    if(setupb == ""){
+    if (setupb == "") {
       $("#setupb").val("0");
     }
   });
   $("#setupc").focusout(function () {
     sacarTiempo();
     let setupc = $("#setupc").val();
-    if(setupc == ""){
+    if (setupc == "") {
       $("#setupc").val("0");
     }
   });
   $("#setupd").focusout(function () {
     sacarTiempo();
     let setupd = $("#setupd").val();
-    if(setupd == ""){
+    if (setupd == "") {
       $("#setupd").val("0");
     }
   });
   $("#ajuste").focusout(function () {
     sacarTiempo();
     let ajuste = $("#ajuste").val();
-    if(ajuste == ""){
+    if (ajuste == "") {
       $("#ajuste").val("0");
     }
   });
   $("#otrosTiempos").focusout(function () {
     sacarTiempo();
     let otrostiempos = $("#otrostiempos").val();
-    if(otrostiempos == ""){
+    if (otrostiempos == "") {
       $("#otrostiempos").val("0");
     }
   });
@@ -362,7 +344,6 @@ $(".formProduccion").on('submit', function(evt){
     equipo = $("#equipo").val();
   });
 
-  
   var firstOption = $("#tipo").val();
 
   if (typeof firstOption !== "undefined") {
@@ -381,6 +362,17 @@ $(".formProduccion").on('submit', function(evt){
       },
     });
   }
+
+$('#reporte').change(function(){
+  let report = $("#reporte").val();
+  
+            if(report === "calidad_corte"){
+            $("#tipo").append("<option value='tiposcrap' id='tiposcrap'>Tipo de scrap</option>")
+            }else{
+              $("#tiposcrap").remove();
+            }
+})
+
 
   $("#tipo").change(function () {
     let valTipo = $("#tipo").val();
@@ -408,10 +400,32 @@ $(".formProduccion").on('submit', function(evt){
     });
   });
 
- 
+  var myChart;
+  var myPieChart;
 
   $("#btnGenerarGrafica").click(function (e) {
     e.preventDefault();
+    $("#myChart").remove(); // this is my <canvas> element
+    $(".chart-container").append('<canvas id="myChart"><canvas>');
+    
+    $("#tableResults").remove(); // this is my <canvas> element
+  $(".contentTableResults").append(`
+  <table id="tableResults" class="table-bordered table-striped">
+    <thead>
+      <th class="tdEquipo">Equipo</th>
+      <th class="tdEquipo">Número</th>
+      <th>Turno</th>
+      <th>Fecha</th>
+      <th>Estandar</th>
+      <th>Producción</th>
+    </thead>
+    <tbody id="tbodyResults">
+
+    </tbody>
+  <table>`);
+  $("#contentTableResults").css("display", "none");
+  $("#tableResults").css("display", "none");
+
     var reporte = $("#reporte").val();
     var turno = $("#turno").val();
     var tipo = $("#tipo").val();
@@ -433,46 +447,177 @@ $(".formProduccion").on('submit', function(evt){
       method: "POST",
       data: formData,
       success: function (data) {
-        var datos = data.produccion;
+        var datos = data.result;
         var equipos = [];
         var piezas = [];
         var estandar = [];
+        var fechas = [];
 
         var totalProduccion = 0;
         var totalEstandar = 0;
 
-        datos.forEach((element) => {
-          equipos.push(element.EQUIPO);
-          piezas.push(element.PRODUCCION);
-          estandar.push(element.ESTANDAR);
-        });
+        if(reporte === "produccion"){
+      
+          if(opcion === "Todo"){
+
+          
+          datos.forEach((element) => {
+            equipos.push(element.equipo);
+            piezas.push(element.produccion);
+            estandar.push(element.estandar);
+          });
 
         piezas.forEach((element) => (totalProduccion += element));
         estandar.forEach((element) => (totalEstandar += element));
 
+        var dataLabels = [equipos];
+        var dataSets = [piezas, estandar];
+        
         $("#producciontotal").text(totalProduccion);
         $("#produccionesperada").text(totalEstandar);
 
-        var diferenciaProduccion = totalEstandar - totalProduccion;
-        if(totalProduccion > totalEstandar){
-          diferenciaProduccion = 0;
+        var diferenciaProduccion = totalProduccion - totalEstandar;
+        
+        $("#producciondiferencia").text(diferenciaProduccion);
+        
+        if(diferenciaProduccion < 0){
+          $("#producciondiferencia").css("color", "red");
+        }else{
+          $("#producciondiferencia").css("color", "green");
         }
-        $("#producciondiferencia").text(totalProduccion - totalEstandar);
+
 
         var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
+       
 
+        
         $("#produccionEfectividad").text(
           Math.round(porcentajeEfectividad) + "%"
         );
+        if(porcentajeEfectividad > 0 && porcentajeEfectividad < 70){
+          $("#produccionEfectividad").css("color", "red");
+        }else if(porcentajeEfectividad >= 70 && porcentajeEfectividad < 100){
+          $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+        }else if(porcentajeEfectividad >= 100){
+          $("#produccionEfectividad").css("color", "green");
+        }
+        
+      
+      }else{
+        var matriz = [];
+        if(tipo === "equipo"){
+          datos.forEach((element) => {
+            matriz.push("T" + element.turno + " " + element.fecha.substring(10, 0));
+            //equipos.push(element.equipo);
+            //fechas.push(element.fecha.substring(10, 0));
+            piezas.push(element.produccion);
+            estandar.push(element.estandar);
+          });
+  
+          
+        piezas.forEach((element) => (totalProduccion += element));
+        estandar.forEach((element) => (totalEstandar += element));
+      
+        var dataLabels = [matriz];
+        var dataSets = [piezas, estandar];
+        $("#producciontotal").text(totalProduccion);
+        $("#produccionesperada").text(totalEstandar);
+  
+        var diferenciaProduccion = totalProduccion - totalEstandar;
+        
+        $("#producciondiferencia").text(diferenciaProduccion);
+  
+        if(diferenciaProduccion < 0){
+          $("#producciondiferencia").css("color", "red");
+        }else{
+          $("#producciondiferencia").css("color", "green");
+        }
+        var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
+  
+        $("#produccionEfectividad").text(
+          Math.round(porcentajeEfectividad) + "%"
+        );
+        if(porcentajeEfectividad > 0 && porcentajeEfectividad < 70){
+          $("#produccionEfectividad").css("color", "red");
+          console.log("rojo1")
+        }else if(porcentajeEfectividad >= 70 && porcentajeEfectividad < 100){
+          console.log("amarillo1")
+          $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+        }else if(porcentajeEfectividad >= 100){
+          console.log("verde1")
+          $("#produccionEfectividad").css("color", "green");
+        }
+        
+  
+        }else{
+          datos.forEach((element) => {
+
+            equipos.push(element.equipo);
+            piezas.push(element.produccion);
+            estandar.push(element.estandar);
+          });
+  
+          
+        piezas.forEach((element) => (totalProduccion += element));
+        estandar.forEach((element) => (totalEstandar += element));
+      
+        var dataLabels = [equipos];
+        var dataSets = [piezas, estandar];
+        $("#producciontotal").text(totalProduccion);
+        $("#produccionesperada").text(totalEstandar);
+  
+        
+        var diferenciaProduccion = totalProduccion - totalEstandar;
+        
+        $("#producciondiferencia").text(diferenciaProduccion);
+  
+        if(diferenciaProduccion < 0){
+          $("#producciondiferencia").css("color", "red");
+        }else{
+          $("#producciondiferencia").css("color", "green");
+        }
+  
+        var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
+  
+        $("#produccionEfectividad").text(
+          Math.round(porcentajeEfectividad) + "%"
+        );
+        if(porcentajeEfectividad > 0 && porcentajeEfectividad < 70){
+          $("#produccionEfectividad").css("color", "red");
+          console.log("rojo1")
+        }else if(porcentajeEfectividad >= 70 && porcentajeEfectividad < 100){
+          console.log("amarillo1")
+          $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+        }else if(porcentajeEfectividad >= 100){
+          console.log("verde1")
+          $("#produccionEfectividad").css("color", "green");
+        }
+
+  
+        }
+                
+    }
+
+        }else if(reporte === "tiempos_corte"){
+          alert("tiempo muerto");
+        }else{
+          alert("scrap");
+        }
+        
+
+
+        
+        $("#chartResumen").remove(); // this is my <canvas> element
+        $(".content-canvas-donut").append('<canvas id="chartResumen"><canvas>');
 
         var ctx1 = document.getElementById("chartResumen").getContext("2d");
-        var myPieChart = new Chart(ctx1, {
+        myPieChart = new Chart(ctx1, {
           type: "doughnut",
           data: {
             datasets: [
               {
                 data: [totalProduccion, diferenciaProduccion],
-                backgroundColor: ["blue", "red"],
+                backgroundColor: ["#007bff8c", "red"],
                 borderColor: ["white"],
               },
             ],
@@ -482,27 +627,27 @@ $(".formProduccion").on('submit', function(evt){
         });
 
         var ctx = document.getElementById("myChart").getContext("2d");
-        var myChart = new Chart(ctx, {
+        myChart = new Chart(ctx, {
           type: "bar",
           data: {
-            labels: equipos,
+            labels: dataLabels[0],
             datasets: [
               {
                 label: "Produccion",
-                data: piezas,
-                borderColor: "red",
-                backgroundColor: "rgba(255, 99, 132, 0.2)",
+                data: dataSets[0],
+                borderColor: "#007BFF",
+                backgroundColor: "#007bff8c",
                 borderWidth: 1,
               },
               {
                 label: "Estandar",
-                data: estandar,
+                data: dataSets[1],
                 lineTension: 0,
                 type: "line",
-                borderColor: "blue",
+                borderColor: "#000",
                 borderWidth: 1,
                 pointRadius: 3,
-                pointBackgroundColor: "white",
+                pointBackgroundColor: "#000",
                 fill: false,
               },
             ],
@@ -512,10 +657,20 @@ $(".formProduccion").on('submit', function(evt){
               yAxes: [
                 {
                   ticks: {
-                    beginAtZero: true,
+                    beginAtZero: true,    
+                  },
+                  gridLines: {
+                    display: true
                   },
                 },
               ],
+              xAxes: [
+                {
+                  gridLines: {
+                    display: false
+                  }
+                }
+              ]
             },
           },
         });
@@ -561,3 +716,76 @@ $(".formProduccion").on('submit', function(evt){
 					}
 				}
 			});*/
+
+$("#btnMostrarTabla").click(function () {
+  $("#tableResults").remove(); // this is my <canvas> element
+  $(".contentTableResults").append(`
+  <table id="tableResults" class="table-bordered table-striped">
+    <thead>
+      <th class="tdEquipo">Equipo</th>
+      <th class="tdEquipo">Número</th>
+      <th>Turno</th>
+      <th>Fecha</th>
+      <th>Estandar</th>
+      <th>Producción</th>
+    </thead>
+    <tbody id="tbodyResults">
+
+    </tbody>
+  <table>`);
+
+  var reporte = $("#reporte").val();
+  var turno = $("#turno").val();
+  var tipo = $("#tipo").val();
+  var opcion = $("#opcion").val();
+  var fechaInicio = $("#fechaInicio").val();
+  var fechaFin = $("#fechaFin").val();
+
+  let formData = {
+    reporte,
+    turno,
+    tipo,
+    opcion,
+    fechaInicio,
+    fechaFin,
+  };
+
+  
+  $.ajax({
+    url: "/query/queryproduccion",
+    method: "POST",
+    data: formData,
+  }).done(function (data) {
+    $(".contentTableResults").css("display", "flex");
+    let resultados = data.result;
+    resultados.forEach((element) => {
+      var fecha = element.fecha.substring(10, 0);
+
+      $("#tbodyResults").append(`
+      <tr>
+        <td class="tdEquipo">${element.equipo}</td>
+        <td class="tdNumero">${element.numero}</td>
+        <td>${element.turno}</td>
+        <td>${fecha}</td>
+        <td>${element.estandar}</td>
+        <td>${element.produccion}</td>
+      </tr>
+      `);
+      
+    });
+   
+  });
+
+  if(reporte === "produccion"){
+    reporte = "producción";
+  }
+  if(tipo == "equipo"){
+    tipo = "Equipo"
+  }
+  $("#reportName").text(reporte);
+  $("#reportFechaInicio").text(fechaInicio);
+  $("#reportFechaFin").text(fechaFin);
+  $("#turnoReport").text(turno);
+  $("#opcionReport").text(tipo);
+  $("#opcionElegida").text(opcion);
+});

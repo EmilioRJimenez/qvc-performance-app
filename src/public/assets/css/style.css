@@ -900,6 +900,9 @@
     transition: 1s;
     font-weight: normal !important;
 }
+.custom-alert p {
+    font-weight: normal !important;
+}
 
 .subtitulos {
     margin-bottom: 15px;
@@ -1388,180 +1391,204 @@ color: #444 !important;
     letter-spacing: 0px;
 }
 
+#board-container {
 
-
-.container-board {
+    display: flex;
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+}
+#board-container .formulario {
+    display: flex;
+    width: 99%;
+    height: 80px;
+    padding: 0px 10px;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 0 0 5px 1px #ccc;
+    margin: 2px 0px 15px 4px;
+}
+#board-container .formulario .row {
     display: flex;
     width: 100%;
     height: 100%;
+    
 }
-
-.left-board {
+#board-container .formulario .col-md-1 {
     display: flex;
-    width: 80%;
+    width: 12%;
     height: 100%;
     flex-direction: column;
-    align-items: space-between;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.left-board-top{
-    display: fleX;
-    width: 99%;
-    height: 10%;
-    border-radius: 5px;
-    background: white;
-}
-.left-board-bottom {
+#board-container .formulario .col-md-2 {
     display: flex;
-    width: 99%;
-    height: 89%;
-    border-radius: 5px;
-    background: white;
-}
-
-.left-board-top form {
-    display: flex;
-    width: 100%;
+    width: 15%;
     height: 100%;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.right-board {
-    display: flex;
-    width: 20%;
-    height: 100%;
-}
-.right-board-content {
-    background: white;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .chart-container {
     display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    margin: 0px;
-    padding: 0px;
+    width: 99%;
+    height: 558px;
+    background: #fff;
+    border-radius: 7px;
+    margin: 0px 0px 0px 4px;
+    box-shadow: 0 0 5px 1px #ccc;
 }
 .chart-container #myChart {
-    display: flex !important;
-    width: 100% !important;
+    display: flex;
+    width: 100%;
     height: 100% !important;
 }
-#btnGenerarGrafica {
-    border: solid 1px;
-    width: 28px;
-    height: 28px;
-}
-
-.right-board .right-board-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; 
-}
-
-.right-board-content .top {
+.infoResult {
     display: flex;
     width: 100%;
-    height: 15%;
-
+    height: 230px !important;
+    justify-content: space-between;
+    margin-top: 15px;
+    padding: 0px 10px 0px 0px;
 }
-.right-board-content .top h5{
+.infoResult .resultados, .content-canvas-donut, .resultEfectividad {
+    background: white;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
+    width: 32%;
     height: 100%;
-    color: #fff;
-    text-align: center;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px; 
-    background: #2a3f53;
+    border-radius: 7px;
+    box-shadow: 0 0 5px 1px #ccc;
+    margin: 0px 0px 15px 3px;
 }
-.right-board-content .middle {
-
+.infoResult .resultados {
     display: flex;
-    width: 100%;
-    height: 40%;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: relative;
     padding: 15px;
 }
 
+.infoResult .resultEfectividad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.infoResult .resultados h3#producciontotal {
+    color: #818181;
+    font-weight: bold !important;
+}
+.infoResult .resultados #produccionesperada {
+    color: #007BFF;
+}
+
+.infoResult .resultEfectividad #produccionEfectividad {
+    font-weight: bold;
+}
+.content-canvas-donut #chartResumen {
+    width: 100%;
+    height: 100%;
+}
+
+#btnMostrarTabla {
+    border: none;
+    background: #23b78d;
+    border-radius: 2px;
+    margin: 15px 10px 20px 0px;
+    height: 50px;
+    box-shadow: 0 0 5px 1px #ccc;
+    color: #fff;
+}
+
+.contentHeaderTable {
+    
+    display: none;
+    width: 100%;
+    height: 180px;
+    flex-direction: column;
+
+}
+
+.contentHeaderTable .headerTop, .headerBottom {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.contentHeaderTable .headerBottom {
+    align-items: center;
+}
+.contentHeaderTable .headerBottom .headerright {
+    align-items: center;
+}
+.contentHeaderTable .headerBottom .headerleft > * {
+    margin: 0px;
+}
+.contentHeaderTable .headerBottom .headerleft hr {
+    width: 100% !important;
+    height: 2px !important;
+    margin: 5px 0px;
+}
+
+.contentHeaderTable .headerBottom .headerright p {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    
+    margin: 0px;
+}
+.contentTableResults {
+    display: none;
+    width: 99%;
+    height: auto;
+    background: #fff;
+    flex-direction: column;
+    margin-left: 2px;
+
+    
+}
+.opcionReport {
+    display: flex;
+    padding: 0px 0px 0px 0px;
+    justify-content: space-between;
+}
+#opcionReport {
+    margin-right: 10px;
+}
+#opcionReport::after {
+    content: ":";
+}
+#tableResults {
+    width: 100% !important;
+    height: auto;
+    
+}
+
+#tableResults tr {
+height: 30px;
+}
+#tableResults th, td {
+    padding: 0px 10px;
+    text-align: center;
+}
+
+#tableResults .tdEquipo, .tdNumero {
+    text-align: left;
+}
+
+#btnGenerarGrafica {
+    border: solid 1px;
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+}
 
 .icon-calendar {
     position: absolute;
     left: 40px;
     top: 33px;
 }
-.right-board-content .middle h3 {
-
-    display: flex; 
-    width: 100%;
-    justify-content: flex-end;
-    margin: 0px;
-    padding: 0px;
-}
-.right-board-content .middle p {
-    display: fleX;
-    width: 100%;
-
-    justify-content: space-between;
-    margin: 0px;
-    padding: 0px;
-}
-
-.right-board-content .middle .totalProduccion {
-    display: flex;
-    width: 100%;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 10px 0px;
-    padding: 0px;
-}
-.right-board-content .middle .producciondiferencia {
-    margin-top: 15px;
-    border-top: solid 1px #000;
-    margin-top: -20px;
-    padding: 10px 0px;
-}
-.right-board-content .bottom {
-    display: flex;
-    width: 100%;
-    height: 50%;
-    flex-direction: column;
-
-    justify-content: center;
-    align-items: center;
-}
-.right-board-content .bottom canvas {
-    display: flex;
-    width: 100%;
-    z-index: 100 !important;
-    justify-content: center;
-    align-items: center;
-
-}
-.right-board-content .bottom .efectividad {
-    display: flex;
-    width: 100%;
-    height: 55%;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-top: 5px;
-}
-
 .group {
     display: flex;
     height: 100%;
@@ -1569,9 +1596,15 @@ color: #444 !important;
     justify-content: center;
 }
 .group-print {
+    display: flex;
+    width: 100%;
+    height: 100%;
     justify-content: baseline;
-    padding-top: 23px;
+    align-items: center;
 }
+
+
+/*Produccion*/
 .left .box1 .formproduccion input[type="checkbox"] {
     position: absolute;
     padding: 0px;

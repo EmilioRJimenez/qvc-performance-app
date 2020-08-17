@@ -16,40 +16,115 @@ router.post("/opciones", async (req, res) => {
   res.json(result);
 });
 
+router.post("/queryproduccion", async (req, res) => {
+  let { reporte, turno, tipo, opcion, fechaInicio, fechaFin } = req.body;
+  var queryOption = "";
+  if (tipo === "tipoequipo") {
+    tipo = "tipo";
+  }
+
+  
+
+  if (reporte === "produccion") {
+    reporte = "vistaproduccion";
+  } else if (reporte === "tiempos_corte") {
+    reporte = "vistatiempo";
+  } else if (reporte === "calidad_corte") {
+    reporte = "vistascrap";
+  }
+
+
+    if (opcion === "Todo") {
+      if (turno === "Ambos") {
+        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
+        resultado = await pool.query(queryOption);
+        res.json({ result: resultado });
+      } else {
+        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE turno = '${turno}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
+        resultado = await pool.query(queryOption);
+        res.json({ result: resultado });
+      }
+    } else {
+      if (turno === "Ambos") {
+        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
+        resultado = await pool.query(queryOption);
+        res.json({ result: resultado });
+      } else {
+        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE turno = '${turno}' and ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
+        resultado = await pool.query(queryOption);
+        res.json({ result: resultado });
+      }
+    }
+});
+
 router.post("/", async (req, res) => {
-  const { reporte, turno, tipo, opcion, fechaInicio, fechaFin } = req.body;
+  getReport(req, res);
+});
+
+router.post("/", async (req, res) => {});
+
+async function getReport(req, res) {
+  let { reporte, turno, tipo, opcion, fechaInicio, fechaFin } = req.body;
   const data = {};
   var queryOption = "";
   let resultado;
-  if (tipo === "equipo") {
-    if (turno === "Ambos" && opcion === "Todo") {
-      queryOption = `SELECT ID_EQUIPO, SUM(PRODUCCION) AS PRODUCCION, SUM(ESTANDAR) AS ESTANDAR, EQUIPO FROM vistaproduccion WHERE FECHA BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY EQUIPO ORDER BY ID_EQUIPO`;
+  if (tipo === "tipoequipo") {
+    tipo = "tipo";
+  }
 
-      resultado = await pool.query(queryOption);
-      res.json({ produccion: resultado });
+  let columns = "";
+
+  if (reporte === "produccion") {
+    reporte = "vistaproduccion";
+    if (opcion !== "Todo") {
+      columns = "id_equipo, produccion, estandar, equipo, fecha, turno";
     } else {
-      queryOption = `SELECT ID_EQUIPO, SUM(PRODUCCION) AS PRODUCCION, SUM(ESTANDAR) AS ESTANDAR, EQUIPO FROM vistaproduccion WHERE ID_LOCACION = ${req.user.id_locacion} AND TURNO = '${turno}' AND EQUIPO = '${opcion}' AND FECHA BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY EQUIPO ORDER BY ID_EQUIPO`;
-
-      resultado = await pool.query(queryOption);
-      res.json({ produccion: resultado });
+      columns =
+        "id_equipo, SUM(PRODUCCION) AS produccion, SUM(ESTANDAR) AS estandar, equipo, fecha, turno";
     }
-  } else if (tipo === "tipo_equipo") {
-    if (turno === "Ambos" && opcion === "Todo") {
-      queryOption = `SELECT ID_EQUIPO, SUM(PRODUCCION) AS PRODUCCION, SUM(ESTANDAR) AS ESTANDAR, EQUIPO FROM vistaproduccion WHERE ID_LOCACION = ${req.user.id_locacion} AND FECHA BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY EQUIPO ORDER BY ID_EQUIPO`;
+  } else if (reporte === "tiempos_corte") {
+    reporte = "vistatiempo";
+    columns = "";
+  } else if (reporte === "calidad_corte") {
+    reporte = "vistascrap";
+    columns = "";
+  }
+
+  if (opcion === "Todo") {
+    if (turno === "Ambos") {
+    
+        queryOption = `SELECT ${columns} FROM ${reporte} WHERE fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
       resultado = await pool.query(queryOption);
-      res.json({ produccion: resultado });
+      res.json({ result: resultado });
+      
+      
     } else {
-      queryOption = `SELECT ID_EQUIPO, SUM(PRODUCCION) AS PRODUCCION, SUM(ESTANDAR) AS ESTANDAR, EQUIPO FROM vistaproduccion WHERE ID_LOCACION = ${req.user.id_locacion} AND TURNO = '${turno}' AND TIPO_EQUIPO = '${opcion}' AND FECHA BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY EQUIPO ORDER BY ID_EQUIPO `;
+      queryOption = `SELECT ${columns} FROM ${reporte} WHERE turno = '${turno}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
       resultado = await pool.query(queryOption);
-      res.json({ produccion: resultado });
+      res.json({ result: resultado });
     }
   } else {
     if (turno === "Ambos") {
-      queryOption = ``;
-    } else {
-      queryOption = ``;
-    }
+
+      if(tipo !== "tipo"){
+    
+        queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
+      resultado = await pool.query(queryOption);
+      res.json({ result: resultado });
+      }else{
+       
+        columns =
+        "id_equipo, SUM(PRODUCCION) AS produccion, SUM(ESTANDAR) AS estandar, equipo, fecha, turno";
+        queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
+      resultado = await pool.query(queryOption);
+      res.json({ result: resultado });
+      }
+  }else{
+    queryOption = `SELECT ${columns} FROM ${reporte} WHERE turno = '${turno}' and ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
+      resultado = await pool.query(queryOption);
+      res.json({ result: resultado });
   }
-});
+}
+}
 
 module.exports = router;
