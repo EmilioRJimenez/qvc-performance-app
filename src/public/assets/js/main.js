@@ -363,16 +363,17 @@ $(document).ready(function () {
     });
   }
 
-$('#reporte').change(function(){
-  let report = $("#reporte").val();
-  
-            if(report === "calidad_corte"){
-            $("#tipo").append("<option value='tiposcrap' id='tiposcrap'>Tipo de scrap</option>")
-            }else{
-              $("#tiposcrap").remove();
-            }
-})
+  $("#reporte").change(function () {
+    let report = $("#reporte").val();
 
+    if (report === "calidad_corte") {
+      $("#tipo").append(
+        "<option value='tiposcrap' id='tiposcrap'>Tipo de scrap</option>"
+      );
+    } else {
+      $("#tiposcrap").remove();
+    }
+  });
 
   $("#tipo").change(function () {
     let valTipo = $("#tipo").val();
@@ -402,14 +403,15 @@ $('#reporte').change(function(){
 
   var myChart;
   var myPieChart;
+  var efectividad;
 
   $("#btnGenerarGrafica").click(function (e) {
     e.preventDefault();
     $("#myChart").remove(); // this is my <canvas> element
     $(".chart-container").append('<canvas id="myChart"><canvas>');
-    
+
     $("#tableResults").remove(); // this is my <canvas> element
-  $(".contentTableResults").append(`
+    $(".contentTableResults").append(`
   <table id="tableResults" class="table-bordered table-striped">
     <thead>
       <th class="tdEquipo">Equipo</th>
@@ -423,8 +425,8 @@ $('#reporte').change(function(){
 
     </tbody>
   <table>`);
-  $("#contentTableResults").css("display", "none");
-  $("#tableResults").css("display", "none");
+    $("#contentTableResults").css("display", "none");
+    $("#tableResults").css("display", "none");
 
     var reporte = $("#reporte").val();
     var turno = $("#turno").val();
@@ -455,158 +457,189 @@ $('#reporte').change(function(){
 
         var totalProduccion = 0;
         var totalEstandar = 0;
+        var colores = [];
+        var borderColor = [];
+        var efectividad = 0;
+        if (reporte === "produccion") {
+          if (opcion === "Todo") {
+            datos.forEach((element) => {
+              equipos.push(element.equipo);
+              piezas.push(element.produccion);
+              estandar.push(element.estandar);
+              efectividad = (element.produccion * 100) / element.estandar;
+              if (efectividad <= 70) {
+                borderColor.push("red");
+                colores.push("red");
+              } else if(efectividad >= 70 && efectividad < 100){
+                borderColor.push("#F5F10D");
+                colores.push("#F5F10D");
+              }else if(efectividad >= 100){
+                borderColor.push("green");
+                colores.push("green");
+              }
+            });
 
-        if(reporte === "produccion"){
-      
-          if(opcion === "Todo"){
+            piezas.forEach((element) => (totalProduccion += element));
+            estandar.forEach((element) => (totalEstandar += element));
 
+            var dataLabels = [equipos];
+            var dataSets = [piezas, estandar];
+
+            $("#producciontotal").text(totalProduccion);
+            $("#produccionesperada").text(totalEstandar);
+
+            var diferenciaProduccion = totalProduccion - totalEstandar;
+
+            $("#producciondiferencia").text(diferenciaProduccion);
+
+            if (diferenciaProduccion < 0) {
+              $("#producciondiferencia").css("color", "red");
+            } else {
+              $("#producciondiferencia").css("color", "green");
+            }
+
+            var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
+
+            $("#produccionEfectividad").text(
+              Math.round(porcentajeEfectividad) + "%"
+            );
+            if (porcentajeEfectividad > 0 && porcentajeEfectividad < 70) {
+              $("#produccionEfectividad").css("color", "red");
+            } else if (
+              porcentajeEfectividad >= 70 &&
+              porcentajeEfectividad < 100
+            ) {
+              $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+            } else if (porcentajeEfectividad >= 100) {
+              $("#produccionEfectividad").css("color", "green");
+            }
+          } else {
+            var matriz = [];
+            var colores = [];
+            var borderColor = [];
+            var efectividad = 0;
+            if (tipo === "equipo") {
+              datos.forEach((element) => {
+                matriz.push(
+                  "T" + element.turno + " " + element.fecha.substring(10, 0)
+                );
+                //equipos.push(element.equipo);
+                //fechas.push(element.fecha.substring(10, 0));
+                piezas.push(element.produccion);
+                estandar.push(element.estandar);
+                efectividad = (element.produccion * 100) / element.estandar;
+              if (efectividad <= 70) {
+                borderColor.push("red");
+                colores.push("red");
+              } else if(efectividad >= 70 && efectividad < 100){
+                borderColor.push("#F5F10D");
+                colores.push("#F5F10D");
+              }else if(efectividad >= 100){
+                borderColor.push("green");
+                colores.push("green");
+              }
+              });
+
+              piezas.forEach((element) => (totalProduccion += element));
+              estandar.forEach((element) => (totalEstandar += element));
+
+              var dataLabels = [matriz];
+              var dataSets = [piezas, estandar];
+              $("#producciontotal").text(totalProduccion);
+              $("#produccionesperada").text(totalEstandar);
+
+              var diferenciaProduccion = totalProduccion - totalEstandar;
+
+              $("#producciondiferencia").text(diferenciaProduccion);
+
+              if (diferenciaProduccion < 0) {
+                $("#producciondiferencia").css("color", "red");
+              } else {
+                $("#producciondiferencia").css("color", "green");
+              }
+              var porcentajeEfectividad =
+                (totalProduccion * 100) / totalEstandar;
+
+              $("#produccionEfectividad").text(
+                Math.round(porcentajeEfectividad) + "%"
+              );
+              if (porcentajeEfectividad > 0 && porcentajeEfectividad < 70) {
+                $("#produccionEfectividad").css("color", "red");
+            
+              } else if (
+                porcentajeEfectividad >= 70 &&
+                porcentajeEfectividad < 100
+              ) {
           
-          datos.forEach((element) => {
-            equipos.push(element.equipo);
-            piezas.push(element.produccion);
-            estandar.push(element.estandar);
-          });
-
-        piezas.forEach((element) => (totalProduccion += element));
-        estandar.forEach((element) => (totalEstandar += element));
-
-        var dataLabels = [equipos];
-        var dataSets = [piezas, estandar];
-        
-        $("#producciontotal").text(totalProduccion);
-        $("#produccionesperada").text(totalEstandar);
-
-        var diferenciaProduccion = totalProduccion - totalEstandar;
-        
-        $("#producciondiferencia").text(diferenciaProduccion);
-        
-        if(diferenciaProduccion < 0){
-          $("#producciondiferencia").css("color", "red");
-        }else{
-          $("#producciondiferencia").css("color", "green");
-        }
-
-
-        var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
-       
-
-        
-        $("#produccionEfectividad").text(
-          Math.round(porcentajeEfectividad) + "%"
-        );
-        if(porcentajeEfectividad > 0 && porcentajeEfectividad < 70){
-          $("#produccionEfectividad").css("color", "red");
-        }else if(porcentajeEfectividad >= 70 && porcentajeEfectividad < 100){
-          $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
-        }else if(porcentajeEfectividad >= 100){
-          $("#produccionEfectividad").css("color", "green");
-        }
-        
-      
-      }else{
-        var matriz = [];
-        if(tipo === "equipo"){
-          datos.forEach((element) => {
-            matriz.push("T" + element.turno + " " + element.fecha.substring(10, 0));
-            //equipos.push(element.equipo);
-            //fechas.push(element.fecha.substring(10, 0));
-            piezas.push(element.produccion);
-            estandar.push(element.estandar);
-          });
-  
-          
-        piezas.forEach((element) => (totalProduccion += element));
-        estandar.forEach((element) => (totalEstandar += element));
-      
-        var dataLabels = [matriz];
-        var dataSets = [piezas, estandar];
-        $("#producciontotal").text(totalProduccion);
-        $("#produccionesperada").text(totalEstandar);
-  
-        var diferenciaProduccion = totalProduccion - totalEstandar;
-        
-        $("#producciondiferencia").text(diferenciaProduccion);
-  
-        if(diferenciaProduccion < 0){
-          $("#producciondiferencia").css("color", "red");
-        }else{
-          $("#producciondiferencia").css("color", "green");
-        }
-        var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
-  
-        $("#produccionEfectividad").text(
-          Math.round(porcentajeEfectividad) + "%"
-        );
-        if(porcentajeEfectividad > 0 && porcentajeEfectividad < 70){
-          $("#produccionEfectividad").css("color", "red");
-          console.log("rojo1")
-        }else if(porcentajeEfectividad >= 70 && porcentajeEfectividad < 100){
-          console.log("amarillo1")
-          $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
-        }else if(porcentajeEfectividad >= 100){
-          console.log("verde1")
-          $("#produccionEfectividad").css("color", "green");
-        }
-        
-  
-        }else{
-          datos.forEach((element) => {
-
-            equipos.push(element.equipo);
-            piezas.push(element.produccion);
-            estandar.push(element.estandar);
-          });
-  
-          
-        piezas.forEach((element) => (totalProduccion += element));
-        estandar.forEach((element) => (totalEstandar += element));
-      
-        var dataLabels = [equipos];
-        var dataSets = [piezas, estandar];
-        $("#producciontotal").text(totalProduccion);
-        $("#produccionesperada").text(totalEstandar);
-  
-        
-        var diferenciaProduccion = totalProduccion - totalEstandar;
-        
-        $("#producciondiferencia").text(diferenciaProduccion);
-  
-        if(diferenciaProduccion < 0){
-          $("#producciondiferencia").css("color", "red");
-        }else{
-          $("#producciondiferencia").css("color", "green");
-        }
-  
-        var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
-  
-        $("#produccionEfectividad").text(
-          Math.round(porcentajeEfectividad) + "%"
-        );
-        if(porcentajeEfectividad > 0 && porcentajeEfectividad < 70){
-          $("#produccionEfectividad").css("color", "red");
-          console.log("rojo1")
-        }else if(porcentajeEfectividad >= 70 && porcentajeEfectividad < 100){
-          console.log("amarillo1")
-          $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
-        }else if(porcentajeEfectividad >= 100){
-          console.log("verde1")
-          $("#produccionEfectividad").css("color", "green");
-        }
-
-  
-        }
+                $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+              } else if (porcentajeEfectividad >= 100) {
+                $("#produccionEfectividad").css("color", "green");
+              }
+            } else {
+              
+              var colores = [];
+                var borderColor = [];
+                var efectividad = 0;
+              datos.forEach((element) => {
                 
-    }
+                equipos.push(element.equipo);
+                piezas.push(element.produccion);
+                estandar.push(element.estandar);
+                efectividad = (element.produccion * 100) / element.estandar;
+                if (efectividad <= 70) {
+                  borderColor.push("red");
+                  colores.push("red");
+                } else if(efectividad >= 70 && efectividad < 100){
+                  borderColor.push("#F5F10D");
+                  colores.push("#F5F10D");
+                }else if(efectividad >= 100){
+                  borderColor.push("green");
+                  colores.push("green");
+                }
+              });
 
-        }else if(reporte === "tiempos_corte"){
+              piezas.forEach((element) => (totalProduccion += element));
+              estandar.forEach((element) => (totalEstandar += element));
+
+              var dataLabels = [equipos];
+              var dataSets = [piezas, estandar];
+              $("#producciontotal").text(totalProduccion);
+              $("#produccionesperada").text(totalEstandar);
+
+              var diferenciaProduccion = totalProduccion - totalEstandar;
+
+              $("#producciondiferencia").text(diferenciaProduccion);
+
+              if (diferenciaProduccion < 0) {
+                $("#producciondiferencia").css("color", "red");
+              } else {
+                $("#producciondiferencia").css("color", "green");
+              }
+
+              var porcentajeEfectividad =
+                (totalProduccion * 100) / totalEstandar;
+
+              $("#produccionEfectividad").text(
+                Math.round(porcentajeEfectividad) + "%"
+              );
+              if (porcentajeEfectividad > 0 && porcentajeEfectividad < 70) {
+                $("#produccionEfectividad").css("color", "red");
+              } else if (
+                porcentajeEfectividad >= 70 &&
+                porcentajeEfectividad < 100
+              ) {
+                $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+              } else if (porcentajeEfectividad >= 100) {
+                $("#produccionEfectividad").css("color", "green");
+              }
+            }
+          }
+        } else if (reporte === "tiempos_corte") {
           alert("tiempo muerto");
-        }else{
+        } else {
           alert("scrap");
         }
-        
 
-
-        
         $("#chartResumen").remove(); // this is my <canvas> element
         $(".content-canvas-donut").append('<canvas id="chartResumen"><canvas>');
 
@@ -633,22 +666,22 @@ $('#reporte').change(function(){
             labels: dataLabels[0],
             datasets: [
               {
-                label: "Produccion",
-                data: dataSets[0],
-                borderColor: "#007BFF",
-                backgroundColor: "#007bff8c",
-                borderWidth: 1,
-              },
-              {
                 label: "Estandar",
                 data: dataSets[1],
                 lineTension: 0,
                 type: "line",
                 borderColor: "#000",
-                borderWidth: 1,
+                borderWidth: 2,
                 pointRadius: 3,
                 pointBackgroundColor: "#000",
                 fill: false,
+              },
+              {
+                label: "Produccion",
+                data: dataSets[0],
+                borderColor: colores,
+                backgroundColor: colores,
+                borderWidth: 1,
               },
             ],
           },
@@ -657,20 +690,20 @@ $('#reporte').change(function(){
               yAxes: [
                 {
                   ticks: {
-                    beginAtZero: true,    
+                    beginAtZero: true,
                   },
                   gridLines: {
-                    display: true
+                    display: true,
                   },
                 },
               ],
               xAxes: [
                 {
                   gridLines: {
-                    display: false
-                  }
-                }
-              ]
+                    display: false,
+                  },
+                },
+              ],
             },
           },
         });
@@ -750,7 +783,6 @@ $("#btnMostrarTabla").click(function () {
     fechaFin,
   };
 
-  
   $.ajax({
     url: "/query/queryproduccion",
     method: "POST",
@@ -771,16 +803,14 @@ $("#btnMostrarTabla").click(function () {
         <td>${element.produccion}</td>
       </tr>
       `);
-      
     });
-   
   });
 
-  if(reporte === "produccion"){
+  if (reporte === "produccion") {
     reporte = "producción";
   }
-  if(tipo == "equipo"){
-    tipo = "Equipo"
+  if (tipo == "equipo") {
+    tipo = "Equipo";
   }
   $("#reportName").text(reporte);
   $("#reportFechaInicio").text(fechaInicio);
