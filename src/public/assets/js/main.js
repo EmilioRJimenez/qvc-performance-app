@@ -76,7 +76,13 @@ $(document).ready(function () {
 		]*/
   });
 
-  $("#pzs").focusout(function () {
+  $("#pzs").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#pzs").val("0");
+    }
+  }).focusout(function () {
     var pzs = $("#pzs").val();
     pzs = Number(pzs);
     var equipo = $("#equipo").val();
@@ -107,7 +113,23 @@ $(document).ready(function () {
     });
   });
 
-  $("#errores").focusout(function () {
+  function validaCaracter(e){
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if(keycode >= "48" && keycode <= "57"){
+      return true;
+     }else{
+       return false;
+     }
+  }
+
+  $("#errores").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#errores").val("0");
+    }
+  }).focusout(function (e) {
+    
     otrosInteraction();
     let errores = $("#errores").val();
     if (errores == "") {
@@ -115,7 +137,13 @@ $(document).ready(function () {
     }
   });
 
-  $("#defectos").focusout(function () {
+  $("#defectos").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#defectos").val("0");
+    }
+  }).focusout(function () {
     otrosInteraction();
     let defectos = $("#defectos").val();
     if (defectos == "") {
@@ -123,49 +151,91 @@ $(document).ready(function () {
     }
   });
 
-  $("#calidad").focusout(function () {
+  $("#calidad").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#calidad").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let calidad = $("#calidad").val();
     if (calidad == "") {
       $("#calidad").val("0");
     }
   });
-  $("#mantto").focusout(function () {
+  $("#mantto").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#mantto").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let mantto = $("#mantto").val();
     if (mantto == "") {
       $("#mantto").val("0");
     }
   });
-  $("#materiales").focusout(function () {
+  $("#materiales").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#materiales").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let materiales = $("#materiales").val();
     if (materiales == "") {
       $("#materiales").val("0");
     }
   });
-  $("#cdd").focusout(function () {
+  $("#cdd").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#cdd").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let cdd = $("#cdd").val();
     if (cdd == "") {
       $("#cdd").val("0");
     }
   });
-  $("#procesos").focusout(function () {
+  $("#procesos").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#procesos").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let procesos = $("#procesos").val();
     if (procesos == "") {
       $("#procesos").val("0");
     }
   });
-  $("#enrredos").focusout(function () {
+  $("#enrredos").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#enrredos").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let enrredos = $("#enrredos").val();
     if (enrredos == "") {
       $("#enrredos").val("0");
     }
   });
-  $("#atorones").focusout(function () {
+  $("#atorones").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#atorones").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let atorones = $("#atorones").val();
     if (atorones == "") {
@@ -173,46 +243,164 @@ $(document).ready(function () {
     }
   });
 
-  $("#setupa").focusout(function (e) {
+  $("#setupa").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#setupa").val("0");
+    }
+  }).focusout(function (e) {
     sacarTiempo();
     let setupa = $("#setupa").val();
     if (setupa == "") {
       $("#setupa").val("0");
     }
   });
-  $("#setupb").focusout(function () {
+  $("#setupb").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#setupb").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let setupb = $("#setupb").val();
     if (setupb == "") {
       $("#setupb").val("0");
     }
   });
-  $("#setupc").focusout(function () {
+  $("#setupc").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#setupc").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let setupc = $("#setupc").val();
     if (setupc == "") {
       $("#setupc").val("0");
     }
   });
-  $("#setupd").focusout(function () {
+  $("#setupd").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#setupd").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let setupd = $("#setupd").val();
     if (setupd == "") {
       $("#setupd").val("0");
     }
   });
-  $("#ajuste").focusout(function () {
+  $("#ajuste").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#ajuste").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let ajuste = $("#ajuste").val();
     if (ajuste == "") {
       $("#ajuste").val("0");
     }
   });
-  $("#otrosTiempos").focusout(function () {
+  $("#otrosTiempos").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#otrostiempos").val("0");
+    }
+  }).focusout(function () {
     sacarTiempo();
     let otrostiempos = $("#otrostiempos").val();
     if (otrostiempos == "") {
       $("#otrostiempos").val("0");
+    }
+  });
+
+  $("#cst").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#cst").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let cst = $("#cst").val();
+    if (cst == "") {
+      $("#cst").val("0");
+    }
+  });
+  $("#cct").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#cct").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let cst = $("#cct").val();
+    if (cst == "") {
+      $("#cct").val("0");
+    }
+  });
+  $("#terminal").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#terminal").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let cst = $("#terminal").val();
+    if (cst == "") {
+      $("#terminal").val("0");
+    }
+  });
+
+  $("#terminalanillo").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#terminalanillo").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let cst = $("#terminalanillo").val();
+    if (cst == "") {
+      $("#terminalanillo").val("0");
+    }
+  });
+
+  $("#sellocalidad").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#sellocalidad").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let cst = $("#sellocalidad").val();
+    if (cst == "") {
+      $("#sellocalidad").val("0");
+    }
+  });
+
+  $("#cobre").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#cobre").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let cst = $("#cobre").val();
+    if (cst == "") {
+      $("#cobre").val("0");
     }
   });
 

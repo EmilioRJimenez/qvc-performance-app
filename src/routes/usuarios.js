@@ -63,16 +63,17 @@ router.get("/enable/:id", async (req, res) => {
 
 router.post("/update/:id", async (req, res) => {
   const { id } = req.params;
-  const { usuario, email, telefono, rol, turno } = req.body;
+  const { email, telefono, rol, turno } = req.body;
 
   const data = {
-    usuario,
     email,
     telefono,
     id_rol: rol,
     turno,
   };
+  
   try {
+    
     const result = await pool.query("UPDATE usuarios SET ? WHERE id = ?", [
       data,
       id,
@@ -96,7 +97,8 @@ router.post("/update/:id", async (req, res) => {
     }
   } catch (e) {
     try {
-      const secondata = { usuario, email, telefono, turno };
+
+      const secondata = { email, telefono, turno };
       const secondresult = await pool.query(
         "UPDATE usuarios SET ? WHERE id = ?",
         [secondata, id]
@@ -122,7 +124,7 @@ router.post("/update/:id", async (req, res) => {
         return res.redirect('/usuarios', 400, req.flash('messageError', 'Error. Vuelve a intentarlo. Si el problema persiste consulta con la persona a cargo de la aplicación.'));*/
     } catch (err) {
       try {
-        const thirdata = { usuario, email, telefono, id_rol: rol, turno };
+        const thirdata = { email, telefono, id_rol: rol, turno };
         const thirdresult = await pool.query(
           "UPDATE usuarios SET ? WHERE id = ?",
           [thirdata, id]
@@ -144,7 +146,7 @@ router.post("/update/:id", async (req, res) => {
           );
         }
       } catch (errr) {
-        const forthdata = { usuario, email, telefono, turno };
+        const forthdata = { email, telefono, turno };
         const forthresult = await pool.query(
           "UPDATE usuarios SET ? WHERE id = ?",
           [forthdata, id]

@@ -169,17 +169,20 @@
             var nodoContenedorForm = document.getElementById('contenedorForm'); //Nodo DIV
 
             var nodosEnTr = nodoTr.getElementsByTagName('td');
+   
+            var id = nodosEnTr[0].textContent;
+            
+             var usuario = nodosEnTr[1].textContent;
 
-            var id = nodosEnTr[0].textContent; var usuario = nodosEnTr[1].textContent;
-
-            var email = nodosEnTr[2].textContent; var telefono = nodosEnTr[3].textContent;
+            var email = nodosEnTr[2].textContent; 
+            var telefono = nodosEnTr[3].textContent;
 
             var rol = nodosEnTr[4].textContent;
 
             var turno = nodosEnTr[5].textContent;
 
             var nuevoCodigoHtml = '<td><input type="text" name="id" id="id" value="' + id + '" size="3" disabled></td>' +
-                '<td><input type="text" name="usuario" id="usuario" value="' + usuario + '"></td>' +
+                '<td><input type="text" name="usuario" id="usuario" value="' + usuario + '" disabled></td>' +
                 '<td><input type="text" name="email" id="email" value="' + email + '"></td>' +
                 '<td><input type="text" name="telefono" id="telefono" value="' + telefono + '" size="8"> </td>' +
                 '<td><select name="rol" id="rol"><option>' + rol + '</option>{{#each rol}}<option value="{{id}}">{{nombre}}</option>{{/each}}</td>';
