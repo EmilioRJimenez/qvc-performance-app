@@ -24,14 +24,12 @@ router.post("/save", getUser, async (req, res) => {
   const { equipo } = req.body;
 
   const resultado = await pool.query(
-    "SELECT estandar, estandar_scrap FROM estandares WHERE id_equipo = ? and turno = ?",
+    "SELECT estandar FROM estandares WHERE id_equipo = ? and turno = ?",
     [equipo, infoUsuario[0].turno]
   );
   let estandar = resultado[0].estandar;
   estandar = Number(estandar);
-  let estandar_scrap = resultado[0].estandar_scrap;
-  estandar_scrap = Number(estandar_scrap);
-
+  
   let {
     piezas,
     cct,
@@ -75,16 +73,6 @@ router.post("/save", getUser, async (req, res) => {
     efectividad = 100;
   }
 
-  var efectividad_scrap =
-    ((cct + cst + terminal + sellocalidad + terminalanillo + cobre) * 100) /
-    estandar_scrap;
-
-  efectividad_scrap = Math.round(efectividad_scrap);
-
-  if (efectividad_scrap >= 100) {
-    efectividad_scrap = 0;
-  }
-
   const datosProduccion = {
     piezas,
     turno,
@@ -94,9 +82,10 @@ router.post("/save", getUser, async (req, res) => {
     id_usuario: user
   };
 
-  const verifyDate = await pool.query("SELECT * FROM produccion WHERE fecha = ? and id_equipo = ?", [fecha, equipo])
+  const verifyDate = await pool.query("SELECT * FROM produccion WHERE fecha = ? and id_equipo = ? and turno = ?", [fecha, equipo, infoUsuario[0].turno])
   .then(async function(result){
-    if(!result){
+   
+    if(result.length === 0){
     const query = "INSERT INTO produccion SET ?";
   
     const resultProd = await pool.query(query, [
@@ -114,7 +103,6 @@ router.post("/save", getUser, async (req, res) => {
       cobre,
       errores,
       defectos,
-      efectividad: efectividad_scrap,
       id_produccion: idProduccion,
     };
   

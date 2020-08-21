@@ -115,7 +115,7 @@ $(document).ready(function () {
 
   function validaCaracter(e){
     var keycode = (e.keyCode ? e.keyCode : e.which);
-    if(keycode >= "48" && keycode <= "57"){
+    if(keycode >= "48" && keycode <= "57" || keycode == "46"){
       return true;
      }else{
        return false;
@@ -655,10 +655,10 @@ $(document).ready(function () {
               piezas.push(element.produccion);
               estandar.push(element.estandar);
               efectividad = (element.produccion * 100) / element.estandar;
-              if (efectividad <= 70) {
+              if (efectividad <= 90) {
                 borderColor.push("red");
                 colores.push("red");
-              } else if(efectividad >= 70 && efectividad < 100){
+              } else if(efectividad >= 90 && efectividad < 100){
                 borderColor.push("#F5F10D");
                 colores.push("#F5F10D");
               }else if(efectividad >= 100){
@@ -679,11 +679,13 @@ $(document).ready(function () {
             var diferenciaProduccion = totalProduccion - totalEstandar;
 
             $("#producciondiferencia").text(diferenciaProduccion);
-
+            var colorDonut = []
             if (diferenciaProduccion < 0) {
               $("#producciondiferencia").css("color", "red");
+              colorDonut.push("lightblue","red")
             } else {
               $("#producciondiferencia").css("color", "green");
+              colorDonut.push("lightblue","green")
             }
 
             var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
@@ -691,10 +693,10 @@ $(document).ready(function () {
             $("#produccionEfectividad").text(
               Math.round(porcentajeEfectividad) + "%"
             );
-            if (porcentajeEfectividad > 0 && porcentajeEfectividad < 70) {
+            if (porcentajeEfectividad > 0 && porcentajeEfectividad < 90) {
               $("#produccionEfectividad").css("color", "red");
             } else if (
-              porcentajeEfectividad >= 70 &&
+              porcentajeEfectividad >= 90 &&
               porcentajeEfectividad < 100
             ) {
               $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
@@ -716,10 +718,10 @@ $(document).ready(function () {
                 piezas.push(element.produccion);
                 estandar.push(element.estandar);
                 efectividad = (element.produccion * 100) / element.estandar;
-              if (efectividad <= 70) {
+              if (efectividad <= 90) {
                 borderColor.push("red");
                 colores.push("red");
-              } else if(efectividad >= 70 && efectividad < 100){
+              } else if(efectividad >= 90 && efectividad < 100){
                 borderColor.push("#F5F10D");
                 colores.push("#F5F10D");
               }else if(efectividad >= 100){
@@ -739,11 +741,13 @@ $(document).ready(function () {
               var diferenciaProduccion = totalProduccion - totalEstandar;
 
               $("#producciondiferencia").text(diferenciaProduccion);
-
+              var colorDonut = [];
               if (diferenciaProduccion < 0) {
                 $("#producciondiferencia").css("color", "red");
+                colorDonut.push("lightblue","red")
               } else {
                 $("#producciondiferencia").css("color", "green");
+                colorDonut.push("lightblue","green")
               }
               var porcentajeEfectividad =
                 (totalProduccion * 100) / totalEstandar;
@@ -751,11 +755,11 @@ $(document).ready(function () {
               $("#produccionEfectividad").text(
                 Math.round(porcentajeEfectividad) + "%"
               );
-              if (porcentajeEfectividad > 0 && porcentajeEfectividad < 70) {
+              if (porcentajeEfectividad > 0 && porcentajeEfectividad < 90) {
                 $("#produccionEfectividad").css("color", "red");
             
               } else if (
-                porcentajeEfectividad >= 70 &&
+                porcentajeEfectividad >= 90 &&
                 porcentajeEfectividad < 100
               ) {
           
@@ -774,10 +778,10 @@ $(document).ready(function () {
                 piezas.push(element.produccion);
                 estandar.push(element.estandar);
                 efectividad = (element.produccion * 100) / element.estandar;
-                if (efectividad <= 70) {
+                if (efectividad <= 90) {
                   borderColor.push("red");
                   colores.push("red");
-                } else if(efectividad >= 70 && efectividad < 100){
+                } else if(efectividad >= 90 && efectividad < 100){
                   borderColor.push("#F5F10D");
                   colores.push("#F5F10D");
                 }else if(efectividad >= 100){
@@ -797,11 +801,13 @@ $(document).ready(function () {
               var diferenciaProduccion = totalProduccion - totalEstandar;
 
               $("#producciondiferencia").text(diferenciaProduccion);
-
-              if (diferenciaProduccion < 0) {
+              var colorDonut = []
+;              if (diferenciaProduccion < 0) {
                 $("#producciondiferencia").css("color", "red");
+                colorDonut.push("lightblue","red")
               } else {
                 $("#producciondiferencia").css("color", "green");
+                colorDonut.push("lightblue","green")
               }
 
               var porcentajeEfectividad =
@@ -810,10 +816,10 @@ $(document).ready(function () {
               $("#produccionEfectividad").text(
                 Math.round(porcentajeEfectividad) + "%"
               );
-              if (porcentajeEfectividad > 0 && porcentajeEfectividad < 70) {
+              if (porcentajeEfectividad > 0 && porcentajeEfectividad < 90) {
                 $("#produccionEfectividad").css("color", "red");
               } else if (
-                porcentajeEfectividad >= 70 &&
+                porcentajeEfectividad >= 90 &&
                 porcentajeEfectividad < 100
               ) {
                 $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
@@ -838,7 +844,7 @@ $(document).ready(function () {
             datasets: [
               {
                 data: [totalProduccion, diferenciaProduccion],
-                backgroundColor: ["#007bff8c", "red"],
+                backgroundColor: colorDonut,
                 borderColor: ["white"],
               },
             ],
