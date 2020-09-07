@@ -602,14 +602,14 @@ $(document).ready(function () {
 
     if (totalOtros === 0) {
       $("#porcentajeOtros").text("0%");
-      $("#porcentajeOtros").css("color", "#ff2a2a");
+      $("#porcentajeOtros").css("color", "#24d000");
     } else if (totalOtros < 6) {
       $("#porcentajeOtros").text(Math.round(porcentajeOtros) + "%");
 
       $("#porcentajeOtros").css("color", "#fcfc1c");
     } else {
       $("#porcentajeOtros").text("100%");
-      $("#porcentajeOtros").css("color", "#24d000");
+      $("#porcentajeOtros").css("color", "#ff2a2a");
     }
   }
 
