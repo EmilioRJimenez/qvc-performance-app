@@ -1,4 +1,25 @@
+//const { post } = require("../../../routes");
+
 $(document).ready(function () {
+
+
+  $("#btnCloseDetails2").click(function(){
+    $("#details2").css("opacity", "0");
+
+    $(".bodyDetails2").hide();
+  });
+  $("#btnCloseDetails").click(function(){
+    $("#details").css("opacity", "0");
+
+    $(".bodyDetails").hide();
+  });
+
+  $("#btnCrossDetails").click(function(){
+    $("#containerDetails").hide();
+  });
+  
+
+
   $("#password2").focusout(function () {
     let pass1 = $("#password").val();
     let pass2 = $("#password2").val();
@@ -282,17 +303,68 @@ $(document).ready(function () {
       $("#setupc").val("0");
     }
   });
-  $("#setupd").keypress(function(e){
+  $("#setupe").keypress(function(e){
     if(!validaCaracter(e)){
       e.preventDefault();
       alert("Advertencia: \"Caracter no valido\"");
-      $("#setupd").val("0");
+      $("#setupe").val("0");
     }
   }).focusout(function () {
     sacarTiempo();
-    let setupd = $("#setupd").val();
-    if (setupd == "") {
-      $("#setupd").val("0");
+    let setupe = $("#setupe").val();
+    if (setupe == "") {
+      $("#setupe").val("0");
+    }
+  });
+  $("#numerosetupa").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#numerosetupa").val("0");
+    }
+  }).focusout(function (e) {
+    let setupa = $("#numerosetupa").val();
+    if (setupa == "") {
+      $("#numerosetupa").val("0");
+    }
+  });
+  $("#numerosetupb").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#numerosetupb").val("0");
+    }
+  }).focusout(function () {
+ 
+    let setupb = $("#numerosetupb").val();
+    if (setupb == "") {
+      $("#numerosetupb").val("0");
+    }
+  });
+  $("#numerosetupc").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#numerosetupc").val("0");
+    }
+  }).focusout(function () {
+    
+    let setupc = $("#numerosetupc").val();
+    if (setupc == "") {
+      $("#numerosetupc").val("0");
+    }
+  });
+  $("#numerosetupe").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#numerosetupe").val("0");
+    }
+  }).focusout(function () {
+
+    let setupe = $("#numerosetupe").val();
+    if (setupe == "") {
+      $("#numerosetupe").val("0");
     }
   });
   $("#ajuste").keypress(function(e){
@@ -319,6 +391,19 @@ $(document).ready(function () {
     let otrostiempos = $("#otrostiempos").val();
     if (otrostiempos == "") {
       $("#otrostiempos").val("0");
+    }
+  });
+  $("#tiempocorrido").keypress(function(e){
+    if(!validaCaracter(e)){
+      e.preventDefault();
+      alert("Advertencia: \"Caracter no valido\"");
+      $("#tiempocorrido").val("0");
+    }
+  }).focusout(function () {
+    sacarTiempo();
+    let otrostiempos = $("#tiempocorrido").val();
+    if (otrostiempos == "") {
+      $("#tiempocorrido").val("0");
     }
   });
 
@@ -449,12 +534,14 @@ $(document).ready(function () {
     setupb = Number(setupb);
     var setupc = $("#setupc").val();
     setupc = Number(setupc);
-    var setupd = $("#setupd").val();
-    setupd = Number(setupd);
+    var setupe = $("#setupe").val();
+    setupe = Number(setupe);
     var ajuste = $("#ajuste").val();
     ajuste = Number(ajuste);
     var otrostiempos = $("#otrosTiempos").val();
     otrostiempos = Number(otrostiempos);
+    var tiempocorrido = $("#tiempocorrido").val();
+    tiempocorrido = Number(tiempocorrido);
 
     var tiempoDisponible = $("#tiemposDisponible").val();
     tiempoDisponible = Number(tiempoDisponible);
@@ -473,9 +560,10 @@ $(document).ready(function () {
       setupa +
       setupb +
       setupc +
-      setupd +
+      setupe +
       ajuste +
-      otrostiempos;
+      otrostiempos +
+      tiempocorrido;
 
     var resta = tiempoDisponible - total;
     resta = Number(resta);
@@ -514,14 +602,14 @@ $(document).ready(function () {
 
     if (totalOtros === 0) {
       $("#porcentajeOtros").text("0%");
-      $("#porcentajeOtros").css("color", "green");
+      $("#porcentajeOtros").css("color", "#ff2a2a");
     } else if (totalOtros < 6) {
       $("#porcentajeOtros").text(Math.round(porcentajeOtros) + "%");
 
-      $("#porcentajeOtros").css("color", "#FBCD00");
+      $("#porcentajeOtros").css("color", "#fcfc1c");
     } else {
       $("#porcentajeOtros").text("100%");
-      $("#porcentajeOtros").css("color", "red");
+      $("#porcentajeOtros").css("color", "#24d000");
     }
   }
 
@@ -657,15 +745,17 @@ $(document).ready(function () {
               efectividad = (element.produccion * 100) / element.estandar;
               if (efectividad <= 90) {
                 borderColor.push("red");
-                colores.push("red");
+                colores.push("#ff2a2a");
               } else if(efectividad >= 90 && efectividad < 100){
                 borderColor.push("#F5F10D");
-                colores.push("#F5F10D");
+                colores.push("#fcfc1c");
               }else if(efectividad >= 100){
                 borderColor.push("green");
-                colores.push("green");
+                colores.push("#24d000");
               }
             });
+
+            
 
             piezas.forEach((element) => (totalProduccion += element));
             estandar.forEach((element) => (totalEstandar += element));
@@ -681,54 +771,87 @@ $(document).ready(function () {
             $("#producciondiferencia").text(diferenciaProduccion);
             var colorDonut = []
             if (diferenciaProduccion < 0) {
-              $("#producciondiferencia").css("color", "red");
-              colorDonut.push("lightblue","red")
+              $("#producciondiferencia").css("color", "#ff2a2a");
+              colorDonut.push("lightblue","#ff2a2a")
             } else {
-              $("#producciondiferencia").css("color", "green");
-              colorDonut.push("lightblue","green")
+              $("#producciondiferencia").css("color", "#24d000");
+              colorDonut.push("lightblue","#24d000")
             }
-
+            
             var porcentajeEfectividad = (totalProduccion * 100) / totalEstandar;
 
             $("#produccionEfectividad").text(
               Math.round(porcentajeEfectividad) + "%"
             );
             if (porcentajeEfectividad > 0 && porcentajeEfectividad < 90) {
-              $("#produccionEfectividad").css("color", "red");
+              $("#produccionEfectividad").css("color", "#ff2a2a");
             } else if (
               porcentajeEfectividad >= 90 &&
               porcentajeEfectividad < 100
             ) {
-              $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+              $("#produccionEfectividad").css("color", "#fcfc1c");
             } else if (porcentajeEfectividad >= 100) {
-              $("#produccionEfectividad").css("color", "green");
+              $("#produccionEfectividad").css("color", "#24d000");
             }
+
+            
           } else {
             var matriz = [];
             var colores = [];
             var borderColor = [];
             var efectividad = 0;
+            
             if (tipo === "equipo") {
+              if(turno !== "Ambos"){
+              
+             
               datos.forEach((element) => {
                 matriz.push(
-                  "T" + element.turno + " " + element.fecha.substring(10, 0)
+                   element.fecha.substring(10, 0)
                 );
+              
                 //equipos.push(element.equipo);
                 //fechas.push(element.fecha.substring(10, 0));
                 piezas.push(element.produccion);
                 estandar.push(element.estandar);
+              
                 efectividad = (element.produccion * 100) / element.estandar;
               if (efectividad <= 90) {
                 borderColor.push("red");
-                colores.push("red");
+                colores.push("#ff2a2a");
               } else if(efectividad >= 90 && efectividad < 100){
                 borderColor.push("#F5F10D");
-                colores.push("#F5F10D");
+                colores.push("#fcfc1c");
               }else if(efectividad >= 100){
                 borderColor.push("green");
-                colores.push("green");
+                colores.push("#24d000");
+              }
+              
+              });
+            }else{
+              datos.forEach((element) => {
+                matriz.push(
+                  element.fecha.substring(10, 0)
+                );
+              
+                //equipos.push(element.equipo);
+                //fechas.push(element.fecha.substring(10, 0));
+                piezas.push(element.produccion);
+                estandar.push(element.estandar);
+              
+                efectividad = (element.produccion * 100) / element.estandar;
+              if (efectividad <= 90) {
+                borderColor.push("red");
+                colores.push("#ff2a2a");
+              } else if(efectividad >= 90 && efectividad < 100){
+                borderColor.push("#F5F10D");
+                colores.push("#fcfc1c");
+              }else if(efectividad >= 100){
+                borderColor.push("green");
+                colores.push("#24d000");
               }
               });
+            }
 
               piezas.forEach((element) => (totalProduccion += element));
               estandar.forEach((element) => (totalEstandar += element));
@@ -743,29 +866,29 @@ $(document).ready(function () {
               $("#producciondiferencia").text(diferenciaProduccion);
               var colorDonut = [];
               if (diferenciaProduccion < 0) {
-                $("#producciondiferencia").css("color", "red");
-                colorDonut.push("lightblue","red")
+                $("#producciondiferencia").css("color", "#ff2a2a");
+                colorDonut.push("lightblue","#ff2a2a")
               } else {
-                $("#producciondiferencia").css("color", "green");
-                colorDonut.push("lightblue","green")
+                $("#producciondiferencia").css("color", "#24d000");
+                colorDonut.push("lightblue","#24d000")
               }
               var porcentajeEfectividad =
                 (totalProduccion * 100) / totalEstandar;
-
+                
               $("#produccionEfectividad").text(
                 Math.round(porcentajeEfectividad) + "%"
               );
               if (porcentajeEfectividad > 0 && porcentajeEfectividad < 90) {
-                $("#produccionEfectividad").css("color", "red");
+                $("#produccionEfectividad").css("color", "#ff2a2a");
             
               } else if (
                 porcentajeEfectividad >= 90 &&
                 porcentajeEfectividad < 100
               ) {
           
-                $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+                $("#produccionEfectividad").css("color", "#fcfc1c");
               } else if (porcentajeEfectividad >= 100) {
-                $("#produccionEfectividad").css("color", "green");
+                $("#produccionEfectividad").css("color", "#24d000");
               }
             } else {
               
@@ -780,16 +903,16 @@ $(document).ready(function () {
                 efectividad = (element.produccion * 100) / element.estandar;
                 if (efectividad <= 90) {
                   borderColor.push("red");
-                  colores.push("red");
+                  colores.push("#ff2a2a");
                 } else if(efectividad >= 90 && efectividad < 100){
                   borderColor.push("#F5F10D");
-                  colores.push("#F5F10D");
+                  colores.push("#fcfc1c");
                 }else if(efectividad >= 100){
                   borderColor.push("green");
-                  colores.push("green");
+                  colores.push("#24d000");
                 }
               });
-
+              
               piezas.forEach((element) => (totalProduccion += element));
               estandar.forEach((element) => (totalEstandar += element));
 
@@ -803,11 +926,11 @@ $(document).ready(function () {
               $("#producciondiferencia").text(diferenciaProduccion);
               var colorDonut = []
 ;              if (diferenciaProduccion < 0) {
-                $("#producciondiferencia").css("color", "red");
-                colorDonut.push("lightblue","red")
+                $("#producciondiferencia").css("color", "#ff2a2a");
+                colorDonut.push("lightblue","#ff2a2a")
               } else {
-                $("#producciondiferencia").css("color", "green");
-                colorDonut.push("lightblue","green")
+                $("#producciondiferencia").css("color", "#24d000");
+                colorDonut.push("lightblue","#24d000")
               }
 
               var porcentajeEfectividad =
@@ -817,14 +940,14 @@ $(document).ready(function () {
                 Math.round(porcentajeEfectividad) + "%"
               );
               if (porcentajeEfectividad > 0 && porcentajeEfectividad < 90) {
-                $("#produccionEfectividad").css("color", "red");
+                $("#produccionEfectividad").css("color", "#ff2a2a");
               } else if (
                 porcentajeEfectividad >= 90 &&
                 porcentajeEfectividad < 100
               ) {
-                $("#produccionEfectividad").css("color", "rgb(252, 252, 29)");
+                $("#produccionEfectividad").css("color", "#fcfc1c");
               } else if (porcentajeEfectividad >= 100) {
-                $("#produccionEfectividad").css("color", "green");
+                $("#produccionEfectividad").css("color", "#24d000");
               }
             }
           }
@@ -843,6 +966,7 @@ $(document).ready(function () {
           data: {
             datasets: [
               {
+                label: ['Objetivo', 'Proucción en el objetivo', 'Producción casi en el objetivo', 'Producción bajo el objetivo'],
                 data: [totalProduccion, diferenciaProduccion],
                 backgroundColor: colorDonut,
                 borderColor: ["white"],
@@ -880,6 +1004,167 @@ $(document).ready(function () {
             ],
           },
           options: {
+            
+onClick: function(e, i) {
+
+  $("#myChart2").remove(); // this is my <canvas> element
+    $(".middleDetails").append('<canvas id="myChart2"><canvas>');
+
+  e = i[0];
+
+  var x_value = this.data.labels[e._index];
+  var y_value = this.data.datasets[0].data[e._index];
+  let equipoDetail = x_value;
+
+  let dataDetails = {
+    reporte,
+    equipo: equipoDetail,
+    turno,
+    tipo,
+    opcion,
+    fechaInicio,
+    fechaFin
+  }
+
+
+  if(tipo === "equipo" && opcion === "Todo" || tipo == "tipoequipo"){
+    $(".bodyDetails2").show();
+    $("#details2").animate({
+      opacity: 1
+    }, 500);
+
+    $("#opcionDetail").text(equipoDetail);
+    $("#reporteDetail").text(reporte);
+    $("#turnoDetail").text(turno);
+    $("#fechaInicioDetalle").text(fechaInicio);
+    $("#fechaFinDetalle").text(fechaFin);
+
+    query("query/dateproduccion", dataDetails, "POST");
+
+    
+
+
+  }else{
+
+
+    $(".bodyDetails").show();
+    $("#details").animate({
+      opacity: 1
+    }, 500);
+
+
+
+    
+  }
+  
+
+
+  function query(url, data, method){
+    $.ajax({
+      url: url,
+      method: method,
+      data: data,
+      success: function(datos){
+        var result = datos.result;
+        let dias = [];
+        let produccion = [];
+        let estandares = [];
+        let colores = [];
+
+        result.forEach(element => {
+          dias.push(element.fecha.substring(10, 0));
+          produccion.push(element.produccion);
+          estandares.push(element.estandar);
+          let efectividad = (element.produccion * 100) / element.estandar;
+          if(efectividad < 90){
+            colores.push("#ff2a2a");
+          }else if(efectividad >= 90 && efectividad < 100){
+            colores.push("#fcfc1c");
+          }else{
+            colores.push("#24d000");
+          }
+        });
+        
+        let dataLabels = [dias];
+        let dataSets = [estandares, produccion];
+
+        
+
+var ctx = document.getElementById("myChart2").getContext("2d");
+myChart2 = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: dataLabels[0],
+    datasets: [
+      {
+        label: "Estandar",
+        data: dataSets[0],
+        lineTension: 0,
+        type: "line",
+        borderColor: "#000",
+        borderWidth: 2,
+        pointRadius: 3,
+        pointBackgroundColor: "#000",
+        fill: false,
+      },
+      {
+        label: "Produccion",
+        data: dataSets[1],
+        borderColor: colores,
+        backgroundColor: colores,
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    onClick: function(e,i) {
+    /*
+      let equipoDetail = $("#opcionDetail").text()
+      $("#resultdetails").show();*/
+      let dataDetails = {
+        reporte,
+        equipo: equipoDetail,
+        turno,
+        tipo,
+        opcion,
+        fechaInicio,
+        fechaFin
+      }
+
+      $.ajax({
+        url: "query/detailsproduction",
+        method: "POST",
+        data: dataDetails
+      });
+
+
+    },
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+          gridLines: {
+            display: true,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          gridLines: {
+            display: true,
+          },
+        },
+      ],
+    },
+  },
+});
+
+      }
+    })
+  }   
+},
             scales: {
               yAxes: [
                 {
@@ -894,7 +1179,7 @@ $(document).ready(function () {
               xAxes: [
                 {
                   gridLines: {
-                    display: false,
+                    display: true,
                   },
                 },
               ],
@@ -1012,4 +1297,12 @@ $("#btnMostrarTabla").click(function () {
   $("#turnoReport").text(turno);
   $("#opcionReport").text(tipo);
   $("#opcionElegida").text(opcion);
+
+  
+
+
 });
+
+
+
+

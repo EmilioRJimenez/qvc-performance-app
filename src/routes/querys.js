@@ -36,23 +36,34 @@ router.post("/queryproduccion", async (req, res) => {
 
     if (opcion === "Todo") {
       if (turno === "Ambos") {
-        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
+        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
         resultado = await pool.query(queryOption);
         res.json({ result: resultado });
       } else {
+        console.log("step")
         queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE turno = '${turno}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
         resultado = await pool.query(queryOption);
         res.json({ result: resultado });
       }
     } else {
+      console.log("step 1")
       if (turno === "Ambos") {
         queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
         resultado = await pool.query(queryOption);
         res.json({ result: resultado });
       } else {
-        queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE turno = '${turno}' and ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
-        resultado = await pool.query(queryOption);
-        res.json({ result: resultado });
+        console.log("step 2")
+        if(tipo === "Todo"){
+          console.log("b1")
+          queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE turno = '${turno}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY fecha`;
+          resultado = await pool.query(queryOption);
+          res.json({ result: resultado });
+        }else{
+          console.log("b2")
+          queryOption = `SELECT equipo, numero, produccion, estandar, turno, fecha FROM ${reporte} WHERE turno = '${turno}' and ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY fecha`;
+          resultado = await pool.query(queryOption);
+          res.json({ result: resultado });
+        }
       }
     }
 });
@@ -77,7 +88,7 @@ async function getReport(req, res) {
   if (reporte === "produccion") {
     reporte = "vistaproduccion";
     if (opcion !== "Todo") {
-      columns = "id_equipo, produccion, estandar, equipo, fecha, turno";
+      columns = "id_equipo, SUM(produccion) AS produccion, SUM(estandar) AS estandar, equipo, fecha, turno";
     } else {
       columns =
         "id_equipo, SUM(PRODUCCION) AS produccion, SUM(ESTANDAR) AS estandar, equipo, fecha, turno";
@@ -107,8 +118,8 @@ async function getReport(req, res) {
     if (turno === "Ambos") {
 
       if(tipo !== "tipo"){
-    
-        queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
+        console.log("Estoy aqui");
+        queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY fecha ORDER BY fecha`;
       resultado = await pool.query(queryOption);
       res.json({ result: resultado });
       }else{
@@ -120,11 +131,69 @@ async function getReport(req, res) {
       res.json({ result: resultado });
       }
   }else{
-    queryOption = `SELECT ${columns} FROM ${reporte} WHERE turno = '${turno}' and ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' ORDER BY id_equipo`;
+    if(tipo === "Todo"){
+      queryOption = `SELECT ${columns} FROM ${reporte} WHERE turno = '${turno}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY id_equipo`;
       resultado = await pool.query(queryOption);
       res.json({ result: resultado });
+    }else{
+      console.log("3");
+      if(turno === "Ambos"){
+        console.log("2");
+        columns = "id_equipo, SUM(produccion), SUM(estandar), equipo, fecha, turno";
+        queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY equipo`;
+        resultado = await pool.query(queryOption);
+        res.json({ result: resultado });
+      }else{
+        console.log("1");
+        columns = "id_equipo, produccion, estandar, equipo, fecha, turno";
+        queryOption = `SELECT ${columns} FROM ${reporte} WHERE turno = '${turno}' and ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY equipo ORDER BY equipo`;
+        resultado = await pool.query(queryOption);
+        res.json({ result: resultado });
+      }
+      
+    }
+    
   }
 }
 }
+
+router.post("/dateproduccion", async (req, res) => {
+
+  let { reporte, turno, tipo, opcion, fechaInicio, fechaFin, equipo } = req.body;
+  let resultado;
+if(reporte === "produccion"){
+  reporte = "vistaproduccion";
+}
+
+console.log(req.body);
+  columns = "id_equipo, SUM(produccion) AS produccion, SUM(estandar) AS estandar, equipo, fecha, turno";
+if(turno === "Ambos" && tipo === "equipo"){
+   queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${equipo}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY fecha ORDER BY fecha`;
+  resultado = await pool.query(queryOption);
+  res.json({ result: resultado });
+}else{
+  console.log("4");
+  if(tipo === "tipoequipo" && turno === "Ambos"){
+    console.log("3");
+    tipo = "tipo";
+    queryOption = `SELECT ${columns} FROM ${reporte} WHERE ${tipo} = '${opcion}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY fecha ORDER BY fecha`;
+  resultado = await pool.query(queryOption);
+  res.json({ result: resultado });
+  }else{
+    console.log("5");
+    tipo = "tipo";
+    queryOption = `SELECT ${columns} FROM ${reporte} WHERE equipo = '${equipo}' and turno = '${turno}' and fecha BETWEEN '${fechaInicio}' AND '${fechaFin}' GROUP BY fecha ORDER BY fecha`;
+    resultado = await pool.query(queryOption);
+    res.json({ result: resultado });
+  }
+   
+}
+    
+});
+
+router.post("/detailsproduction", async (req, res) => {
+  //console.log(req.body);
+   
+});
 
 module.exports = router;

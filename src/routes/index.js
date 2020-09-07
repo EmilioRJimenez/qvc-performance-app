@@ -46,7 +46,7 @@ router.get("/produccioncorte", [isLogged, getUser], async (req, res) => {
 
 router.get("/tablero", [isLogged, getUser], async (req, res) => {
   const infoUsuario = req.infoUsuario;
-  if(infoUsuario[0].id_rol != 1){
+  if(infoUsuario[0].id_rol != 1 && infoUsuario[0].id_rol != 3){
     res.redirect(
       "/inicio", 
       400, 
@@ -68,7 +68,7 @@ router.get("/equipos", [isLogged, getUser], async (req, res) => {
   const equipos = equipo.filter((item) => item.turno == infoUsuario[0].turno);
   const tipoequipo = await pool.query("SELECT * FROM tipo_equipo");
 
-  if (infoUsuario[0].rol === "Administrador") {
+  if (infoUsuario[0].id_rol != 1 && infoUsuario[0].id.rol != 3 ) {
     res.render("index/equipos", {
       equipos,
       tipoequipo,
@@ -87,7 +87,7 @@ router.get("/equipos", [isLogged, getUser], async (req, res) => {
 
 router.get("/usuarios", [isLogged, getUser], async (req, res) => {
   const infoUsuario = req.infoUsuario;
-  if(infoUsuario[0].id_rol != 1){
+  if(infoUsuario[0].id_rol != 1 && infoUsuario[0].id.rol != 3){
     res.redirect(
       "/inicio",
       400, 

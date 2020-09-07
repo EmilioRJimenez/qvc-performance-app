@@ -33,12 +33,141 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="jquery-ui/jquery-ui.css">
-    
+
 
 </head>
 
 <body>
+
     <div class="principalBody">
+
+        <div id="containerDetails">
+            <span id="btnCrossDetails" class="icon-cross"></span>
+            <div class="col1">
+                <p>Equipo: <span id="equipodetail">K550-22</span> Turno: <span id="turnodetail">A</span> Resultados del
+                    <span id="fechaIniciodetail"> 2020-08-01</span> al <span id="fechaFindetails"> 2020-08-01</span>
+                </p>
+            </div>
+            <div class="col2">
+                <div class="boxdetail">
+                    <div class="topbox">
+                        <i>Producción</i> <span class="topboxleft"><i id="porcentProduction">100%</i>
+                            <div class="icon-circle"></div>
+                        </span>
+                    </div>
+                    <div class="middlebox">
+                        <div id="resultProductionDetail">2200000</div>
+                    </div>
+                    <div class="bottombox">
+                        <span>(pzs)</span>
+                    </div>
+                </div>
+                <div class="boxdetail">
+                    <div class="topbox">
+                        <i>Tiempo muerto</i> <span class="topboxleft"><i id="porcentTime">100%</i>
+                            <div class="icon-circle"></div>
+                        </span>
+                    </div>
+                    <div class="middlebox">
+                        <div id="resultTimeDetail">50</div>
+                    </div>
+                    <div class="bottombox">
+                        <span>(min)</span>
+                    </div>
+                </div>
+                <div class="boxdetail">
+                    <div class="topbox">
+                        <i>Errores</i> <span class="topboxleft"><i id="porcentErrors">100%</i>
+                            <div class="icon-circle"></div>
+                        </span>
+                    </div>
+                    <div class="middlebox">
+                        <div id="resultErrorsDetail">0</div>
+                    </div>
+                    <div class="bottombox">
+                        <span>(count)</span>
+                    </div>
+                </div>
+                <div class="boxdetail">
+                    <div class="topbox">
+                        <i>Defectos</i> <span class="topboxleft"><i id="porcentDefects">100%</i>
+                            <div class="icon-circle"></div>
+                        </span>
+                    </div>
+                    <div class="middlebox">
+                        <div id="resultDefectsDetail">0</div>
+                    </div>
+                    <div class="bottombox">
+                        <span>(count)</span>
+                    </div>
+                </div>
+                <div class="boxdetail">
+                    <div class="topbox">
+                        <i>Scrap</i> <span class="topboxleft"><i id="porcentScrap">100%</i>
+                            <div class="icon-circle"></div>
+                        </span>
+                    </div>
+                    <div class="middlebox">
+                        <div id="resultDefectsDetail">5.00</div>
+                    </div>
+                    <div class="bottombox">
+                        <span>(USD)</span>
+                    </div>
+                </div>
+                <div class="boxdetail">
+                    <div class="topbox">
+                        <i>Tiempo corrido</i> <span class="topboxleft"><i id="porcentTotalTime">100%</i>
+                            <div class="icon-circle"></div>
+                        </span>
+                    </div>
+                    <div class="middlebox">
+                        <div id="resultTotalTime">454</div>
+                    </div>
+                    <div class="bottombox">
+                        <span>(min)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col3">
+                <div class="chartProductionContainer">
+                    <canvas id="mychartProductionDetails">
+
+                    </canvas>
+                </div>
+                <div class="resultDiferenciaDetails">
+                    <span id="resultPzsDif">-3,000</span>
+                    <p>Diferencia</p>
+                    <p>(pzs)</p>
+                </div>
+            </div>
+            <div class="col4">
+                <div class="col4-1">
+                    <p>Tiempo perdido por setup A: </p>
+                    <p>Tiempo perdido por setup B: </>
+                    <p>Tiempo perdido por setup D:</p>
+                    <p>Tiempo perdido por mantenimiento:</p>
+                    <p>Tiempo perdido por ruta de dados: </p>
+                    <p>Tiempo perdido por calidad: </p>
+                    <p>Tiempo perdido por materiales: </p>
+                    <p>Tiempo perdido por enredos: </p>
+                    <p>Tiempo perdido por atorones: </p>
+                    <p>Tiempo perdido por procesos: </p>
+                    <p>Tiempo perdido por ajuste: </p>
+                    <p>Tiempo perdido por otros casos: </p>
+                </div>
+                <div class="col4-2">
+
+                </div>
+                <div class="col4-3">
+
+                </div>
+            </div>
+            <div class="col5"></div>
+            <div class="col6"></div>
+        </div>
+
+
+
         <div class="left">
             <div class="top">
                 <h1>
@@ -46,7 +175,7 @@
                 </h1>
             </div>
             <div class="middlehr">
-                
+
             </div>
             <div class="middle">
                 <nav>
@@ -63,7 +192,7 @@
                     </ul>
                 </nav>
             </div>
-            
+
             <div class="bottom">
                 {{#each infoUsuario}}
                 <div class="info">
@@ -85,12 +214,13 @@
             <div class="top">
                 <h1>{{title}}</h1>
                 <form action="">
-                    <a href="/perfil" class="btnProfile"><span class="icon-user"></span>Mi usuario</a>
-                    <a href="/logout" class="btnSalir" title="Cerrar sesión"><span class="icon-exit"></span> Cerrar sesión</a>
+                    <a href="/logout" class="btnSalir" title="Cerrar sesión">CERRAR SESIÓN</a>
+                    <a href="/perfil" class="btnProfile" title="Mi usuario"><span class="icon-user"></span></a>
+
                 </form>
             </div>
             <div class="middlehr">
-                
+
             </div>
             <div class="middle">
                 <div class="dinamico">
@@ -98,10 +228,61 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
     </div>
 
 
 
+
+
+    <div class="bodyDetails">
+        <div class="details" id="details">
+            <button id="btnCloseDetails">
+                <span class="icon-cross"></span>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="bodyDetails2">
+        <div class="details" id="details2">
+            <button id="btnCloseDetails2">
+                <span class="icon-cross"></span>
+            </button>
+            <div class="topDetails">
+                <div class="leftDetails">
+                    <h1 id="opcionDetail"></h1>
+                    <p>Detalle de <span id="reporteDetail"></span> por fecha</p>
+                    <p>Turno: <span id="turnoDetail"></span></p>
+                </div>
+                <div class="rightDetails">
+                    <p>Del: <span id="fechaInicioDetalle"></span> Al: <span id="fechaFinDetalle"></span></p>
+                </div>
+            </div>
+            <div class="middleDetails">
+                <canvas id="myChart2">
+
+                </canvas>
+            </div>
+            <div class="bottomDetails">
+                <button id="btnTodoslosDetalles">
+                    Mantener fechas seleccionadas anteriormente
+                </button>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
 
 
     {{!-- JS Bootstrap --}}
@@ -125,9 +306,9 @@
     <!-- Chart.Js -->
     <script src="assets/js/Chart.js/Chart.min.js"></script>
 
-{{!-- jQuery UI --}}
+    {{!-- jQuery UI --}}
     <script src="/jquery-ui/jquery-ui.min.js"></script>
-    
+
 
 
 
@@ -135,5 +316,9 @@
     <script type="text/javascript" src="assets/js/main.js"></script>
 
 </body>
+
+
+
+
 
 </html>
