@@ -754,6 +754,7 @@ body {
     width: 91%;
     margin: 0px;
     justify-content: space-around;
+ 
 }
 #produccioncorte .left .principal .box2 .columnaright .formtiempo .form-bodytiempo ul li {
     
@@ -775,6 +776,9 @@ body {
     color: #6C757D;
     font-weight: 500;
     margin: 0px;
+    margin-right: -5px;
+    border: solid 1px #ccc;
+    background: none;
 }
 
 #produccioncorte .right {

@@ -405,7 +405,6 @@ router.post("/save", getUser, async (req, res) => {
             req.flash("success", "Los datos se actualizarón debido a que ya existian datos de producción del equipo.")
           );
         } else {
-          await pool.query("DELETE FROM produccion WHERE id = ?", [idProduccion]);
           return res.redirect(
             "/produccioncorte",
             500,
@@ -421,58 +420,12 @@ router.post("/save", getUser, async (req, res) => {
           500,
           req.flash(
             "messageError",
-            "Ha ocurrido un error al guardar los datos de producción. Vuelve a intentarlo."
+            "Ha ocurrido un error al guardar los datos. Vuelve a intentarlo."
           )
         );
        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      console.log(result)
-      res.redirect('/produccioncorte', 400, req.flash("messageError", "Operación cancelada. Los datos de produccion de la maquina ya se guardarón una vez."));
+  
     }
   })
   .catch(err=>{
