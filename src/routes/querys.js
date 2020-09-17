@@ -196,4 +196,49 @@ router.post("/detailsproduction", async (req, res) => {
    
 });
 
+router.post("/production", async (req, res) => {
+
+  if(req.body.equipo != "Todo" && req.body.turno != "Ambos"){
+    const result = await pool.query(`SELECT id,produccion, estandar FROM vistaproduccion WHERE equipo = '${req.body.equipo}' and turno = '${req.body.turno}' and fecha = '${req.body.fecha}';`);
+    res.json(result);
+  }else if(req.body.equipo != "Todo" && req.body.turno == "Ambos"){
+    console.log("Todos los equipos y ambos turnos")
+  }else if(req.body.equipo == "Todo" && req.body.turno != "Ambos"){
+    console.log("1");
+  }else{
+    console.log("otro")
+  }
+    
+});
+
+router.post("/tiempomuerto", async (req, res) => {
+  if(req.body.equipo != "Todo" && req.body.turno != "Ambos"){
+    console.log(req.body.id_produccion)
+    const result = await pool.query(`SELECT * FROM tiempos_corte WHERE id_produccion = ${req.body.id_produccion};`);
+    res.json(result);
+  }else if(req.body.equipo != "Todo" && req.body.turno == "Ambos"){
+    console.log("Todos los equipos y ambos turnos")
+  }else if(req.body.equipo == "Todo" && req.body.turno != "Ambos"){
+    console.log("1");
+  }else{
+    console.log("otro")
+  }
+})
+
+router.post("/calidad", async (req, res) => {
+  const result = await pool.query("SELECT errores, defectos FROM calidad_corte WHERE id_produccion = ?", [req.body.id_produccion]);
+  return res.json(result);
+})
+
+
+router.post("/scrap", async (req, res) => {
+  const result = await pool.query("SELECT * FROM calidad_corte WHERE id_produccion = ?", [req.body.id_produccion]);
+  return res.json(result);
+})
+
+router.post("/estandarscrap", async (req, res) => {
+  const result = await pool.query("SELECT estandar_scrap FROM vistaequipos WHERE nombre = ? and turno = ?", [req.body.equipo, req.body.turno]);
+  return res.json(result);
+})
+
 module.exports = router;

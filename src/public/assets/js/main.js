@@ -1010,6 +1010,9 @@ onClick: function(e, i) {
   $("#myChart2").remove(); // this is my <canvas> element
     $(".middleDetails").append('<canvas id="myChart2"><canvas>');
 
+    $("#mychartProductionDetails").remove();
+    $(".chartProductionContainer").append('<canvas id="mychartProductionDetails"></canvas>');
+
   e = i[0];
 
   var x_value = this.data.labels[e._index];
@@ -1118,18 +1121,366 @@ myChart2 = new Chart(ctx, {
   },
   options: {
     onClick: function(e,i) {
-    /*
+  console.log("algo")
       let equipoDetail = $("#opcionDetail").text()
-      $("#resultdetails").show();*/
+      $("#containerDetails").show();
+
+      
+
+
+
+      e = i[0];
+
+        var x_value = this.data.labels[e._index];
+        var y_value = this.data.datasets[0].data[e._index];
+        let fecha = x_value;
+        console.log(fecha);
+
+        let equipo = $("#opcionDetail").text();
+        let turno = $("#turnoDetail").text();
+        let fechaInicioDetalle = $("#fechaInicioDetalle").text();
+        let fechaFinDetalle = $("#fechaFinDetalle").text();
+
+        $("#equipodetail").text(equipo);
+      $("#turnodetail").text(turno);
+      $("#fechaIniciodetails").text(fecha);
+      $("#fechaFindetails").text(fecha);
+
       let dataDetails = {
         reporte,
-        equipo: equipoDetail,
+        equipo,
         turno,
         tipo,
         opcion,
-        fechaInicio,
-        fechaFin
+        fecha
       }
+
+      var id_produccion;
+       
+      //Producción
+      $.ajax({
+        url: "query/production",
+        method: "POST",
+        data: dataDetails
+      }).done(function(resultados){
+
+        
+
+        let produccion = 0;
+        let estandar = 0;
+        
+        
+        produccion = resultados[0].produccion;
+        estandar = resultados[0].estandar;
+        id_produccion = resultados[0].id;
+        
+        produccion = Number(produccion);
+        estandar = Number(estandar);
+        let diferencia = (-estandar) + produccion;
+        $("#resultPzsDif").text(diferencia);
+       
+
+        let efectividadProduccion = (produccion * 100) / estandar;
+        efectividadProduccion = Math.round(efectividadProduccion);
+      $("#resultProductionDetail").text(produccion);
+      $("#porcentProduction").text(efectividadProduccion + "%");
+
+      let produccionColors = ["#000"];
+      if(efectividadProduccion < 90){
+        produccionColors.push("red")
+      }else if(efectividadProduccion >= 90 && efectividadProduccion < 100){
+        produccionColors.push("yellow");
+      }else{
+        produccionColors.push("green");
+      }
+      let ds = resultados[0];
+      let ctx = document.getElementById("mychartProductionDetails").getContext("2d");
+      var mixedChart = new Chart(ctx, {
+        type: 'horizontalBar',
+        data: {
+          labels: ["Estandar", "Producción"],
+            datasets: [{
+                label: 'Resultado',
+                data: [estandar, produccion],
+                backgroundColor: produccionColors,
+            }, /*{
+                label: 'Line Dataset',
+                data: [produccion],
+    
+                // Changes this dataset to become a line
+                type: 'horizontalBar'
+            }*/],
+            
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                gridLines: {
+                  display: true,
+                },
+              },  
+            ],
+            xAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                },
+                gridLines: {
+                  display: true,
+                },
+              },
+            ],
+          },
+        }
+    });
+
+      dataDetails = {
+        id_produccion,
+        reporte,
+        equipo,
+        turno,
+        tipo,
+        opcion,
+        fecha
+      }
+
+      $.ajax({
+        url: "query/calidad",
+        method: "POST",
+        data: {
+          id_produccion
+        }
+      }).done(function(result){
+        let errores = 0;
+        let defectos = 0;
+        result.forEach(item => {
+         errores = Number(item.errores);
+         defectos = Number(item.defectos);
+        })
+
+        $("#resultErrorsDetail").text(errores);
+        $("#resultDefectsDetail").text(defectos);
+        if(errores == 0){
+          $("#porcentErrors").text("100%");
+         
+        }else {
+          $("#porcentErrors").text("0%");
+        }
+        if(defectos == 0){
+          $("#porcentDefects").text("100%");
+         
+        }else {
+          $("#porcentDefects").text("0%");
+        }
+      })
+
+      $.ajax({
+        url: "query/tiempomuerto",
+        method: "POST",
+        data: dataDetails
+      }).done(function(result){
+        console.log(result);
+        let totalTime = 0;
+        let tiempocorrido = 0;
+        let tiempoDisponible = 0;
+        
+        let efecttiempomuerto = 0;
+
+
+        let setupa = 0;
+        let setupb = 0;
+        let setupc = 0;
+        let setupe = 0;
+        let procesos = 0;
+        let otros = 0;
+        let materiales = 0;
+        let mantto = 0;
+        let cdd = 0;
+        let calidad = 0; 
+        let enrredos = 0;
+        let atorones = 0;
+        let ajuste = 0;
+        let numerosua = 0;
+        let numerosub = 0;
+        let numerosuc = 0;
+        let numerosue = 0;
+
+
+        result.forEach(item => {
+           setupa = Number(item.setupa);
+           setupb = Number(item.setupb);
+           setupc = Number(item.setupc);
+           setupe = Number(item.setupe);
+          tiempocorrido = Number(item.tiempocorrido);
+           procesos = Number(item.procesos);
+           otros = Number(item.otros);
+           materiales = Number(item.materiales);
+           mantto = Number(item.mantto);
+           cdd = Number(item.cdd);
+          calidad = Number(item.calidad);
+           enrredos = Number(item.enrredos);
+           atorones = Number(item.atorones);
+           ajuste = Number(item.ajuste);
+           numerosua = Number(item.numerosetupa);
+           numerosub = Number(item.numerosetupb);
+           numerosuc = Number(item.numerosetupc);
+           numerosue = Number(item.numerosetupe);
+          totalTime = setupa+setupb+setupc+setupe+procesos+otros+materiales+mantto+cdd+calidad+enrredos+atorones+ajuste;
+          
+          
+        })
+
+        $("#numerosua").text(numerosua);
+        $("#tsua").text(setupa);
+        if(numerosua == 0){
+          $("#tpsua").text("0");
+        }else{
+          $("#tpsua").text((setupa / numerosua));
+        }
+        $("#numerosub").text(numerosub);
+        $("#tsub").text(setupb);
+        if(numerosub == 0){
+          $("#tpsub").text("0");
+        }else{
+          $("#tpsub").text((setupb / numerosub));
+        }
+        $("#numerosuc").text(numerosuc);
+        $("#tsuc").text(setupc);
+        if(numerosuc == 0){
+          $("#tpsuc").text("0");
+        }else{
+          $("#tpsuc").text((setupc / numerosuc));
+        }
+        $("#numerosue").text(numerosue);
+        $("#tsue").text(setupe);
+        if(numerosue == 0){
+          $("#tpsue").text("0");
+        }else{
+          $("#tpsue").text((setupe / numerosue));
+        }
+
+        $("#tmantto").text(mantto);
+        $("#tcdd").text(cdd);
+        $("#tcalidad").text(calidad);
+        $("#tmateriales").text(materiales);
+        $("#tenredos").text(enrredos);
+        $("#tatorones").text(atorones);
+        $("#tprocesos").text(procesos);
+        $("#tajuste").text(ajuste);
+        $("#totros").text(otros);
+        $("#textTotalt").text(totalTime.toFixed(2));
+
+        $.ajax({
+          url: "query/scrap",
+          method: "POST",
+          data: {
+            id_produccion
+          }
+        }).done(function(result){
+          let cct = 0;
+          let cst = 0;
+          let terminal = 0;
+          let terminalanillo = 0;
+          let sello = 0;
+          let cobre = 0;
+          let costocst = 0;
+          let costocct = 0;
+          let costoterminal = 0;
+          let costoterminalanillo = 0; 
+          let costosello = 0;
+          let costocobre = 0; 
+          result.forEach(item => {
+              cst = Number(item.cst);
+              cct = Number(item.cct);
+              terminal = Number(item.terminal);
+              terminalanillo = Number(item.terminal_anillo);
+              sello = Number(item.sello);
+              cobre = Number(item.cobre);
+
+              costocst = Number(item.costocst);
+              costocct = Number(item.costocct);
+              costoterminal = Number(item.costoterminal);
+              costoterminalanillo = Number(item.costoterminalconanillo);
+              costosello = Number(item.costosello);
+              costocobre = Number(item.costocobre);
+          })
+
+          let totalcst = cst * costocst;
+          let totalcct = cct * costocct;
+          let totalterminal = terminal * costoterminal;
+          let totalterminalanillo = terminalanillo * costoterminalanillo;
+          let totalsello = sello * costosello;
+          let totalcobre = cobre * costocobre;
+
+          let totalscrap = totalcst+totalcct+totalterminal+totalterminalanillo+totalsello+totalcobre;
+          let standarscrap = 0;
+          $.ajax({
+            url: "query/estandarscrap",
+            method: "POST",
+            data: {
+              equipo,
+              turno
+            }
+          }).done(function(result){
+            result.forEach(item =>{
+              standarscrap = Number(item.estandar_scrap);
+            })
+            let scrapdif = standarscrap - totalscrap;
+            $("#scrapdif").text(scrapdif.toFixed(2));
+            $("#targetScrap").text(standarscrap.toFixed(2));
+
+            $("#porcentScrap").text((100 - ((totalscrap * 100) / standarscrap)).toFixed(2) + "%");
+          })
+          
+          $("#totalScrap").text(totalscrap.toFixed(2));
+          $("#resultScrapDetail").text(totalscrap.toFixed(2));
+          $("#tcst").text(cst);
+          $("#ccst").text(costocst);
+          $("#pcst").text(cst*costocst);
+
+          $("#tcct").text(cct);
+          $("#ccct").text(costocct);
+          $("#pcct").text(cct*costocct);
+
+          $("#tterminal").text(terminal);
+          $("#cterminal").text(costoterminal);
+          $("#pterminal").text(terminal*costoterminal);
+
+          $("#tterminalanillo").text(terminalanillo);
+          $("#cterminalanillo").text(costoterminalanillo);
+          $("#pterminalanillo").text(terminalanillo*costoterminalanillo);
+
+          $("#tsello").text(sello);
+          $("#csello").text(costosello);
+          $("#psello").text(sello*costosello);
+
+          $("#tcobre").text(cobre);
+          $("#ccobre").text(costocobre);
+          $("#pcobre").text(cobre*costocobre);
+
+        })
+
+
+        if(turno == 'A'){
+          tiempoDisponible = 570;
+        }else if(turno == 'B'){
+          tiempoDisponible = 504
+        }
+        efecttiempomuerto = 100 - ((totalTime * 100) / tiempoDisponible);
+        efecttiempomuerto = Math.round(efecttiempomuerto);
+
+        $("#resultTotalTime").text(tiempocorrido);
+        $("#resultTimeDetail").text(totalTime);
+        $("#porcentTime").text(efecttiempomuerto + "%");
+        $("#porcentTotalTime").text(efecttiempomuerto + "%");
+        $("#resultPorcentTime").text((100 - efecttiempomuerto) + "%");
+        $("#disponibleTime").text(tiempoDisponible);
+      })
+      })
+     
+      
+     
 
       $.ajax({
         url: "query/detailsproduction",

@@ -45,7 +45,7 @@
             <span id="btnCrossDetails" class="icon-cross"></span>
             <div class="col1">
                 <p>Equipo: <span id="equipodetail">K550-22</span> Turno: <span id="turnodetail">A</span> Resultados del
-                    <span id="fechaIniciodetail"> 2020-08-01</span> al <span id="fechaFindetails"> 2020-08-01</span>
+                    <span id="fechaIniciodetails"> 2020-08-01</span> <!--al <span id="fechaFindetails"> 2020-08-01</span> -->
                 </p>
             </div>
             <div class="col2">
@@ -108,7 +108,7 @@
                         </span>
                     </div>
                     <div class="middlebox">
-                        <div id="resultDefectsDetail">5.00</div>
+                        <div id="resultScrapDetail">5.00</div>
                     </div>
                     <div class="bottombox">
                         <span>(USD)</span>
@@ -142,27 +142,115 @@
             </div>
             <div class="col4">
                 <div class="col4-1">
-                    <p>Tiempo perdido por setup A: </p>
-                    <p>Tiempo perdido por setup B: </>
-                    <p>Tiempo perdido por setup D:</p>
-                    <p>Tiempo perdido por mantenimiento:</p>
-                    <p>Tiempo perdido por ruta de dados: </p>
-                    <p>Tiempo perdido por calidad: </p>
-                    <p>Tiempo perdido por materiales: </p>
-                    <p>Tiempo perdido por enredos: </p>
-                    <p>Tiempo perdido por atorones: </p>
-                    <p>Tiempo perdido por procesos: </p>
-                    <p>Tiempo perdido por ajuste: </p>
-                    <p>Tiempo perdido por otros casos: </p>
+                    <h6><span>Descripción</span> <span>Tiempo (min)</span></h6>
+                    <p style="background: #f3f3f3;"><span> Número / setup A:</span> <span class="rn" id="numerosua">0</span> </p>
+                    <p><span> Tiempo perdido por setup A:</span> <span class="rn" id="tsua">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo promedio / setup A:</span> <span class="rn" id="tpsua">0</span></p>
+                    <p><span> Número / setup B:</span> <span class="rn" id="numerosub">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por setup B:</span> <span class="rn" id="tsub">0</span></p>
+                    <p><span> Tiempo promedio / setup B:</span> <span class="rn" id="tpsub">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Número / setup C:</span> <span class="rn" id="numerosuc">0</span></p>
+                    <p ><span> Tiempo perdido por setup C:</span> <span class="rn" id="tsuc">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo promedio / setup C:</span> <span class="rn" id="tpsuc">0</span></p>
+                    <p ><span> Número / setup E:</span> <span class="rn" id="numerosue">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por setup E:</span> <span class="rn" id="tsue">0</span></p>
+                    <p ><span> Tiempo promedio / setup E:</span> <span class="rn" id="tpsue">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por mantenimiento:</span> <span class="rn" id="tmantto">0</span></p>
+                    <p ><span> Tiempo perdido por ruta de dados:</span> <span class="rn" id="tcdd">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por calidad:</span> <span class="rn" id="tcalidad">0</span></p>
+                    <p ><span> Tiempo perdido por materiales:</span> <span class="rn" id="tmateriales">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por enredos:</span> <span class="rn" id="tenredos">0</span></p>
+                    <p><span> Tiempo perdido por atorones:</span> <span  class="rn" id="tatorones">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por procesos:</span> <span class="rn" id="tprocesos">0</span></p>
+                    <p ><span> Tiempo perdido por ajuste:</span> <span class="rn" id="tajuste">0</span></p>
+                    <p style="background: #f3f3f3;"><span> Tiempo perdido por otros casos:</span> <span class="rn" id="totros">0</span></p>
+                    <hr>
+                    <h6 class="textTotal"><span>Total</span><span id="textTotalt">0</span></h6>
                 </div>
                 <div class="col4-2">
-
+                    <div class="col4-2-1">
+                        <canvas id="myChartTime"></canvas>
+                    </div>
+                    <div class="col4-2-2">
+                        <h1 id="disponibleTime">504</h1>
+                        <p>Tiempo disponible</p>
+                        <span>(min)</span>
+                    </div>
                 </div>
                 <div class="col4-3">
-
+                    <div class="col4-3-1">
+                        <h1 id="resultPorcentTime">10%</h1>
+                        <p>Tiempo perdido</p>
+                        <span>(pct)</span>
+                    </div>
                 </div>
             </div>
-            <div class="col5"></div>
+            <div class="col5">
+                <div class="col5-1">
+                    <p>Información de scrap</p>
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="desc">Tipo de scrap</th>
+                                <th>lbs</th>
+                                <th>Costo</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="desc">cst</td>
+                                <td id="tcst">0.25</td>
+                                <td id="ccst">1.40</td>
+                                <td id="pcst">1.85</td>
+                            </tr>
+                            <tr>
+                                <td class="desc">cct</td>
+                                <td id="tcct">0.25</td>
+                                <td id="ccct">1.40</td>
+                                <td id="pcct">1.85</td>
+                            </tr>
+                            <tr>
+                                <td class="desc">terminal</td>
+                                <td id="tterminal">0.25</td>
+                                <td id="cterminal">1.40</td>
+                                <td id="pterminal">1.85</td>
+                            </tr>
+                            <tr>
+                                <td class="desc">Terminal con anillo</td>
+                                <td id="tterminalanillo">0.25</td>
+                                <td id="cterminalanillo">1.40</td>
+                                <td id="pterminalanillo">1.85</td>
+                            </tr>
+                            <tr>
+                                <td class="desc">Sello</td>
+                                <td id="tsello">0.25</td>
+                                <td id="csello">1.40</td>
+                                <td id="psello">1.85</td>
+                            </tr>
+                            <tr>
+                                <td class="desc">Cobre</td>
+                                <td id="tcobre">0.25</td>
+                                <td id="ccobre">1.40</td>
+                                <td id="pcobre">1.85</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><span>Objetivo: <span id="targetScrap"></span></span> <span>Total: <span id="totalScrap"></span></span></p>
+                </div>
+                <div class="col5-2">
+                    <div class="mychartscrapcontainerdetail">
+                        <canvas id="myChartScrapDetail"></canvas>
+                    </div>
+                </div>
+                <div class="col5-3">
+                    <div class="col5-3-1">
+                        <h1 id="scrapdif">0.60</h1>
+                        <p>Diferencia</p>
+                        <span>(USD)</span>
+                    </div>
+                </div>
+            </div>
             <div class="col6"></div>
         </div>
 
@@ -181,7 +269,7 @@
                 <nav>
                     <ul>
                         <li><a href="/inicio"><span class="icon-home"></span> Inicio</a></li>
-                        <li><a href="/produccion"><span class="icon-barcode"></span> Producción</a></li>
+                        <li><a href="/produccion"><span class="icon-barcode"></span> Captura de datos</a></li>
                         <li><a href="/equipos"><span class="icon-omega"></span> Equipos</a></li>
                         <li><a href="/estandares"><span class="icon-compass"></span> Estandares</a></li>
                         <li><a href="/tablero"><span class="icon-stats-dots"></span> Tablero</a></li>
