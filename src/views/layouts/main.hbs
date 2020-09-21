@@ -52,7 +52,7 @@
                 <div class="boxdetail">
                     <div class="topbox">
                         <i>Producción</i> <span class="topboxleft"><i id="porcentProduction">100%</i>
-                            <div class="icon-circle"></div>
+                            <div class="icon-circle circle-production"></div>
                         </span>
                     </div>
                     <div class="middlebox">
@@ -65,7 +65,7 @@
                 <div class="boxdetail">
                     <div class="topbox">
                         <i>Tiempo muerto</i> <span class="topboxleft"><i id="porcentTime">100%</i>
-                            <div class="icon-circle"></div>
+                            <div class="icon-circle circle-time"></div>
                         </span>
                     </div>
                     <div class="middlebox">
@@ -78,7 +78,7 @@
                 <div class="boxdetail">
                     <div class="topbox">
                         <i>Errores</i> <span class="topboxleft"><i id="porcentErrors">100%</i>
-                            <div class="icon-circle"></div>
+                            <div class="icon-circle circle-errors"></div>
                         </span>
                     </div>
                     <div class="middlebox">
@@ -91,7 +91,7 @@
                 <div class="boxdetail">
                     <div class="topbox">
                         <i>Defectos</i> <span class="topboxleft"><i id="porcentDefects">100%</i>
-                            <div class="icon-circle"></div>
+                            <div class="icon-circle circle-defects"></div>
                         </span>
                     </div>
                     <div class="middlebox">
@@ -104,7 +104,7 @@
                 <div class="boxdetail">
                     <div class="topbox">
                         <i>Scrap</i> <span class="topboxleft"><i id="porcentScrap">100%</i>
-                            <div class="icon-circle"></div>
+                            <div class="icon-circle circle-scrap"></div>
                         </span>
                     </div>
                     <div class="middlebox">
@@ -117,7 +117,7 @@
                 <div class="boxdetail">
                     <div class="topbox">
                         <i>Tiempo corrido</i> <span class="topboxleft"><i id="porcentTotalTime">100%</i>
-                            <div class="icon-circle"></div>
+                            <div class="icon-circle circle-hour"></div>
                         </span>
                     </div>
                     <div class="middlebox">
@@ -140,35 +140,39 @@
                     <p>(pzs)</p>
                 </div>
             </div>
+            <div class="col3-1">
+                <p>Promedio de piezas por hora:</p><span id="pzshora">0</span>
+            </div>
             <div class="col4">
                 <div class="col4-1">
                     <h6><span>Descripción</span> <span>Tiempo (min)</span></h6>
                     <p style="background: #f3f3f3;"><span> Número / setup A:</span> <span class="rn" id="numerosua">0</span> </p>
-                    <p><span> Tiempo perdido por setup A:</span> <span class="rn" id="tsua">0</span></p>
+                    <p><span > Tiempo perdido por setup A:</span> <span style="color: green;"  class="rn" id="tsua">0</span></p>
                     <p style="background: #f3f3f3;"><span> Tiempo promedio / setup A:</span> <span class="rn" id="tpsua">0</span></p>
                     <p><span> Número / setup B:</span> <span class="rn" id="numerosub">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por setup B:</span> <span class="rn" id="tsub">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por setup B:</span> <span style="color: blue;"  class="rn" id="tsub">0</span></p>
                     <p><span> Tiempo promedio / setup B:</span> <span class="rn" id="tpsub">0</span></p>
                     <p style="background: #f3f3f3;"><span> Número / setup C:</span> <span class="rn" id="numerosuc">0</span></p>
-                    <p ><span> Tiempo perdido por setup C:</span> <span class="rn" id="tsuc">0</span></p>
+                    <p ><span > Tiempo perdido por setup C:</span> <span style="color: lightblue;"  class="rn" id="tsuc">0</span></p>
                     <p style="background: #f3f3f3;"><span> Tiempo promedio / setup C:</span> <span class="rn" id="tpsuc">0</span></p>
                     <p ><span> Número / setup E:</span> <span class="rn" id="numerosue">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por setup E:</span> <span class="rn" id="tsue">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por setup E:</span> <span style="color: orange;"  class="rn" id="tsue">0</span></p>
                     <p ><span> Tiempo promedio / setup E:</span> <span class="rn" id="tpsue">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por mantenimiento:</span> <span class="rn" id="tmantto">0</span></p>
-                    <p ><span> Tiempo perdido por ruta de dados:</span> <span class="rn" id="tcdd">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por calidad:</span> <span class="rn" id="tcalidad">0</span></p>
-                    <p ><span> Tiempo perdido por materiales:</span> <span class="rn" id="tmateriales">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por enredos:</span> <span class="rn" id="tenredos">0</span></p>
-                    <p><span> Tiempo perdido por atorones:</span> <span  class="rn" id="tatorones">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por procesos:</span> <span class="rn" id="tprocesos">0</span></p>
-                    <p ><span> Tiempo perdido por ajuste:</span> <span class="rn" id="tajuste">0</span></p>
-                    <p style="background: #f3f3f3;"><span> Tiempo perdido por otros casos:</span> <span class="rn" id="totros">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por mantenimiento:</span> <span style="color: #00D3FF; "  class="rn" id="tmantto">0</span></p>
+                    <p ><span > Tiempo perdido por ruta de dados:</span> <span style="color: gray;"  class="rn" id="tcdd">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por calidad:</span> <span style="color: brown;"  class="rn" id="tcalidad">0</span></p>
+                    <p ><span > Tiempo perdido por materiales:</span> <span style="color: pink;"  class="rn" id="tmateriales">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por enredos:</span> <span style="color: purple;"  class="rn" id="tenredos">0</span></p>
+                    <p><span > Tiempo perdido por atorones:</span> <span style="color: red;"   class="rn" id="tatorones">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por procesos:</span> <span style="color:violet;"  class="rn" id="tprocesos">0</span></p>
+                    <p ><span > Tiempo perdido por ajuste:</span> <span  style="color: black; font-weight: bold;" class="rn" id="tajuste">0</span></p>
+                    <p style="background: #f3f3f3;"><span > Tiempo perdido por otros casos:</span> <span  style="color: darkred;" class="rn" id="totros">0</span></p>
                     <hr>
                     <h6 class="textTotal"><span>Total</span><span id="textTotalt">0</span></h6>
                 </div>
                 <div class="col4-2">
                     <div class="col4-2-1">
+                        <span>Grafica de tiempo muerto</span>
                         <canvas id="myChartTime"></canvas>
                     </div>
                     <div class="col4-2-2">
@@ -183,6 +187,24 @@
                         <p>Tiempo perdido</p>
                         <span>(pct)</span>
                     </div>
+                </div>
+            </div>
+            <div class="col4-totalessetup">
+                <div class="setupbox">
+                    
+                    <h6 id="resulttotaltimesu">0</h6>
+                    <p>Tiempo de setups total</p>
+                    
+                </div>
+                <div class="setupbox">
+                    
+                    <h6 id="resulttotalsu">0</h6> 
+                    <p>Número de setups total</p>
+                </div>
+                <div class="setupbox">
+                    
+                    <h6 id="resultprosu">0</h6>
+                    <p>Tiempo promedio por setup total</p>
                 </div>
             </div>
             <div class="col5">
@@ -240,6 +262,7 @@
                 </div>
                 <div class="col5-2">
                     <div class="mychartscrapcontainerdetail">
+                        <span>Grafica de scrap (USD)</span>
                         <canvas id="myChartScrapDetail"></canvas>
                     </div>
                 </div>
@@ -251,7 +274,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col6"></div>
+            <div class="col6-comentarios">
+                <p>Comentarios de producción</p>
+            </div>
+            <div class="col6">
+            
+            </div>
+            <div class="col7">
+                <span id="eficienciaGeneral">0%</span>
+                <p>Eficiencia del equipo:</p>
+            </div>
         </div>
 
 

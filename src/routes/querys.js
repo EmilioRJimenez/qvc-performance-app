@@ -241,4 +241,9 @@ router.post("/estandarscrap", async (req, res) => {
   return res.json(result);
 })
 
+router.post("/comentarios", async (req, res) => {
+  const result = await pool.query("SELECT * FROM comentarios WHERE id_produccion = ?;", [req.body.id_produccion]);
+  res.json(result);
+})
+
 module.exports = router;
