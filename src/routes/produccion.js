@@ -63,6 +63,24 @@ router.post("/save", getUser, async (req, res) => {
     tiempocorrido
   } = req.body;
 
+  if (cst == "."){
+    cst = 0;
+  }
+  if (cct == "."){
+    cct = 0;
+  }
+  if (terminal == "."){
+    terminal = 0;
+  }
+  if (terminalanillo == "."){
+    terminalanillo = 0;
+  }
+  if (sellocalidad == "."){
+    sellocalidad = 0;
+  }
+  if (cobre == "."){
+    cobre = 0;
+  }
   cst = Number(cst);
   cct = Number(cct);
   terminal = Number(terminal);

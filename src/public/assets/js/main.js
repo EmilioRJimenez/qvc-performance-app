@@ -22,6 +22,7 @@ $(document).ready(function () {
   
 
 
+
   $("#password2").focusout(function () {
     let pass1 = $("#password").val();
     let pass2 = $("#password2").val();
@@ -1259,7 +1260,7 @@ myChart2 = new Chart(ctx, {
         opcion,
         fecha
       }
-
+//////////////////////
       $.ajax({
         url: "query/comentarios",
         method: "POST",
@@ -1274,7 +1275,7 @@ myChart2 = new Chart(ctx, {
           `);
         })
       })
-
+///////////////////////////
       $.ajax({
         url: "query/calidad",
         method: "POST",
@@ -1308,7 +1309,7 @@ myChart2 = new Chart(ctx, {
           $(".circle-defects").css("background", "red")
         }
       })
-
+////////////////////////////
       $.ajax({
         url: "query/tiempomuerto",
         method: "POST",
@@ -1457,6 +1458,8 @@ myChart2 = new Chart(ctx, {
         $("#totros").text(otros);
         $("#textTotalt").text(totalTime.toFixed(2));
 
+        ////////////////////////////////////////
+
         $.ajax({
           url: "query/scrap",
           method: "POST",
@@ -1544,6 +1547,9 @@ myChart2 = new Chart(ctx, {
           let totalscrap = totalcst+totalcct+totalterminal+totalterminalanillo+totalsello+totalcobre;
           let standarscrap = 0;
           var efectScrap = 0;
+
+///////////////////////////////////////
+
           $.ajax({
             url: "query/estandarscrap",
             method: "POST",
@@ -1644,21 +1650,10 @@ myChart2 = new Chart(ctx, {
 
         })
 
-
+       
       })
       })
      
-      
-      
-     
-
-      $.ajax({
-        url: "query/detailsproduction",
-        method: "POST",
-        data: dataDetails
-      });
-
-
     },
     scales: {
       yAxes: [
@@ -1708,8 +1703,497 @@ myChart2 = new Chart(ctx, {
           },
         });
       },
-    }).done(function (data) {});
+    }).done(function (result) {
+      $("#btnTodoslosDetalles").click(function(){
+        var equipo = $("#opcionDetail").text();
+        var turno = $("#turnoDetail").text();
+        let dataDetails = {
+          equipo,
+          turno,
+          fechaInicio,
+          fechaFin
+        }
+
+        $("#containerDetails").show();
+          $("#myChartTime").remove(); // this is my <canvas> element
+          $(".col4-2-1").append('<canvas id="myChartTime"><canvas>');
+      
+          $("#mychartProductionDetails").remove();
+          $(".chartProductionContainer").append('<canvas id="mychartProductionDetails"></canvas>');
+          
+          $("#myChartScrapDetail").remove();
+          $(".mychartscrapcontainerdetail").append('<canvas id="myChartScrapDetail"></canvas>');
+      
+
+          $("#equipodetail").text(equipo);
+          $("#turnodetail").text(turno);
+          $("#fechaIniciodetails").text(fechaInicio);
+          $("#fechaFindetails").text(fechaFin);
+    
+        $.ajax({
+          url: "query/detallesproduccion",
+          method: "POST",
+          data: dataDetails,
+          success: function(result){
+            
+            var produccion = 0;
+            let estandar = 0;
+            
+            
+            produccion = result[0].produccion;
+            estandar = result[0].estandar;
+            
+            produccion = Number(produccion);
+            estandar = Number(estandar);
+            let diferencia = (-estandar) + produccion;
+            $("#resultPzsDif").text(diferencia);
+           
+    
+            var efectividadProduccion = (produccion * 100) / estandar;
+    
+            efectividadProduccion = Math.round(efectividadProduccion);
+          $("#resultProductionDetail").text(produccion);
+          $("#porcentProduction").text(efectividadProduccion + "%");
+    
+          var pzshora = 0;
+          let produccionColors = ["#000"];
+          if(efectividadProduccion < 90){
+            produccionColors.push("red")
+            $(".circle-production").css("background", "red");
+          }else if(efectividadProduccion >= 90 && efectividadProduccion < 100){
+            produccionColors.push("yellow");
+            $(".circle-production").css("background", "yellow");
+          }else{
+            produccionColors.push("green");
+            $(".circle-production").css("background", "lightgreen");
+          }
+          let ds = result[0];
+          let ctx = document.getElementById("mychartProductionDetails").getContext("2d");
+          var mixedChart = new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+              labels: ["Estandar", "Producción"],
+                datasets: [{
+                    label: 'Resultado',
+                    data: [estandar, produccion],
+                    backgroundColor: produccionColors,
+                }, /*{
+                    label: 'Line Dataset',
+                    data: [produccion],
+        
+                    // Changes this dataset to become a line
+                    type: 'horizontalBar'
+                }*/],
+                
+            },
+            options: {
+              legend: {
+                display: false
+              },
+              scales: {
+                yAxes: [
+                  {
+                    gridLines: {
+                      display: true,
+                    },
+                  },  
+                ],
+                xAxes: [
+                  {
+                    ticks: {
+                      beginAtZero: true,
+                    },
+                    gridLines: {
+                      display: true,
+                    },
+                  },
+                ],
+              },
+            }
+        })    
+
+        let errores = 0;
+        let defectos = 0;
+        result.forEach(item => {
+         errores = Number(item.errores);
+         defectos = Number(item.defectos);
+        })
+
+        $("#resultErrorsDetail").text(errores);
+        $("#resultDefectsDetail").text(defectos);
+        if(errores == 0){
+          $("#porcentErrors").text("100%");
+          $(".circle-errors").css("background", "lightgreen");
+         
+        }else {
+          $("#porcentErrors").text("0%");
+          $(".circle-errors").css("background", "red");
+        }
+        if(defectos == 0){
+          $("#porcentDefects").text("100%");
+          $(".circle-defects").css("background", "lightgreen")
+         
+        }else {
+          $("#porcentDefects").text("0%");
+          $(".circle-defects").css("background", "red")
+        }
+
+
+
+
+        let totalTime = 0;
+        let tiempocorrido = 0;
+        let tiempoDisponible = 0;
+        
+        var efecttiempomuerto = 0;
+
+        let setupa = 0;
+        let setupb = 0;
+        let setupc = 0;
+        let setupe = 0;
+        let procesos = 0;
+        let otros = 0;
+        let materiales = 0;
+        let mantto = 0;
+        let cdd = 0;
+        let calidad = 0; 
+        let enrredos = 0;
+        let atorones = 0;
+        let ajuste = 0;
+        let numerosua = 0;
+        let numerosub = 0;
+        let numerosuc = 0;
+        let numerosue = 0;
+        let num = 0;
+  
+        let dataLabels = [];
+        let dataTime = [];
+
+        result.forEach(item => {
+           setupa = Number(item.setupa);
+           setupb = Number(item.setupb);
+           setupc = Number(item.setupc);
+           setupe = Number(item.setupe);
+          tiempocorrido = Number(item.tiempocorrido);
+           procesos = Number(item.procesos);
+           otros = Number(item.otros);
+           materiales = Number(item.materiales);
+           mantto = Number(item.mantto);
+           cdd = Number(item.cdd);
+          calidad = Number(item.calidad);
+           enrredos = Number(item.enrredos);
+           atorones = Number(item.atorones);
+           ajuste = Number(item.ajuste);
+           numerosua = Number(item.numerosetupa);
+           numerosub = Number(item.numerosetupb);
+           numerosuc = Number(item.numerosetupc);
+           numerosue = Number(item.numerosetupe);
+           num = Number(item.num);
+          totalTime = setupa+setupb+setupc+setupe+procesos+otros+materiales+mantto+cdd+calidad+enrredos+atorones+ajuste;
+          
+
+          
+        })
+
+        pzshora = (produccion / tiempocorrido) * 60;
+
+        $("#pzshora").text(Math.round(pzshora));
+
+        dataLabels = ['setupa', 'setupb', 'setupc', 'setupe', 'procesos', 'materiales', 'mantto', 'cdd', 'calidad', 'enrredos', 'atorones', 'ajuste', 'otros' ];
+
+        dataTime = [setupa, setupb, setupc, setupe, procesos, materiales, mantto, cdd, calidad, enrredos, atorones, ajuste, otros];
+
+        $("#resulttotaltimesu").text(Math.round(setupa+setupb+setupc+setupe));
+        $("#resulttotalsu").text(Math.round(numerosua+numerosub+numerosuc+numerosue));
+        $("#resultprosu").text(Math.round((setupa+setupb+setupc+setupe)/(numerosua+numerosub+numerosuc+numerosue)));
+        let ctx3 = document.getElementById("myChartTime").getContext("2d");
+        var myDoughnutChart = new Chart(ctx3, {
+          type: 'line',
+          data: {
+            labels: dataLabels,
+            datasets: [{
+              
+              data: dataTime,
+              pointBorderColor: ['green', 'blue', 'lightblue', 'orange', 'violet', 'pink', '#00D3FF', 'grey', 'brown', 'purple', 'red', 'black', 'darkred'],
+              steppedLine: false,
+              backgroundColor: "transparent",
+              pointBorderWidth: 4,
+              pointBackgroundColor: ['green', 'blue', 'lightblue', 'orange', 'violet', 'pink', '#00D3FF', 'grey', 'brown', 'purple', 'red', 'black', 'darkred']
+            }]
+          },
+          options: {
+           
+            /*rotation: -Math.PI,
+            cutoutPercentage: 30,
+            circumference: Math.PI,
+            legend: {
+              position: 'left'
+            },
+            animation: {
+              animateRotate: false,
+              animateScale: true
+            },*/
+            //scales: { xAxes: [{ ticks: { fontSize: 10 } }] },
+            legend: { 
+              display: false,
+              position: 'bottom',
+              labels: {
+                  fontSize: 26,
+              }
+            }
+          }
+      });
+
+
+        $("#numerosua").text(numerosua);
+        $("#tsua").text(setupa);
+        if(numerosua == 0){
+          $("#tpsua").text("0");
+        }else{
+          $("#tpsua").text((setupa / numerosua).toFixed(0));
+        }
+        $("#numerosub").text(numerosub);
+        $("#tsub").text(setupb);
+        if(numerosub == 0){
+          $("#tpsub").text("0");
+        }else{
+          $("#tpsub").text((setupb / numerosub).toFixed(0));
+        }
+        $("#numerosuc").text(numerosuc);
+        $("#tsuc").text(setupc);
+        if(numerosuc == 0){
+          $("#tpsuc").text("0");
+        }else{
+          $("#tpsuc").text((setupc / numerosuc).toFixed(0));
+        }
+        $("#numerosue").text(numerosue);
+        $("#tsue").text(setupe);
+        if(numerosue == 0){
+          $("#tpsue").text("0");
+        }else{
+          $("#tpsue").text((setupe / numerosue).toFixed(0));
+        }
+
+        $("#tmantto").text(mantto.toFixed(0));
+        $("#tcdd").text(cdd.toFixed(0));
+        $("#tcalidad").text(calidad.toFixed(0));
+        $("#tmateriales").text(materiales.toFixed(0));
+        $("#tenredos").text(enrredos.toFixed(0));
+        $("#tatorones").text(atorones.toFixed(0));
+        $("#tprocesos").text(procesos.toFixed(0));
+        $("#tajuste").text(ajuste.toFixed(0));
+        $("#totros").text(otros.toFixed(0));
+        $("#textTotalt").text(totalTime.toFixed(0));
+
+        let cct = 0;
+        let cst = 0;
+        let terminal = 0;
+        let terminalanillo = 0;
+        let sello = 0;
+        let cobre = 0;
+        let costocst = 0;
+        let costocct = 0;
+        let costoterminal = 0;
+        let costoterminalanillo = 0; 
+        let costosello = 0;
+        let costocobre = 0; 
+
+      
+        result.forEach(item => {
+            cst = Number(item.cst);
+            cct = Number(item.cct);
+            terminal = Number(item.terminal);
+            terminalanillo = Number(item.terminalanillo);
+            sello = Number(item.sello);
+            cobre = Number(item.cobre);
+
+            costocst = Number(item.costocst);
+            costocct = Number(item.costocct);
+            costoterminal = Number(item.costoterminal);
+            costoterminalanillo = Number(item.costoterminalconanillo);
+            costosello = Number(item.costosello);
+            costocobre = Number(item.costocobre);
+        })
+
+        let datasetScrap = [];
+        let dataScrap = [];
+        let dataCosts = [];
+        let dataEstandarscrap = [];
+
+        let totalcst = cst * costocst;
+        let totalcct = cct * costocct;
+        let totalterminal = terminal * costoterminal;
+        let totalterminalanillo = terminalanillo * costoterminalanillo;
+        let totalsello = sello * costosello;
+        let totalcobre = cobre * costocobre;
+        
+        dataScrap = ['cst', 'cct', 'Terminal', 'Terminal con anillo', 'Sello', 'Cobre'];
+        dataCosts = [totalcst, totalcct, totalterminal, totalterminalanillo, totalsello, totalcobre];
+        dataEstandarscrap = [costocst, costocct, costoterminal, costoterminalanillo, costosello, costocobre];
+
+        
+
+        let ctx4 = document.getElementById("myChartScrapDetail").getContext("2d");
+        var myChartScrap = new Chart(ctx4, {
+          type: 'bar',
+          data: {
+              datasets: [{
+                  data: dataCosts,
+                  backgroundColor: ['#00D3FF','#00D3FF','#00D3FF','#00D3FF','#00D3FF','#00D3FF']
+              },/* {
+                  data: dataEstandarscrap,
+
+                  // Changes this dataset to become a line
+                  type: 'line'
+              }*/],
+              labels: dataScrap
+          },
+          options: {
+            legend: {
+              display: false
+            },
+            scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+          }
+        })
+
+        let totalscrap = totalcst+totalcct+totalterminal+totalterminalanillo+totalsello+totalcobre;
+        let standarscrap = 0;
+        var efectScrap = 0;
+
+
+        result.forEach(item =>{
+          standarscrap = Number(item.estandarscrap);
+        })
+        let scrapdif = standarscrap - totalscrap;
+        $("#scrapdif").text(scrapdif.toFixed(2));
+        $("#targetScrap").text(standarscrap.toFixed(2));
+        efectScrap = (100 - ((totalscrap * 100) / standarscrap));
+        $("#porcentScrap").text(Math.round(efectScrap) + "%");
+        if(efectScrap < 90){
+          $(".circle-scrap").css("background", "red");
+        }else if(efectScrap >= 90 && efectScrap < 100){
+          $(".circle-scrap").css("background", "yellow");
+        }else{
+          $(".circle-scrap").css("background", "lightgreen")
+        }
+
+
+
+
+          $("#totalScrap").text(totalscrap.toFixed(2));
+          $("#resultScrapDetail").text(totalscrap.toFixed(2));
+          $("#tcst").text(cst);
+          $("#ccst").text(costocst);
+          $("#pcst").text(cst*costocst);
+
+          $("#tcct").text(cct);
+          $("#ccct").text(costocct);
+          $("#pcct").text(cct*costocct);
+
+          $("#tterminal").text(terminal);
+          $("#cterminal").text(costoterminal);
+          $("#pterminal").text(terminal*costoterminal);
+
+          $("#tterminalanillo").text(terminalanillo);
+          $("#cterminalanillo").text(costoterminalanillo);
+          $("#pterminalanillo").text(terminalanillo*costoterminalanillo);
+
+          $("#tsello").text(sello);
+          $("#csello").text(costosello);
+          $("#psello").text(sello*costosello);
+
+          $("#tcobre").text(cobre);
+          $("#ccobre").text(costocobre);
+          $("#pcobre").text(cobre*costocobre);
+
+          
+        if(turno == 'A'){
+          tiempoDisponible = 570 * num;
+        }else if(turno == 'B'){
+          tiempoDisponible = 504 * num
+        }else{
+          tiempoDisponible = (570+504) * num;
+        }
+        efecttiempomuerto = 100 - ((totalTime * 100) / tiempoDisponible);
+        efecttiempomuerto = Math.round(efecttiempomuerto);
+        if(efecttiempomuerto < 90){
+          $(".circle-time").css("background", "red");
+          $(".circle-hour").css("background", "red");
+        }else if(efecttiempomuerto >= 90 && efecttiempomuerto < 100){
+          $(".circle-time").css("background", "yellow");
+          $(".circle-hour").css("background", "yellow");
+        }else{
+          $(".circle-time").css("background", "lightgreen");
+          $(".circle-hour").css("background", "lightgreen");
+        }
+      
+        $("#resultTotalTime").text(tiempocorrido);
+        $("#resultTimeDetail").text(totalTime);
+        $("#porcentTime").text(efecttiempomuerto + "%");
+        $("#porcentTotalTime").text(efecttiempomuerto + "%");
+        $("#resultPorcentTime").text((100 - efecttiempomuerto) + "%");
+        $("#disponibleTime").text(tiempoDisponible);  
+
+        
+        let eficient = 0;
+        eficient = (efectividadProduccion + efectScrap + efecttiempomuerto) / 3;
+        $("#eficienciaGeneral").text(Math.round(eficient) + "%");
+        if(eficient <  90){
+          $("#eficienciaGeneral").css("color", "red");
+        }else if(eficient >= 90 && eficient < 100){
+          $("#eficienciaGeneral").css("color", "yellow");
+        }else{
+          $("#eficienciaGeneral").css("color", "lightgreen");
+        }
+
+
+
+        $.ajax({
+          url: "query/todosloscomentarios",
+          method: "POST",
+          data: {
+            fechaInicio,
+            fechaFin,
+            turno
+          }
+        }).done(function(result){
+         
+          result.forEach(item => {
+            $(".col6").append(`
+           
+            <div class="boxComment">
+            <span class='fechaComment'>${item.fecha.substring(10,0)}</span>
+              ${item.comentario}
+            </div>
+            `);
+          })
+        })
+
+/////////////////
+
+
+
+
+          
+    
+    
+          }
+        })
+      })
+      
+
+    });
   });
+
+  
+  
+
 });
 
 /*var datos = data.produccion;
@@ -1748,7 +2232,10 @@ myChart2 = new Chart(ctx, {
 						}]
 					}
 				}
-			});*/
+      });*/
+ 
+
+      
 
 $("#btnMostrarTabla").click(function () {
   $("#tableResults").remove(); // this is my <canvas> element

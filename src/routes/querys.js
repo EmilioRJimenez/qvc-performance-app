@@ -246,4 +246,27 @@ router.post("/comentarios", async (req, res) => {
   res.json(result);
 })
 
+
+router.post("/detallesproduccion", async (req, res) => {
+  if(req.body.turno != "Ambos"){
+    const result = await pool.query("SELECT COUNT(id) as 'num', SUM(piezas) as 'produccion', SUM(estandar) as 'estandar', SUM(estandarscrap) as 'estandarscrap', turno, numero, nombre, tipoequipo, SUM(setupa) as 'setupa', SUM(numerosetupa) as 'numerosetupa', SUM(setupb) as 'setupb', SUM(numerosetupb) as 'numerosetupb', SUM(setupc) as 'setupc', SUM(numerosetupc) as 'numerosetupc', SUM(setupe) as 'setupe', SUM(numerosetupe) as 'numerosetupe', SUM(calidad) as 'calidad', SUM(mantto) as 'mantto', SUM(materiales) as 'materiales', SUM(cdd) as 'cdd', SUM(procesos) as 'procesos', SUM(enrredos) as 'enrredos', SUM(atorones) as 'atorones', SUM(ajuste) as 'ajuste', SUM(otros) as 'otros', SUM(tiempocorrido) as 'tiempocorrido', SUM(cst) as 'cst', costocst, SUM(cct) as 'cct', costocct, SUM(terminal) as 'terminal', costoterminal, SUM(terminal_anillo) as 'terminalanillo', costoterminalconanillo, SUM(sello) as 'sello', costosello, SUM(cobre) as 'cobre', costocobre, SUM(errores) as 'errores', SUM(defectos) as 'defectos'  FROM detallesproduccion WHERE nombre = ? AND turno = ? AND fecha BETWEEN ? AND ?", [req.body.equipo, req.body.turno, req.body.fechaInicio, req.body.fechaFin]);
+    return res.json(result);
+  }else{
+    const result = await pool.query("SELECT COUNT(id) as 'num', SUM(piezas) as 'produccion', SUM(estandar) as 'estandar', SUM(estandarscrap) as 'estandarscrap', turno, numero, nombre, tipoequipo, SUM(setupa) as 'setupa', SUM(numerosetupa) as 'numerosetupa', SUM(setupb) as 'setupb', SUM(numerosetupb) as 'numerosetupb', SUM(setupc) as 'setupc', SUM(numerosetupc) as 'numerosetupc', SUM(setupe) as 'setupe', SUM(numerosetupe) as 'numerosetupe', SUM(calidad) as 'calidad', SUM(mantto) as 'mantto', SUM(materiales) as 'materiales', SUM(cdd) as 'cdd', SUM(procesos) as 'procesos', SUM(enrredos) as 'enrredos', SUM(atorones) as 'atorones', SUM(ajuste) as 'ajuste', SUM(otros) as 'otros', SUM(tiempocorrido) as 'tiempocorrido', SUM(cst) as 'cst', costocst, SUM(cct) as 'cct', costocct, SUM(terminal) as 'terminal', costoterminal, SUM(terminal_anillo) as 'terminalanillo', costoterminalconanillo, SUM(sello) as 'sello', costosello, SUM(cobre) as 'cobre', costocobre, SUM(errores) as 'errores', SUM(defectos) as 'defectos'  FROM detallesproduccion WHERE nombre = ? AND fecha BETWEEN ? AND ?", [req.body.equipo, req.body.fechaInicio, req.body.fechaFin]);
+    return res.json(result);
+  }
+ 
+})
+
+router.post("/todosloscomentarios", async (req, res) => {
+  if(req.body.turno != "Ambos"){
+    const result = await pool.query("SELECT * FROM vistacomentarios WHERE turno = ? AND fecha BETWEEN ? AND ?", [req.body.turno, req.body.fechaInicio, req.body.fechaFin]);
+    return res.json(result);
+  }else{
+
+  }
+  
+});
+
+
 module.exports = router;

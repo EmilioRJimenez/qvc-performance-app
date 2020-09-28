@@ -2198,6 +2198,10 @@ height: 30px;
     background: #efefef;
     padding: 10px;
     box-shadow: 0 0 2px 1px #ccc;  
+    flex-direction: column;
+}
+.boxComment span {
+    color: #007BFF;
 }
 .col7 {
     display: flex;

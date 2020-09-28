@@ -33,7 +33,8 @@
                                 {{/each}}
                             </select>
                             <input type="checkbox" name="tarjetas" id="tarjetas" checked>
-                            <input type="number" name="piezas" id="pzs" placeholder="Piezas" required autocomplete="off" pattern="[0-9]">
+                            <input type="number" name="piezas" id="pzs" placeholder="Piezas" required autocomplete="off"
+                                pattern="[0-9]">
                         </div>
                         <div class="resultproduccion">
 
@@ -100,42 +101,46 @@
                                 <h4 class="subtitulos">Tiempo muerto</h4>
                                 <div class="form-bodytiempo">
                                     <ul>
-                                        <li>Número de setup A: <input type="text" name="numerosetupa" id="numerosetupa" required value="0"
-                                                autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Tiempo de setup A: <input type="text" name="setupa" id="setupa" required value="0"
-                                                autocomplete="off"></li>
-                                                <li>Número de setup B: <input type="text" name="numerosetupb" id="numerosetupb" required value="0"
-                                                autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Tiempo de setup B: <input type="text" name="setupb" id="setupb" required value="0"
-                                                autocomplete="off"></li>
-                                                <li>Número de setup C: <input type="text" name="numerosetupc" id="numerosetupc" required value="0"
-                                                autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Tiempo de setup C: <input type="text" name="setupc" id="setupc" required value="0"
-                                                autocomplete="off"></li>
-                                                <li>Número de setup E: <input type="text" name="numerosetupe" id="numerosetupe" required value="0"
-                                                autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Tiempo de setup E: <input type="text" name="setupe" id="setupe" required value="0"
-                                                autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Tiempo de setup A: <input type="text"
+                                                name="setupa" id="setupa" required value="0" autocomplete="off"></li>
+                                        <li>Número de setup A: <input type="text" name="numerosetupa" id="numerosetupa"
+                                                required value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Tiempo de setup B: <input type="text"
+                                                name="setupb" id="setupb" required value="0" autocomplete="off"></li>
+                                        <li>Número de setup B: <input type="text" name="numerosetupb" id="numerosetupb"
+                                                required value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Tiempo de setup C: <input type="text"
+                                                name="setupc" id="setupc" required value="0" autocomplete="off"></li>
+                                        <li>Número de setup C: <input type="text" name="numerosetupc" id="numerosetupc"
+                                                required value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Tiempo de setup E: <input type="text"
+                                                name="setupe" id="setupe" required value="0" autocomplete="off"></li>
+                                        <li>Número de setup E: <input type="text" name="numerosetupe" id="numerosetupe"
+                                                required value="0" autocomplete="off"></li>
+
                                         <li>CDD: <input type="text" name="cdd" id="cdd" required value="0"
                                                 autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Mantenimiento: <input type="text" name="mantenimiento" id="mantto" required
-                                                value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Mantenimiento: <input type="text"
+                                                name="mantenimiento" id="mantto" required value="0" autocomplete="off">
+                                        </li>
                                         <li>Calidad: <input type="text" name="calidad" id="calidad" required value="0"
                                                 autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Materiales: <input type="text" name="materiales" id="materiales" required
-                                                value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Materiales: <input type="text"
+                                                name="materiales" id="materiales" required value="0" autocomplete="off">
+                                        </li>
                                         <li>Procesos: <input type="text" name="procesos" id="procesos" required
                                                 value="0" autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Enrredos: <input type="text" name="enrredos" id="enrredos" required
-                                                value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Enrredos: <input type="text" name="enrredos"
+                                                id="enrredos" required value="0" autocomplete="off"></li>
                                         <li>Atorones: <input type="text" name="atorones" id="atorones" required
                                                 value="0" autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Ajuste: <input type="text" name="ajuste" id="ajuste" required value="0"
+                                        <li style="background: #f3f3f3;">Ajuste: <input type="text" name="ajuste"
+                                                id="ajuste" required value="0" autocomplete="off"></li>
+                                        <li>Otros: <input type="text" name="otrostiempos" id="otrosTiempos" required
+                                                value="0" autocomplete="off"></li>
+                                        <li style="background: #f3f3f3;">Tiempo corrido real (Horimetro): <input
+                                                type="text" name="tiempocorrido" id="tiempocorrido" required value="0"
                                                 autocomplete="off"></li>
-                                                <li>Otros: <input type="text" name="otrostiempos" id="otrosTiempos" required
-                                                value="0" autocomplete="off"></li>
-                                        <li style="background: #f3f3f3;">Tiempo corrido real (Horimetro): <input type="text" name="tiempocorrido" id="tiempocorrido" required
-                                                value="0" autocomplete="off"></li>
                                     </ul>
                                 </div>
                                 <div class="formheadertiempo">
@@ -167,6 +172,9 @@
 
 
 <script>
+    function MaysPrimera(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     select("#mess").addEventListener("keypress", function (e) {
 
@@ -181,7 +189,7 @@
                 message.setAttribute("name", "comments");
                 message.setAttribute("class", "comment");
                 message.style.resize = "none";
-                message.value = select("#mess").value;
+                message.value = MaysPrimera(mess.toLowerCase());;
                 select("#boxmessages").appendChild(message);
                 select("#mess").value = "";
                 select("#mess").focus();
@@ -192,6 +200,8 @@
             return false;
         }
     });
+
+
 
     select("#tarjetas").addEventListener("change", function () {
         if (!this.checked) {
